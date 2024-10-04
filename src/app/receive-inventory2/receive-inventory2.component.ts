@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { InventoryService } from '../services/inventory.service';
 import { DatePipe } from '@angular/common';
@@ -20,7 +20,8 @@ export class ReceiveInventory2Component implements OnInit {
   errorMessage!: string;
   assignedTypes = ['Employee', 'Location', 'Other'];
   itemCondition: string[] = [];
-  printReceipt: boolean = false
+  printReceipt: boolean = false;
+  @ViewChild('barcodeInput') barcodeInput!: ElementRef;
   constructor(
     private fb: FormBuilder,
     private inventoryService: InventoryService, private datePipe: DatePipe,
@@ -57,6 +58,10 @@ export class ReceiveInventory2Component implements OnInit {
     });
   }
 
+  ngAfterViewInit(): void {
+    // Automatically focus the input field when the component is initialized
+    this.barcodeInput.nativeElement.focus();
+  }
   getLov() {
     this.inventoryService.getItemConditionLov().subscribe({
       next: (result: any) => {
@@ -98,9 +103,11 @@ export class ReceiveInventory2Component implements OnInit {
   }
   
  searchInventory() {
+  const serialNumber = this.searchForm.value.serialNumber;
+    if (serialNumber.trim()){
     this.printReceipt = false
     this.receiveInventoryForm.reset();
-    this.inventoryService.getInventoryBySerialNumber(this.searchForm.value.serialNumber).subscribe({
+    this.inventoryService.getInventoryBySerialNumber(serialNumber).subscribe({
       next: (result: any) => {
         if (result) {
           this.assignment_id = result[0].assignment_id;
@@ -140,7 +147,13 @@ export class ReceiveInventory2Component implements OnInit {
       error: (error) => {
         this.errorMessage=error.message;
        }     
-    });
+     });}
+    else{
+      this.errorMessage = 'Please enter a valid serial number.';
+    }
+ // Reset the form after searching and focus back on the input field
+  this.searchForm.reset();
+  this.barcodeInput.nativeElement.focus();
   }
 
   onSubmit() {
@@ -151,7 +164,6 @@ export class ReceiveInventory2Component implements OnInit {
       formData.append('notes', this.receiveInventoryForm.value.return_remark);
       formData.append('return_person_code', this.receiveInventoryForm.value.return_person_code);
       formData.append('return_person_name', this.receiveInventoryForm.value.return_person_name);
-
       
       // Safely transform the assigned_date, and handle null/undefined values
       const returnedDateValue = this.receiveInventoryForm.value?.return_date;
@@ -167,6 +179,7 @@ export class ReceiveInventory2Component implements OnInit {
         next: (result: any) => {
           if (result.status === 'success') {
             this.printReceipt=true;
+            this.barcodeInput.nativeElement.focus();
             alert(result.message);            
           }
         },
@@ -178,12 +191,16 @@ export class ReceiveInventory2Component implements OnInit {
     }   
     
   }
-  onCancel(): void {
+  
+  resetForm(): void {
     this.receiveInventoryForm.reset(); // Reset the form
-  this.assignment_id = 0; // Clear the assignment_id
-  this.errorMessage = ''; // Optionally clear any error message
-  return;
+    this.assignment_id = 0; // Clear the assignment_id
+    this.errorMessage = ''; // Optionally clear any error message
+    this.printReceipt=false;
+    this.searchForm.reset();
+    this.barcodeInput.nativeElement.focus();
   }
+
 
   onPrintReceipt() {
     this.inventoryService.getReceiptTemplate('receive', this.assignment_id).subscribe({
@@ -199,6 +216,7 @@ export class ReceiveInventory2Component implements OnInit {
             // Focus and trigger the print
             printWindow.focus();
             printWindow.print();
+            this.barcodeInput.nativeElement.focus();
           }
         } else {
           alert('Error: Could not retrieve receipt template.');

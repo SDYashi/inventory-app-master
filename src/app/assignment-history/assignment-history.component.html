@@ -5,7 +5,7 @@
     <div class="col-md-6 offset-md-3">
       <form [formGroup]="searchForm" (ngSubmit)="getAssignmentHistory()">
         <div class="input-group mb-3">
-          <input type="text" id="serialNumber" class="form-control custom-input-width " formControlName="serialNumber" required placeholder="Enter Serial Number" >
+          <input type="text" id="serialNumber" class="form-control custom-input-width " formControlName="serialNumber" placeholder="Enter Serial Number" required (keydown.enter)="getAssignmentHistory()" #barcodeInput >
          <div class="input-group-append">
             <button class="btn btn-primary" type="submit" [disabled]="searchForm.invalid">
               <i class="fas fa-search"></i>  Search Inventory by Serial No

@@ -3,7 +3,7 @@
     <div class="col-md-6 offset-md-3">
       <form [formGroup]="searchForm" (ngSubmit)="searchInventory()">
         <div class="input-group mb-3">
-          <input type="text" id="serialNumber" class="form-control custom-input-width" formControlName="serialNumber" required >
+          <input type="text" id="serialNumber" class="form-control custom-input-width" formControlName="serialNumber" required (keydown.enter)="searchInventory()" #barcodeInput>
           <div class="input-group-append">
             <button class="btn btn-primary" type="submit" [disabled]="searchForm.invalid">
               <i class="fas fa-search"></i>  Search Inventory
@@ -157,7 +157,7 @@
            <div class="col-6">  
             <button *ngIf="printReceipt" class="btn btn-success btn-lg" (click)="onPrintReceipt()">Print Receipt</button>         
            <button *ngIf="!printReceipt" class="btn btn-primary btn-lg" style="background-color: rgb(7, 14, 111); margin-right: 15px;" [disabled]="receiveInventoryForm.invalid" (click)="onSubmit()">Recieve Inventory</button>
-           <button type="reset" class="btn btn-danger btn-lg" style=" margin-right: 15px; margin-left: 15PX;" (click)="onCancel()">Reset</button>           
+           <button type="reset" class="btn btn-danger btn-lg" style=" margin-right: 15px; margin-left: 15PX;" (click)="resetForm()">Reset</button>           
             </div>
           </div>
          </div>

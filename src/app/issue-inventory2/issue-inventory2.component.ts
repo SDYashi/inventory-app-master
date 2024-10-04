@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { InventoryService } from '../services/inventory.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -24,6 +24,7 @@ export class IssueInventory2Component implements OnInit {
   assignedTypes = ['','Employee', 'Location', 'Other'];
   itemCondition : string[]=[];
   printReceipt:boolean=false
+  @ViewChild('barcodeInput') barcodeInput!: ElementRef;
   constructor(
     private fb: FormBuilder,
     private inventoryService: InventoryService, private datePipe: DatePipe,
@@ -52,6 +53,10 @@ export class IssueInventory2Component implements OnInit {
       issue_person_name:[''] ,
            
     });
+  }
+  ngAfterViewInit(): void {
+    // Automatically focus the input field when the component is initialized
+    this.barcodeInput.nativeElement.focus();
   }
 
   getLov(){
@@ -85,7 +90,7 @@ export class IssueInventory2Component implements OnInit {
         return;
       }
       // Check file type
-      const allowedTypes = ['application/pdf', 'image/jpeg', 'image/png'];
+      const allowedTypes = ['application/pdf', 'image/jpeg', 'image/png', 'image/jpg'];
       if (!allowedTypes.includes(file.type)) {
         alert('Invalid file type. Please select a PDF or image file.');
         input.value = '';
@@ -120,9 +125,11 @@ export class IssueInventory2Component implements OnInit {
   }
 
   searchInventory() {
+    const serialNumber = this.searchForm.value.serialNumber;
+    if (serialNumber.trim()){
     this.printReceipt=false
     this.issueInventoryForm.reset();
-    this.inventoryService.getInventoryBySerialNumber(this.searchForm.value.serialNumber).subscribe({
+    this.inventoryService.getInventoryBySerialNumber(serialNumber).subscribe({
       next: (result: any) => {
         if (result) {
           if(result[0].status==='ISSUED'){
@@ -143,9 +150,15 @@ export class IssueInventory2Component implements OnInit {
         }
       },
       error: (error) => {
-        this.errorMessage=error.message;
+        alert(error.message);
        }     
-    });
+      });
+    }else{
+      this.errorMessage = 'Please enter a valid serial number.';
+    }
+ // Reset the form after searching and focus back on the input field
+  this.searchForm.reset();
+  this.barcodeInput.nativeElement.focus();
   }
 
   onSubmit() {
@@ -180,6 +193,7 @@ export class IssueInventory2Component implements OnInit {
             this.printReceipt=true;
             alert(result.message);
             this.issueInventoryForm.reset(); 
+            this.barcodeInput.nativeElement.focus();
             // this.issueFormStatus=false;          
             }
         },
@@ -195,6 +209,13 @@ export class IssueInventory2Component implements OnInit {
    this.issueInventoryForm.reset();    
    }
 
+   resetForm(): void {
+    this.printReceipt=false;
+   this.issueInventoryForm.reset(); 
+    this.searchForm.reset();
+    this.barcodeInput.nativeElement.focus();
+  }
+
    onPrintReceipt(){
     this.inventoryService.getReceiptTemplate(this.receiptType,this.assignment_id).subscribe({
       next: (htmlTemplate: string) => {
@@ -209,6 +230,7 @@ export class IssueInventory2Component implements OnInit {
           // Focus and trigger the print
           printWindow.focus();
           printWindow.print();
+          this.barcodeInput.nativeElement.focus();
         } 
       }else {
           alert('Error: Could not retrieve receipt template.');
