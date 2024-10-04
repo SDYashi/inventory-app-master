@@ -1,0 +1,169 @@
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-md-6 offset-md-3">
+      <form [formGroup]="searchForm" (ngSubmit)="searchInventory()">
+        <div class="input-group mb-3">
+          <input type="text" id="serialNumber" class="form-control custom-input-width" formControlName="serialNumber" required >
+          <div class="input-group-append">
+            <button class="btn btn-primary" type="submit" [disabled]="searchForm.invalid">
+              <i class="fas fa-search"></i>  Search Inventory
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<hr>  
+<div class="container-fluid" *ngIf="recieveFormStatus">
+            <div class="card">
+             <div class="card-header header_title">        
+              <h4>Receive Inventory </h4>   
+              </div>  
+          <!-- (ngSubmit)="onSubmit()" -->
+          <form [formGroup]="receiveInventoryForm" > 
+          <div class="card-body">
+         
+            <div class="row g-3">
+
+              <!-- Serial Numbers -->
+              <div class="col-md-4">
+                <label for="serial_number" class="form-label">Serial Numbers</label>
+                <input id="serial_number" class="form-control disable" formControlName="serial_number" rows="3" readonly >
+               </div>
+
+              <!-- Category and Sub-category-->
+              <div class="col-md-4">
+                <label for="category_subCategory" class="form-label">Category  |  Subcategory</label>
+                <input type="text" id="category_subCategory" class="form-control disable" formControlName="category_subCategory" readonly>
+              </div>
+               <!-- Make and Model-->
+               <div class="col-md-4">
+                <label for="make_model" class="form-label">Make  |  Model</label>
+                <input type="text" id="make_model" class="form-control disable" formControlName="make_model" readonly>
+              </div>
+    
+                
+                      
+              <!-- Warranty End Date -->
+              <div class="col-md-4">
+                <label for="warrantyEndDate" class="form-label">Warranty End Date</label>
+                <input type="text" id="warranty_expiration" class="form-control disable" formControlName="warranty_expiration" readonly>
+              </div>
+    
+    
+              <!-- Status -->
+              <div class="col-md-4">
+                <label for="status" class="form-label">Item Status</label>
+                <input type="text" id="status" class="form-control disable" formControlName="status" readonly>
+              </div>
+               
+              <!-- Notes -->
+              <div class="col-md-4">
+                <label for="notes" class="form-label">Item Remark</label>
+                <input type="text" id="notes" class="form-control disable" formControlName="notes" rows="3" readonly >
+              </div>
+                  
+
+            <!-- Issue Date -->
+            <div class="col-md-4">
+              <label for="issueDate" class="form-label">Issued Date</label>
+              <input type="text" id="assigned_date" class="form-control disable" formControlName="assigned_date" readonly >
+            </div>
+       
+
+             <!--Assigned Condition -->
+             <div class="col-md-4">
+              <label for="item_condition" class="form-label">Assigned Condition</label>
+              <input type="text" id="assigned_condition" class="form-control disable" formControlName="assigned_condition" readonly>
+            </div>
+           
+            <!--Assigned Type  -->
+             <div class="col-md-4">
+              <label for="assigned_type" class="form-label">Assigned Type</label>
+              <input type="text" id="assigned_type" class="form-control disable" formControlName="assigned_type" readonly>
+            </div>
+           <!-- code of assigned to  -->
+            <div class="col-md-4">
+              <label for="assigned_to" class="form-label">Issued Employee / Location Code</label>
+              <input type="text" id="assigned_to" class="form-control disable" formControlName="assigned_to" readonly>
+            </div>
+                   
+            <!-- assigned person or location details -->
+             <div class="col-md-4">
+              <label for="assigned_to_details" class="form-label">Issued Employee / Location Detail</label>
+              <input type="text" id="assigned_to_details" class="form-control disable" formControlName="assigned_to_details" readonly >
+            </div>
+
+            <!-- Authority Person Code and Name -->
+            <div class="col-md-4">
+              <label for="issue_person_code_name" class="form-label">Authority Person Code | Name</label>
+              <input type="text" id="issue_person_code_name" class="form-control disable" formControlName="issue_person_code_name" readonly>
+            </div>
+
+
+               <!-- issue remark -->
+               <div class="col-md-4">
+                <label for="issue_remark" class="form-label">Issued Remark</label>
+                <input type="text" id="issue_remark" class="form-control disable" formControlName="issue_remark" readonly>
+              </div>
+
+              
+            <!-- Return Date -->
+            <div class="col-md-4">
+                <label for="return_date" class="form-label blue-bold-label">Return Date</label>
+                <input type="date" id="return_date" class="form-control " formControlName="return_date" required >
+                <div class="invalid-feedback" *ngIf="receiveInventoryForm.get('return_date')?.hasError('required')">Issue Date is required</div>
+              </div>
+
+                 <!--Return Condition -->
+             <div class="col-md-4">
+                <label for="return_condition" class="form-label blue-bold-label">Return Condition</label>
+                <select id="return_condition" class="form-select" formControlName="return_condition" required>
+                  <option *ngFor="let condition of itemCondition" [value]="condition">{{ condition }}</option>
+                </select>
+                <div class="invalid-feedback" *ngIf="receiveInventoryForm.get('return_condition')?.hasError('required')">Condition is required</div>
+              </div>
+
+              <!-- Return Person Name -->
+            <div class="col-md-4">
+                <label for="return_person_name" class="form-label blue-bold-label">Return Person Name</label>
+                <input type="text" id="return_person_name" class="form-control" formControlName="return_person_name">
+              </div>
+  
+              <!-- Return Person Code -->
+              <div class="col-md-4">
+                <label for="return_person_code" class="form-label blue-bold-label">Return Person Code</label>
+                <input type="text" id="return_person_code" class="form-control" formControlName="return_person_code">
+              </div>
+  
+                 <!-- Return Remark -->
+                 <div class="col-md-4">
+                  <label for="return_remark" class="form-label blue-bold-label">Return Remark</label>
+                  <input type="text" id="return_remark" class="form-control" formControlName="return_remark">
+                </div>
+
+                <div class="file-upload-section col-md-4">
+                    <label for="file_upload" class="form-label"> Upload File:(Image/PDF and Size<=1 MB)</label>
+                    <input type="file" (change)="onFileSelected($event)" accept=".pdf,.jpg,.jpeg,.png">
+                  </div>
+
+          </div>
+        </div>
+           
+        <br>     
+        <div class="card-footer">  
+          <div class="row">                   
+           <div class="col-6">  
+            <button *ngIf="printReceipt" class="btn btn-success btn-lg" (click)="onPrintReceipt()">Print Receipt</button>         
+           <button *ngIf="!printReceipt" class="btn btn-primary btn-lg" style="background-color: rgb(7, 14, 111); margin-right: 15px;" [disabled]="receiveInventoryForm.invalid" (click)="onSubmit()">Recieve Inventory</button>
+           <button type="reset" class="btn btn-danger btn-lg" style=" margin-right: 15px; margin-left: 15PX;" (click)="onCancel()">Reset</button>           
+            </div>
+          </div>
+         </div>
+               
+          </form>
+        </div>
+      </div>
+  
+    

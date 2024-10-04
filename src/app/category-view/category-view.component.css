@@ -1,0 +1,24 @@
+/* Table header styles */
+.table thead tr th {
+    background-color: #337ab7; /* blue background for header */
+    color: #ffffff; /* white text for header */
+    border-bottom: 1px solid #dddddd;
+  }
+  
+  /* Table row styles */
+  .table tbody tr:nth-child(even) {
+    background-color: #f2f2f2; /* light gray background for even rows */
+  }
+  
+  .table tbody tr:nth-child(odd) {
+    background-color: #ffffff; /* white background for odd rows */
+  }
+  
+  /* Hover effect for table rows */
+  .table tbody tr:hover {
+    background-color: #ccccff; /* light blue background on hover */
+    cursor: pointer;
+  }
+  .card-header{
+    background-color: rgb(186, 140, 61);
+  }

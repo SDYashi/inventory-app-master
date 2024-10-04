@@ -1,0 +1,173 @@
+
+<div class="main-content container-fluid mt-4">
+    <div class="content">
+        <h1 style="font-size: 32px; color: #23044f; border-bottom: #023304 solid 2px; padding: 5px;">
+            Welcome  {{sessionuser}}
+            <br> 
+            <span>
+                 Analytics Inventory Management Dashboard.
+            </span>
+        </h1>
+        <div class="cards">
+            <div class="card" style="background-color: #fdd835;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Inventory Details</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Total inventory: <h5 class="alert-dange">{{totalEquipmentCount}}</h5></td>
+                        </tr>
+                        <tr>
+                            <td>No of inventory Assigned:<h5 class="alert-dange">{{assignedCount}}</h5></td>
+                        </tr>
+                        <tr>
+                            <td>No of inventory Available:<h5 class="alert-dange">{{availableCount}}</h5></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="card" style="background-color: #e53935;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Inventory Stock Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of statusSummary">
+                         <td>
+                            {{ item.condition }} <br> {{ item.status }}
+                            <h5> {{ item.count }}</h5>
+                        </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="card" style="background-color: #1e88e5;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Category Wise Inventory</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of categorySummary">
+                            <td>{{ item.category }}:
+                                <!-- {{ item.sub_category }}: <br> -->
+                           {{ item.count }} </td>
+                        </tr>
+                    </tbody>
+
+                </table>
+            </div>
+            <div class="card" style="background-color: #43a047;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Condition Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of conditionSummary">
+                            <td>{{ item.condition }}
+                                {{ item.count }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            <br>
+                <table>
+                    <thead>
+                        <tr>
+                            <th> Warranty Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td> InWarranty:{{ warrantyStatusSummary.in_warranty }} <br>
+                             Expired: {{ warrantyStatusSummary.expired_warranty }} <br>
+                             No Warranty:{{ warrantyStatusSummary.no_warranty }}</td>
+                        </tr>
+                </table>
+            </div>
+        </div>
+        <hr>
+        <div class="footer">
+            <div class="top assignemnt-history">
+                <h5 style="font-size: 32px; color: #23044f;  padding: 5px;">
+                    Upcoming Warranty Expiration Inventory Details
+                </h5>
+                <div class="table-responsive">
+                <table class="table  table-bordered table-hover">
+                    <thead>
+                        <tr style="background-color: #141514;">
+                            <th>Equipment's Id</th>
+                            <th>category</th>
+                            <th>model</th>
+                            <th>serial_number</th>
+                            <th>warranty_expiration</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of upcomingWarrantyExpirations">
+                            <td>{{ item.id }}</td>
+                            <td>{{item.category}}</td>
+                            <td>{{ item.model }}</td>
+                            <td>{{ item.serial_number }}</td>
+                            <td>{{ item.warranty_expiration }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                </div>
+            </div>
+            <div class="top assignemnt-history">
+                <h3 style="font-size: 32px; color: #23044f;  padding: 5px;">
+                    Top Assigned Inventory
+                </h3>
+                <div class="table-responsive">
+                <table class="table  table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>Office Name</th>
+                            <th>Location Code</th>
+                            <th>count</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of topAssignees">
+                            <td>{{ item.assigned_to_details }}</td>
+                            <td>{{item.assigned_to}}</td>
+                            <td>{{ item.count }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                </div>
+
+            </div>
+            <div class="recent assignment-history">
+                <h3 style="font-size: 32px; color: #23044f;  padding: 5px;">
+                    Recent assignments 
+                </h3>
+                <div class="table-responsive">
+                <table class="table  table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>Equipment Serial No /
+                            Location or User Code/
+                            Office or User Name /
+                            Updated on</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of recentAssignments">
+                            <td>{{ item }}
+                        </tr>
+                    </tbody>
+                </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

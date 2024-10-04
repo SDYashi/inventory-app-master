@@ -1,0 +1,33 @@
+<div class="container-fluid mt-3">
+    <div class="card">
+        <div class="card-header" style="background-color: rgb(1, 21, 41); color: whitesmoke;">
+            <h5 class="mb-0">Add Inventory Category</h5>
+        </div>
+        <div class="card-body">
+            <form #AddCategory="ngForm">
+            <div class="row">
+                <div class="col-md-6 col-lg-6 mb-3">
+                    <div class="form-group">
+                        <label for="CategoryName">Device Category Name</label>
+                        <input id="category" name="category" [(ngModel)]="categorys.category" type="text"
+                        class="form-control" placeholder="Enter Category Name" required minlength="3" maxlength="50"
+                        #category="ngModel" />
+                        <div *ngIf="category.invalid && category.touched" class="alert-danger">
+                            <small>Category Name is required.</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="d-flex justify-content-center mt-4">
+                <button class="btn btn-success mr-3" id="addCategory" (click)="invDeviecs_addCategory_TS()">Add Category</button>
+                <button class="btn btn-danger ml-4" id="resetAll" type="reset">Reset ALL</button>
+
+            </div>
+            <hr>
+            <div *ngIf="response_msg" [ngClass]="{'alert-success': isSuccess, 'alert-error': !isSuccess}">
+                {{ response_msg }}
+              </div>
+        </form>
+        </div>
+    </div>
+</div>

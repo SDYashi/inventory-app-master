@@ -1,0 +1,142 @@
+        /* inventory-manager.component.css */
+
+
+        
+        body {
+          font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+          margin: 0;
+          padding: 0;
+          overflow-x: hidden;
+          background-color: #495057;
+          /* Prevent horizontal scroll */
+      }
+
+
+      .navbar {
+          position: fixed;
+          /* Fix the navbar at the top */
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 55px;
+          /* Full width */
+          background-color: rgb(1, 21, 41);
+          /* background-color: #343a40; */
+          color: #fff;
+          z-index: 1000;
+          /* Ensure navbar is above sidebar */
+      }
+
+      .navbar-brand {
+          color: #fff;
+          font-size: 1.5em;
+      }
+
+      /* Ensure there is no margin on the dropdown icon */
+      .nav-link.dropdown-toggle .dropdown-icon {
+          margin-right: 8;
+          /* Remove margin on the right side */
+          margin-left: 5px;
+      }
+
+      /* Align the icon to the right edge if necessary */
+      .navbar-nav .nav-item .nav-link {
+          display: flex;
+          align-items: center;
+      }
+
+      .navbar-nav .nav-item .nav-link .dropdown-icon {
+          margin-left: auto;
+          /* Pushes the icon to the right if it’s not already */
+          margin-right: 5px;
+      }
+
+
+      .navbar-nav .nav-item .nav-link {
+          color: #fff;
+          font-size: 1em;
+      }
+
+      .navbar-nav .nav-item .nav-link:hover {
+          color: #d8dde2;
+      }
+      
+
+      .sidebar {
+          position: fixed;
+          /* Fix the sidebar to the left */
+          top:55px;
+          /* Adjust to be below the navbar */
+          left: 0;
+          height: calc(100vh - 56px);
+          /* Full height minus navbar height */
+          width: 265px;
+          /* background-color: #343a40; */
+          background-color: rgb(17, 37, 57);
+          color: #fff;
+          overflow-y: auto;
+          /* Enable scrolling for long sidebar */
+          transition: all 0.3s ease;
+          z-index: 999;
+          /* Ensure sidebar is below navbar */
+      }
+
+      .nav-second-level {
+          list-style: none;
+          text-decoration: none;
+          padding-left:10px;
+          background-color: #1717446e;
+
+      }
+
+      .sidebar.collapsed {
+          width: 0px;
+      }
+
+      .sidebar .nav-link {
+          margin-top: 5px;
+          color: #fff;
+          padding: 8px 5px;
+          display: block;
+          text-decoration: none;
+          transition: all 0.3s ease;
+          margin-left: 10px;
+      }
+
+      .sidebar .nav-link:hover {
+          background-color: #cf1417e4;
+      }
+
+      .sidebar .nav-link .icon {
+          font-size: 1.5em;
+          margin-right: 10px;
+          transition: all 0.3s ease;
+      }
+
+      .sidebar.collapsed .nav-link .icon {
+          margin-right: 0;
+      }
+
+      .sidebar.collapsed .nav-link span {
+          display: none;
+      }
+
+      .content {
+          margin-left: 265px;
+          padding: 20px;
+          transition: all 0.3s ease;
+      }
+
+      .content.collapsed {
+          margin-left: 0px;
+      }
+
+      /* Custom styles for the dropdown menu to appear on the left side */
+      .dropdown-menu-left {
+          left: auto;
+          right: 0;
+          border: none;
+          /* Optional: Remove the default border */
+      }
+
+      

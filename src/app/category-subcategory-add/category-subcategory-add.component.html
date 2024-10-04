@@ -1,0 +1,45 @@
+<div class="container-fluid mt-3">
+    <div class="card">
+        <div class="card-header" style="background-color: rgb(1, 21, 41); color: whitesmoke;">
+            <h5 class="mb-0">Add Inventory SubCategory</h5>
+        </div>
+        <div class="card-body">
+            <form #AddSubCategory="ngForm">
+            <div class="row">
+                <div class="col-md-6 col-lg-6 mb-3">
+                    <div class="form-group">
+                        <label for="CategoryName">Select Device Category</label>
+                         <select id="category"  class="form-control" name="category" [(ngModel)]="subcategorys.category"   #category="ngModel" >
+                            <option value="">Select Category</option>
+                            <option *ngFor="let category of viewCategory" [value]="category">{{ category }}</option>
+                          </select>
+                         <div *ngIf="category.invalid && category.touched" class="alert-danger">
+                            <small>Category Id is required.</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-6 mb-3">
+                    <div class="form-group">
+                        <label for="CategoryName">Device SubCategory Name</label>
+                        <input id="subcategory" name="subcategory" [(ngModel)]="subcategorys.subcategory" type="text"
+                        class="form-control" placeholder="Enter subcategory Name" required minlength="3" maxlength="50"
+                        #subcategory="ngModel" />
+                        <div *ngIf="subcategory.invalid && subcategory.touched" class="alert-danger">
+                            <small>SubCategory Name is required.</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="d-flex justify-content-center mt-4">
+                <button class="btn btn-success mr-2" id="addSubCategory" (click)="invDeviecs_addSubCategory_TS()">Add SubCategory</button>
+                <button class="btn btn-danger" id="resetAll" type="reset">Reset ALL</button>
+
+            </div>
+            <hr>
+            <div *ngIf="response_msg" [ngClass]="{'alert-success': isSuccess, 'alert-error': !isSuccess}">
+                {{ response_msg }}
+              </div>
+        </form>
+        </div>
+    </div>
+</div>

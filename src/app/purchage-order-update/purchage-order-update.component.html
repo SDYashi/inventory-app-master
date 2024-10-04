@@ -1,0 +1,143 @@
+<div class="container mt-5">
+    <div class="row">
+      <div class="col-md-6 offset-md-3">
+        <form #AddSubCategory="ngForm">
+          <div class="input-group mb-3">
+            <input id="order_numbers" name="order_numbers" [(ngModel)]="order_number_search.order_numbers" type="text"
+            class="form-control" required  #order_numbers="ngModel" />
+        <div *ngIf="order_numbers.invalid && order_numbers.touched" class="alert-danger">
+            <small>Order No is required.</small>
+        </div>
+           
+            <div class="input-group-append">
+                <button class="btn btn-primary ml-3 p-2" type="submit" (click)="invDevices_SearchPurchase_TS()">
+                    <i class="fas fa-search"> </i> Search Purchase Order
+                </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <hr>
+
+
+<div class="container-fluid mt-1">
+    <div class="card">
+        <div class="card-header" style="background-color: rgb(1, 21, 41); color: whitesmoke;">
+            <h5 class="mb-0">Update Purchase Order</h5>
+        </div>
+        <div class="card-body">
+            <form #UpdatePurchaseOrderForm="ngForm">
+                <div class="row">
+                    <div class="col-md-4 col-lg-4 mb-3">
+                        <div class="form-group">
+                            <label for="id">Purchage Order ID </label>
+                            <input id="id" name="id" [(ngModel)]="create_order.id"
+                                type="text"  class="form-control" required
+                                #id="ngModel" />
+                            <div *ngIf="id.invalid && id.touched" class="alert-danger">
+                                <small>Order No is required.</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-lg-4 mb-3">
+                        <div class="form-group">
+                            <label for="CategoryName">Purchage Order Number </label>
+                            <input id="order_number" name="order_number" [(ngModel)]="create_order.order_number"
+                                type="text" class="form-control" placeholder="Enter order number" required
+                                #order_number="ngModel" />
+                            <div *ngIf="order_number.invalid && order_number.touched" class="alert-danger">
+                                <small>Order No is required.</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-lg-4 mb-3">
+                        <div class="form-group">
+                            <label for="CategoryName">Purhase Order Number</label>
+                            <input id="po_number" name="po_number" [(ngModel)]="create_order.po_number" type="text"
+                                class="form-control"  required #po_number="ngModel" />
+                            <div *ngIf="po_number.invalid && po_number.touched" class="alert-danger">
+                                <small>po number is required.</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-lg-4 mb-3">
+                        <div class="form-group">
+                            <label for="CategoryName">Purhase Order type</label>
+                            <input id="po_type" name="po_type" [(ngModel)]="create_order.po_type" type="text"
+                                class="form-control" placeholder="Enter PO Type Name" required #po_type="ngModel" />
+                            <div *ngIf="po_type.invalid && po_type.touched" class="alert-danger">
+                                <small>PO Type is required.</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-lg-4 mb-3">
+                        <div class="form-group">
+                            <label for="CategoryName">Project Id</label>
+                            <input id="project_id" name="project_id" [(ngModel)]="create_order.project_id" type="text"
+                                class="form-control" placeholder="Enter project id " required #project_id="ngModel" />
+                            <div *ngIf="project_id.invalid && project_id.touched" class="alert-danger">
+                                <small>project id is required.</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-lg-4 mb-3">
+                        <div class="form-group">
+                            <label for="CategoryName">Project Name</label>
+                            <input id="project_name" name="project_name" [(ngModel)]="create_order.project_name"
+                                type="text" class="form-control" placeholder="Enter Project Name" required
+                                #project_name="ngModel" />
+                            <div *ngIf="project_name.invalid && project_name.touched" class="alert-danger">
+                                <small>Project Name is required.</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-lg-4 mb-3">
+                        <div class="form-group">
+                            <label for="CategoryName">Supplier Id </label>
+                            <input id="supplier_id" name="supplier_id" [(ngModel)]="create_order.supplier_id"
+                                type="text" class="form-control" placeholder="Enter supplier id" required
+                                #supplier_id="ngModel" />
+                            <div *ngIf="supplier_id.invalid && supplier_id.touched" class="alert-danger">
+                                <small>supplier id is required.</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-lg-4 mb-3">
+                        <div class="form-group">
+                            <label for="CategoryName">Supplier Name</label>
+                            <input id="supplier_name" name="supplier_name" [(ngModel)]="create_order.supplier_name"
+                                type="text" class="form-control" placeholder="Enter supplier name" required
+                                #supplier_name="ngModel" />
+                            <div *ngIf="supplier_name.invalid && supplier_name.touched" class="alert-danger">
+                                <small>Supplier Name is required.</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-lg-4 mb-3">
+                        <div class="form-group">
+                            <label for="CategoryName">Select Purchase Date</label>
+                            <input id="purchase_date" name="purchase_date" [(ngModel)]="create_order.purchase_date"
+                                type="date" class="form-control" placeholder="date" required
+                                #purchase_date="ngModel" />
+                            <div *ngIf="purchase_date.invalid && purchase_date.touched" class="alert-danger">
+                                <small>Date is required.</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-center mt-4">
+                    <button style="margin-right: 10px;" class="btn btn-success mr-2" id="addSubCategory" type="submit"
+                        (click)="invDeviecs_UpdatePurchageOrder_TS()">Add Purchagse Order</button>
+                    <button class="btn btn-secondary" id="resetAll" type="reset">Reset ALL</button>
+
+                </div>
+                <hr>
+                <div *ngIf="response_msg" [ngClass]="{'alert-success': isSuccess, 'alert-error': !isSuccess}">
+                    {{ response_msg }}
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,145 @@
+
+
+/* For WebKit browsers (Chrome, Safari) */
+::-webkit-scrollbar {
+  width: 8px; /* Width of the scrollbar */
+  height: 8px; /* Height for horizontal scrollbar */
+}
+
+::-webkit-scrollbar-track {
+  background: transparent; /* Background of the scrollbar track */
+}
+
+::-webkit-scrollbar-thumb {
+  background: black; /* Color of the scrollbar thumb */
+  border-radius: 4px; /* Rounded corners for the thumb */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: darkgray; /* Change thumb color on hover */
+}
+
+/* For Firefox */
+* {
+  scrollbar-width: thin; /* Use thin scrollbar */
+  scrollbar-color: rgb(126, 4, 4) transparent; /* Thumb color and track color */
+}
+
+
+/* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+/* .body_bckground{
+  background-image: url("./assets/img/homepage_1.jpg");
+  background-repeat: no-repeat;
+  height: 100%;
+  width: 100%;
+
+} */
+.disable{
+  background-color: rgb(236, 240, 243);
+}
+
+/* Add some colors to the search form */
+.input-group {
+  background-color: #f7f7f7;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+}
+
+.form-control {
+  border: none;
+  border-radius: 5px;
+  padding: 10px;
+  font-size: 16px;
+}
+
+.btn-primary {
+  background-color: #337ab7;
+  border-color: #2e6da4;
+  color: #fff;
+  margin-left: 10px;
+}
+
+.btn-primary:hover {
+  background-color: #23527c;
+  border-color: #1d4e7a;
+}
+
+/* Make the search form responsive */
+@media (max-width: 768px) {
+  .input-group {
+    flex-direction: column;
+  }
+  .form-control {
+    width: 100%;
+  }
+  .btn-primary {
+    width: 100%;
+    margin-left: 5px;
+  }
+}
+.card-header {
+    background-color: rgba(56, 2, 2, 0.577);
+    font-size: larger;
+    font-display: initial;
+    color: white;
+  }
+  
+  
+  .card-header{
+    padding: 10px 0;  
+  }
+  
+  .card-header h4 {
+    margin:0;  
+    font-weight: bold; 
+    font-family:  Roboto, sans-serif;;
+    font-size: 1.2em;
+    color:#e9eef5;
+    padding: 5px;
+    text-align: center;
+  }
+   .header_title{
+    background-color: rgb(17, 37, 57);
+   }
+  
+  .card-header .labels {
+    color: black;
+    font-size: large;
+    font: bolder;
+    font-variant: normal;
+    font-family: Arial, Helvetica, sans-serif;
+    font-style: oblique;
+  }
+  
+  .d-flex{
+    padding: 10px;
+  }
+  
+  /* Default styles for search input type and button larger screens (desktop) */
+  .custom-input-width {
+  width: 15%; /* Adjust this width as needed for desktop */
+  }
+  
+  .custom-button-width {
+  width: auto; /* Button width as required for desktop */
+  }
+  
+  /* Styles for mobile devices */
+  @media (max-width: 768px) {
+  .custom-input-width {
+    width: 60%; /* Adjust this width as needed for mobile */
+  }
+  
+  .custom-button-width {
+    width: 35%; /* Adjust button width as needed for mobile */
+  }
+  }
+  

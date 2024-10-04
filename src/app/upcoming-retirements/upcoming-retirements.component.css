@@ -1,0 +1,15 @@
+.table {
+    width: 100%;
+    margin-bottom: 1rem;
+    color: #212529;
+  }
+  .table thead{
+    background-color: rgb(17, 37, 57);
+  }
+  
+  .pagination {
+    margin: 0;
+  }
+  .header_title{
+    background-color: rgb(17, 37, 57);
+   }
