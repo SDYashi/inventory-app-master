@@ -135,4 +135,24 @@ export interface EmployeeRetirement {
   user_person_type: string;
   work_location: string;
 }
+export interface Equipment{
+    id:number,
+    category: string,
+    sub_category: string,
+    make: string,
+    model: string,
+    serial_number:string,
+    price: number,
+    receipt_date: string,
+    warranty_expiration:string,
+    status: string,
+    condition: string,
+    assignment_id: number ,
+    notes: string,
+    assignment?: Assignment | null,
+    created_by: string,
+    created_on: string,
+    order?:Order|null,
+
+}
  

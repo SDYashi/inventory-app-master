@@ -56,8 +56,10 @@
                     <tbody>
                         <tr *ngFor="let item of categorySummary">
                             <td>{{ item.category }}:
-                                <!-- {{ item.sub_category }}: <br> -->
-                           {{ item.count }} </td>
+                                {{ item.sub_category }}: 
+                         
+                           <h5 class="alert-dange">  {{ item.count }}</h5>
+                        </td>
                         </tr>
                     </tbody>
 
@@ -72,8 +74,8 @@
                     </thead>
                     <tbody>
                         <tr *ngFor="let item of conditionSummary">
-                            <td>{{ item.condition }}
-                                {{ item.count }}</td>
+                            <td>{{ item.condition }}     <h5 class="alert-dange">  {{ item.count }}</h5>
+                               </td>
                         </tr>
                     </tbody>
                 </table>
@@ -86,9 +88,9 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td> InWarranty:{{ warrantyStatusSummary.in_warranty }} <br>
-                             Expired: {{ warrantyStatusSummary.expired_warranty }} <br>
-                             No Warranty:{{ warrantyStatusSummary.no_warranty }}</td>
+                            <td> InWarranty:  <h5 class="alert-dange">{{ warrantyStatusSummary.in_warranty }}</h5> <br>
+                             Expired:  <h5 class="alert-dange">{{ warrantyStatusSummary.expired_warranty }}</h5> <br>
+                             No Warranty: <h5 class="alert-dange">{{ warrantyStatusSummary.no_warranty }}</h5></td>
                         </tr>
                 </table>
             </div>

@@ -1,6 +1,6 @@
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { EmployeeRetirement, inventoryItem, InventoryReport, issueInventory, Order } from '../data-type';
+import { EmployeeRetirement, Equipment, inventoryItem, InventoryReport, issueInventory, Order } from '../data-type';
 import { catchError, Observable, throwError } from 'rxjs';
 import { AuthService } from './auth.service';
 import { API_BASE_URL } from '../constants';
@@ -97,7 +97,9 @@ export class InventoryService {
 
   getInventoryAssignmentDetail(assignment_id: number): Observable<any> {
     const headers = this.getHeaders();
-    return this.http.get(`${this.baseUrl}/assignment/get_assignment_list/${assignment_id}`, { headers }).pipe(catchError(this.handleError));
+    console.log(`${this.baseUrl}/assignment/get_assignment_list/${assignment_id}`);
+    return this.http.get(`${this.baseUrl}/assignment/get_assignment_list/${assignment_id}/`, { headers }).pipe(catchError(this.handleError));
+   
   }
 
 
@@ -137,8 +139,8 @@ export class InventoryService {
 getReceiptTemplate(receiptType: string, assignment_id: number): Observable<string> {
   const headers = this.getHeaders();
   const url = receiptType === 'receive' 
-    ? `${this.baseUrl}/assignment/get_return_slip/${assignment_id}` 
-    : `${this.baseUrl}/assignment/get_issue_slip/${assignment_id}`;
+    ? `${this.baseUrl}/assignment/get_return_slip/${assignment_id}/` 
+    : `${this.baseUrl}/assignment/get_issue_slip/${assignment_id}/`;
   
   return this.http.get(url, { headers, responseType: 'text' }).pipe(catchError(this.handleError));
 }
@@ -190,9 +192,9 @@ getAssignmentHistory(serialNumber:string): Observable<any>{
       }
 
       
-invDeviecs_ViewEquipmentList(pageNumber: number, pageSize: number,search:any): any {
+invDeviecs_ViewEquipmentList(pageNumber: number, pageSize: number,search:any):  Observable<any> {
     const headers = this.getHeaders();
-    return this.http.get(`${this.baseUrl}/equipment/get_equipment_list_with_pagination/?page_number=${pageNumber}&page_size=${pageSize}&search=${search}`,{headers});
+    return this.http.get<any>(`${this.baseUrl}/equipment/get_equipment_list_with_pagination/?page_number=${pageNumber}&page_size=${pageSize}&search=${search}`,{headers});
   }
 
 

@@ -187,6 +187,9 @@ body {
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
   width: 23%;
   position: relative;
+  
+  height: 400px;
+  overflow-y: auto;
 }
 .card i {
   position: absolute;

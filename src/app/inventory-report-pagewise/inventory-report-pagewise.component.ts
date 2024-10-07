@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { InventoryService } from '../services/inventory.service';
 import * as XLSX from 'xlsx';
+import { Equipment } from '../data-type';
 
 @Component({
   selector: 'app-inventory-report-pagewise',
@@ -8,7 +9,7 @@ import * as XLSX from 'xlsx';
   styleUrls: ['./inventory-report-pagewise.component.css']
 })
 export class InventoryReportPagewiseComponent {
-  equipment: any[] = [];
+  equipment: Equipment[] = [];
   totalCount: number = 0;
   pageNumber: number = 1;
   pageSize: number = 100;
@@ -24,7 +25,7 @@ export class InventoryReportPagewiseComponent {
 
   loadEquipment(): void {
     this.inventoryService.invDeviecs_ViewEquipmentList(this.pageNumber, this.pageSize, this.search)
-      .subscribe((response: { results: any[]; total_count: number; page_number: number; page_size: number; total_pages: number; }) => {
+      .subscribe((response: { results: Equipment[]; total_count: number; page_number: number; page_size: number; total_pages: number; }) => {
         this.loading = false;
         this.equipment = response.results;
         this.totalCount = response.total_count;
@@ -52,23 +53,50 @@ export class InventoryReportPagewiseComponent {
   }
 
 
-  downloadExcel(): void {
-    const equipmentData = this.equipment;
-    const worksheet = XLSX.utils.json_to_sheet(equipmentData);
-    const workbook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(workbook, worksheet, 'Equipment');
+  // downloadExcel(): void {
+  //   const equipmentData = this.equipment;
+  //   const worksheet = XLSX.utils.json_to_sheet(equipmentData);
+  //   const workbook = XLSX.utils.book_new();
+  //   XLSX.utils.book_append_sheet(workbook, worksheet, 'Equipment');
   
-    const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
-    this.saveAsExcelFile(excelBuffer, 'equipment');
+  //   const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
+  //   this.saveAsExcelFile(excelBuffer, 'equipment');
+  // }
+  
+  // private saveAsExcelFile(buffer: any, fileName: string): void {
+  //   const data: Blob = new Blob([buffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8' });
+  //   const url = window.URL.createObjectURL(data);
+  //   const link = document.createElement('a');
+  //   link.href = url;
+  //   link.download = `${fileName}.xlsx`;
+  //   link.click();
+  //   window.URL.revokeObjectURL(url);
+  // }
+
+  downloadExcel() {
+    // Define the data structure
+    const worksheetData = this.equipment.map((item, index) => ({
+      'S.No': index + 1,
+      'Category': item.category,
+      'Make': item.make,
+      'Model': item.model,
+      'Serial Number': item.serial_number,
+      'Condition': item.condition,
+      'Status': item.status,
+      'Receipt Date': item.receipt_date ? new Date(item.receipt_date).toLocaleDateString() : '',
+      'Assignment Type': item.assignment?.assigned_type || '',
+      'Assigned To': item.assignment?.assigned_to || ''
+    }));
+  
+    // Create a worksheet
+    const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(worksheetData);
+  
+    // Create a new workbook and add the worksheet
+    const workbook: XLSX.WorkBook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, 'Equipment Data');
+  
+    // Export the Excel file
+    XLSX.writeFile(workbook, 'Equipment_Data.xlsx');
   }
   
-  private saveAsExcelFile(buffer: any, fileName: string): void {
-    const data: Blob = new Blob([buffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8' });
-    const url = window.URL.createObjectURL(data);
-    const link = document.createElement('a');
-    link.href = url;
-    link.download = `${fileName}.xlsx`;
-    link.click();
-    window.URL.revokeObjectURL(url);
-  }
 }
