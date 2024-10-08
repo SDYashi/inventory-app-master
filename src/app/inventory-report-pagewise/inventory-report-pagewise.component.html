@@ -2,16 +2,14 @@
   <div class="card">
     <div class="card-header" style="background-color: rgb(1, 21, 41); color: whitesmoke;">
       <div class="row">
-        <div class="col-5">
-          <input type="text" placeholder="Search..." #search_input class="form-control  ml-3 p-2">
+        <div class="col-6">
+          <input type="text" placeholder="Search..."  #search_input class="form-control  ml-3 p-2">
         </div> 
-        <div class="col-4">
-          <button class="btn btn-primary ml-3 p-2" type="button" (click)="onFilterChange(search_input.value)">
-            <i class="fas fa-search"></i> Search
+        <div class="col-6">
+          <button class="btn btn-primary"  type="button" (click)="onFilterChange(search_input.value)">
+            <i class="fas fa-search"></i> Search Inventory
           </button>
-        </div> 
-        <div class="col-3">
-          <button class="btn btn-danger ml-3 p-2" (click)="downloadExcel()">Excel</button>
+          <button class="btn btn-danger" style="margin-left: 5px;" (click)="downloadExcel()">Excel</button>
         </div>          
       </div> 
     </div>
@@ -34,7 +32,7 @@
                 <th scope="col">Serial Number</th>
                 <th scope="col">Condition</th>
                 <th scope="col">Status</th>
-                <th scope="col">Receipt Date</th>
+                <th scope="col">Assigned Date</th>
                 <th scope="col">Assignment Type</th>
                 <th scope="col">Assigned To</th>
               </tr>
@@ -48,7 +46,7 @@
                 <td>{{ item.serial_number }}</td>
                 <td>{{ item.condition }}</td>
                 <td>{{ item.status }}</td>
-                <td>{{ item.receipt_date | date }}</td>
+                <td>{{ item.assignment?.assigned_date | date }}</td>
                 <td>{{ item.assignment?.assigned_type }}</td>
                 <td>{{ item.assignment?.assigned_to }}</td>
               </tr>

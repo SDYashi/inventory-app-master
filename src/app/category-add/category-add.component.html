@@ -6,7 +6,7 @@
         <div class="card-body">
             <form #AddCategory="ngForm">
             <div class="row">
-                <div class="col-md-6 col-lg-6 mb-3">
+                <div class="col-md-12 col-lg-12 mb-3">
                     <div class="form-group">
                         <label for="CategoryName">Device Category Name</label>
                         <input id="category" name="category" [(ngModel)]="categorys.category" type="text"
@@ -19,8 +19,8 @@
                 </div>
             </div>
             <div class="d-flex justify-content-center mt-4">
-                <button class="btn btn-success mr-3" id="addCategory" (click)="invDeviecs_addCategory_TS()">Add Category</button>
-                <button class="btn btn-danger ml-4" id="resetAll" type="reset">Reset ALL</button>
+                <button class="btn btn-primary" id="addCategory" (click)="invDeviecs_addCategory_TS()">Add Category</button>
+                <button class="btn btn-danger" style="margin-left: 5px;" id="resetAll" type="reset">Reset All</button>
 
             </div>
             <hr>

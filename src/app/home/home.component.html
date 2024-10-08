@@ -12,14 +12,14 @@
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle btn-danger" href="#" id="userDropdown" role="button" data-toggle="dropdown"
           aria-haspopup="true" aria-expanded="false"> 
-          <h5 style="margin: 5px; padding: 5px;"> {{sessionuser}}</h5> 
+          <h5 style="margin: 5px; padding: 5px;" class="btn btn-danger"> {{sessionuser}}</h5> 
           <!-- <i class="fas fa-user-circle" style="padding: 8px; margin-right:5px"> </i> -->
           <!-- {{sessionTime}} -->
         </a>
-        <div class="dropdown-menu dropdown-menu-left" aria-labelledby="userDropdown">
-          <a class="dropdown-item" href="#" routerLink="/inventory/User-Profile" role="menuitem">Profile</a>
+        <div class="dropdown-menu dropdown-menu-left bg-dark"  aria-labelledby="userDropdown">
+          <a class="dropdown-item " style="color: white; background-color: #131212;" href="#" routerLink="/inventory/User-Profile" role="menuitem">Profile</a>
           <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#" role="menuitem">Logout</a>
+          <a class="dropdown-item" style="color: white; background-color: #131212;"  href="#" role="menuitem">Logout</a>
         </div>
       </li>
     </ul>

@@ -138,5 +138,9 @@
           border: none;
           /* Optional: Remove the default border */
       }
-
+      .dropdown-menu-left:hover {
+color: whitesmoke;
+background-color: black;
+        /* Optional: Remove the default border */
+    }
       

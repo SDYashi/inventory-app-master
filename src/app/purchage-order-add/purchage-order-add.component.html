@@ -12,7 +12,7 @@
                         <input id="order_number" name="order_number" [(ngModel)]="create_order.order_number" type="text"
                         class="form-control" placeholder="Enter order number" required 
                         #order_number="ngModel" />
-                        <div *ngIf="order_number.invalid && order_number.touched" class="alert-danger">
+                        <div *ngIf="order_number.invalid && order_number.touched" class="alert alert-danger">
                             <small>Order No is required.</small>
                         </div>
                     </div>
@@ -23,7 +23,7 @@
                         <input id="po_number" name="po_number" [(ngModel)]="create_order.po_number" type="text"
                         class="form-control" placeholder="Enter po number" required 
                         #po_number="ngModel" />
-                        <div *ngIf="po_number.invalid && po_number.touched" class="alert-danger">
+                        <div *ngIf="po_number.invalid && po_number.touched" class="alert alert-danger">
                             <small>po number is required.</small>
                         </div>
                     </div>
@@ -34,7 +34,7 @@
                         <input id="po_type" name="po_type" [(ngModel)]="create_order.po_type" type="text"
                         class="form-control" placeholder="Enter po type Name" required 
                         #po_type="ngModel" />
-                        <div *ngIf="po_type.invalid && po_type.touched" class="alert-danger">
+                        <div *ngIf="po_type.invalid && po_type.touched" class="alert alert-danger">
                             <small>PO Type is required.</small>
                         </div>
                     </div>
@@ -45,7 +45,7 @@
                         <input id="project_id" name="project_id" [(ngModel)]="create_order.project_id" type="text"
                         class="form-control" placeholder="Enter project id " required 
                         #project_id="ngModel" />
-                        <div *ngIf="project_id.invalid && project_id.touched" class="alert-danger">
+                        <div *ngIf="project_id.invalid && project_id.touched" class="alert alert-danger">
                             <small>project id is required.</small>
                         </div>
                     </div>
@@ -56,7 +56,7 @@
                         <input id="project_name" name="project_name" [(ngModel)]="create_order.project_name" type="text"
                         class="form-control" placeholder="Enter Project Name" required 
                         #project_name="ngModel" />
-                        <div *ngIf="project_name.invalid && project_name.touched" class="alert-danger">
+                        <div *ngIf="project_name.invalid && project_name.touched" class="alert alert-danger">
                             <small>Project Name is required.</small>
                         </div>
                     </div>
@@ -67,7 +67,7 @@
                         <input id="supplier_id" name="supplier_id" [(ngModel)]="create_order.supplier_id" type="text"
                         class="form-control" placeholder="Enter supplier id" required 
                         #supplier_id="ngModel" />
-                        <div *ngIf="supplier_id.invalid && supplier_id.touched" class="alert-danger">
+                        <div *ngIf="supplier_id.invalid && supplier_id.touched" class="alert alert-danger">
                             <small>supplier id is required.</small>
                         </div>
                     </div>
@@ -78,7 +78,7 @@
                         <input id="supplier_name" name="supplier_name" [(ngModel)]="create_order.supplier_name" type="text"
                         class="form-control" placeholder="Enter supplier name" required 
                         #supplier_name="ngModel" />
-                        <div *ngIf="supplier_name.invalid && supplier_name.touched" class="alert-danger">
+                        <div *ngIf="supplier_name.invalid && supplier_name.touched" class="alert alert-danger">
                             <small>Supplier Name is required.</small>
                         </div>
                     </div>
@@ -89,15 +89,15 @@
                         <input id="purchase_date" name="purchase_date" [(ngModel)]="create_order.purchase_date" type="date"
                         class="form-control" placeholder="Select supplier id" required 
                         #purchase_date="ngModel" />
-                        <div *ngIf="purchase_date.invalid && purchase_date.touched" class="alert-danger">
+                        <div *ngIf="purchase_date.invalid && purchase_date.touched" class="alert alert-danger">
                             <small>Date is required.</small>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="d-flex justify-content-center mt-4">
-                <button style="margin-right: 10px;" class="btn btn-success mr-2" id="addSubCategory" (click)="invDeviecs_addPurchageOrder_TS()">Add Purchagse Order</button>
-                <button class="btn btn-secondary" id="resetAll" type="reset">Reset ALL</button>
+                <button  class="btn btn-primary" id="addSubCategory" (click)="invDeviecs_addPurchageOrder_TS()">Add Purchagse Order</button>
+                <button class="btn btn-danger" style="margin-left: 5px;" id="resetAll" type="reset">Reset ALL</button>
 
             </div>
             <hr>

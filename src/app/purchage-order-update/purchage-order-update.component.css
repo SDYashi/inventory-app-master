@@ -15,4 +15,28 @@
     border-radius: 5px;
     margin: 10px 0;
   }
-  
+  /* Mobile view styles */
+@media (max-width: 768px) {
+  /* Make the input field and button full-width */
+  .input-group.mb-3 {
+    flex-direction: column;
+  }
+  .input-group-append {
+    width: 100%;
+  }
+  .input-group-append button {
+    width: 100%;
+    font-size: 16px;
+    padding: 10px 20px;
+  }
+  /* Adjust the input field styles */
+  .form-control {
+    font-size: 16px;
+    padding: 10px 20px;
+  }
+  /* Adjust the validation message styles */
+  .alert-danger {
+    font-size: 14px;
+    padding: 10px 20px;
+  }
+}

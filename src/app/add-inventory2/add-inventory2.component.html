@@ -2,7 +2,7 @@
   <div class="card">
     <div class="card-header header_title">
       <h4 class="mb-0 ">Add New Inventory </h4>
-  </div>
+    </div>
       <div class="card-body">
         <form [formGroup]="inventoryForm" (ngSubmit)="onSubmit()">
           <div class="row g-3">
@@ -103,9 +103,8 @@
         <div class="card-footer">  
           <div class="row">                   
            <div class="col-6"> 
-            <button type="submit" class="btn btn-primary btn-lg" style="background-color: rgb(7, 14, 111); margin-right: 15px;" [disabled]="inventoryForm.invalid" >Add Inventory</button>          
-       
-            <button type="reset" class="btn btn-danger btn-lg">Reset</button> 
+            <button type="submit" class="btn btn-primary btn-lg" [disabled]="inventoryForm.invalid" > <i class="fas fa-search"> </i> Add Inventory</button>  
+            <button type="reset" class="btn btn-danger btn-lg" style="margin-left: 5px;">Reset</button> 
            </div>
           </div>
     </div>

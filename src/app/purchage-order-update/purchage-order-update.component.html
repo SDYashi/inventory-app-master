@@ -1,20 +1,15 @@
 <div class="container mt-5">
     <div class="row">
       <div class="col-md-6 offset-md-3">
-        <form #AddSubCategory="ngForm">
-          <div class="input-group mb-3">
-            <input id="order_numbers" name="order_numbers" [(ngModel)]="order_number_search.order_numbers" type="text"
+        <form #SearchFormpdatePO="ngForm">
+            <div class="input-group col-md-6 col-sm-12">
+            <input id="order_numbers" style="width: 50%;" name="order_numbers" [(ngModel)]="order_number_search.order_numbers" type="text"
             class="form-control" required  #order_numbers="ngModel" />
-        <div *ngIf="order_numbers.invalid && order_numbers.touched" class="alert-danger">
-            <small>Order No is required.</small>
-        </div>
-           
-            <div class="input-group-append">
-                <button class="btn btn-primary ml-3 p-2" type="submit" (click)="invDevices_SearchPurchase_TS()">
+                <button class="btn btn-primary btn-block ml-3 p-2" type="submit" (click)="invDevices_SearchPurchase_TS()">
                     <i class="fas fa-search"> </i> Search Purchase Order
                 </button>
             </div>
-          </div>
+         
         </form>
       </div>
     </div>
@@ -128,9 +123,9 @@
                     </div>
                 </div>
                 <div class="d-flex justify-content-center mt-4">
-                    <button style="margin-right: 10px;" class="btn btn-success mr-2" id="addSubCategory" type="submit"
+                    <button style="margin-right: 5px;" class="btn btn-primary" id="addSubCategory" type="submit"
                         (click)="invDeviecs_UpdatePurchageOrder_TS()">Add Purchagse Order</button>
-                    <button class="btn btn-secondary" id="resetAll" type="reset">Reset ALL</button>
+                    <button class="btn btn-danger" id="resetAll" type="reset">Reset ALL</button>
 
                 </div>
                 <hr>
