@@ -4,9 +4,9 @@
     <div class="col-md-6 offset-md-3">
       <form [formGroup]="searchForm" (ngSubmit)="searchInventory()">
         <div class="input-group mb-3">
-          <input type="text" id="serialNumber" class="form-control" style="width: 50%;" formControlName="serialNumber" required (keydown.enter)="searchInventory()" #barcodeInput>
+          <input type="text" id="serialNumber" class="form-control custom-input-width" formControlName="serialNumber" placeholder="Enter Serial Number" required (keydown.enter)="searchInventory()" #barcodeInput>
           <div class="input-group-append">
-            <button class="btn btn-primary ml-3 p-2" type="submit" [disabled]="searchForm.invalid">
+            <button class="btn btn-primary" type="submit" [disabled]="searchForm.invalid">
               <i class="fas fa-search"></i>  Search Inventory
             </button>
           </div>
@@ -18,9 +18,9 @@
 <hr>
 <div class="container-fluid" *ngIf="issueFormStatus">
       <div class="card">
-       <div class="card-header header_title">        
-        <h4>EDIT INVENTORY DETAILS</h4>        
-        </div>  
+        <div class="card-header" style="background-color: rgb(1, 21, 41); color: whitesmoke;">
+          <h5 class="mb-0">EDIT INVENTORY DETAILS</h5>
+        </div>
         <form [formGroup]="editInventoryForm" (ngSubmit)="onSubmit()">
         <div class="card-body">
        

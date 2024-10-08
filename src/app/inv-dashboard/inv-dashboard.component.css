@@ -1,166 +1,4 @@
-/* .header_title{
-    background-color: rgb(17, 37, 57);
-   }
-   .header_title_box{
-    background-color: rgb(231, 210, 21);
-   }
-
-.card {
-    margin-bottom: 20px;
-  }
-  
-  .card-body {
-    padding: 20px;
-  }
-  
-  .card.bg-primary {
-    background-color: #007bff;
-  }
-  
-  .card.bg-success {
-    background-color: #28a745;
-  }
-  
-  .card.bg-info {
-    background-color: #17a2b8;
-  }
-  
-  .card.bg-warning {
-    background-color: #ffc107;
-  }
-  
-  .text-white {
-    color: #ffffff;
-  } */
-
 /* 
-
-
-  body {
-    font-family: 'Roboto', sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f4f5f7;
-}
-.title {
-    font-size: 36px;
-    font-weight: bold;
-    margin-bottom: 10px;
-    color: #4a2bfc;
-    background-color: #dce2d9;
-    border-radius: 15px;
-}
-.subtitle {
-    font-size: 18px;
-    color: #292079;
-    margin-bottom: 30px;
-}
-.element-container {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    width:100%;
-}
-.element {
-    background-color: #f9f9f9;
-    border: 1px solid #e0e0e0;
-    border-radius: 8px;
-    width: 460px;
-    height: 330px;
-    margin: 10px;
-    padding: 20px;
-    text-align: left;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    overflow-y: scroll;
-}
-.element i {
-    font-size: 24px;
-    margin-bottom: 10px;
-}
-.element-title {
-    font-size: 18px;
-    font-weight: bold;
-    margin-bottom: 10px;
-    text-align: center;
-    color: #f0f7f0; 
-}
-.element-text {
-    font-size: 14px;
-    color: #f0f7f0; 
-}
-.center-element {
-    background-color: #ffffff;
-    border: 2px solid #e0e0e0;
-    border-radius: 50%;
-    width: 100px;
-    height: 100px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 18px;
-    font-weight: bold;
-    margin: 20px;
-}
-.element {
-  background-color: #d9ead3; 
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  padding: 10px;
-  margin: 10px;
-}
-
-.element-title {
-  font-size: 1.1em;
-  color: #f0f7f0; 
-  margin-bottom: 15px;
-  text-align: center;
- 
-}
-
-.element-text {
-  overflow-x: auto;
-  background-color: #7c5f47;
-}
-
-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin: 0 auto;  
-}
-
-th, td {
-  padding: 12px;
-  text-align: left;
-  border: 0.2px solid #312e2e;
-}
-
-th {
-  background-color: #45403c; 
-  color: white;
-}
-
-
-tbody tr:hover {
-  background-color: #ec0b0b; 
-}
-
-@media (max-width: 600px) {
-  .element {
-      padding: 15px;
-  }
-
-  .element-title {
-      font-size: 1.2em;
-  }
-
-  th, td {
-      font-size: 0.9em;
-      padding: 10px;
-  }
-} */
-
-
-
 body {
   font-family: 'Roboto', sans-serif;
   margin: 0;
@@ -235,4 +73,122 @@ td{
   color: rgb(42, 36, 36);
   font-size: medium;
   font-weight: bold;
+} */
+
+
+
+
+body {
+  font-family: 'Roboto', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f4f5f7;
+}
+
+.content {
+  margin-top: 20px;
+}
+
+.content h1 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.cards {
+  display: flex;
+  flex-wrap: wrap; /* Allows wrapping on smaller screens */
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.card {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  width: 23%;
+  position: relative;
+  height: 300px;
+  overflow-y: auto;
+}
+
+.card i {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  font-size: 24px;
+}
+
+.card h3 {
+  margin: 0;
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.card p {
+  margin: 0;
+  color: #888;
+}
+
+.chart {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.chart h3 {
+  margin: 0;
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.chart p {
+  margin: 0;
+  color: #888;
+}
+
+.chart img {
+  width: 100%;
+  margin-top: 20px;
+}
+
+thead {
+  color: rgb(12, 12, 12);
+  font-size: larger;
+  font-weight: bolder; 
+  border-bottom: 2px solid;
+}
+
+td {
+  color: rgb(42, 36, 36);
+  font-size: medium;
+  font-weight: bold;
+}
+
+/* Media Queries for Mobile Responsiveness */
+@media (max-width: 768px) {
+  .card {
+    width: 100%; /* Adjust width for smaller screens */
+    margin-bottom: 20px; /* Add some space between cards */
+  }
+}
+
+@media (max-width: 480px) {
+  .card {
+    width: 100%; /* Full width for mobile screens */
+  }
+  
+  .content h1 {
+    font-size: 20px; /* Adjust heading size */
+  }
+  
+  .cards {
+    flex-direction: column; /* Stack cards vertically */
+    align-items: center; /* Center cards */
+  }
+  
+  .chart {
+    margin: 0 10px; /* Add some horizontal margin */
+  }
 }

@@ -200,6 +200,17 @@ export class EditInventory2Component implements OnInit {
     }
   }
 
+  
+      // this.inventoryService.getOrderList().subscribe({
+      //   next: (result: Order[]) => {
+      //    this.orderList = result; // Assign API response to the class property
+      //     this.poNumberList = this.orderList.map(order => order.po_number);
+      //   },
+      //   error: (error) => {
+      //     this.errorMessage=error.message;
+      //    }     
+      // }); 
+
   onSubmit(): void {
     if (this.editInventoryForm.valid) {
       this.inventoryService.updateInventory(this.inventoryId, this.editInventoryForm.value).subscribe({

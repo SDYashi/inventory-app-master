@@ -16,7 +16,7 @@ export class InvDashboardComponent {
   assignedCount: number | null = null;
   availableCount: number | null = null;
   topAssignees: any[] | null = null;
-  recentAssignments: string[] | null = null;
+  recentAssignments: any[] | null = null;
   warrantyStatusSummary: any | null = null;
   upcomingWarrantyExpirations: any[] | null = null;
   sessionuser: any = '';
@@ -32,6 +32,7 @@ Object: any;
     this.inventoryservice.getequipmentoverview_dashboard().subscribe((response: any) => {
       this.totalEquipmentCount = response.data.total_equipment_count;
       this.categorySummary = response.data.category_summary;
+    //  alert(this.categorySummary) 
       this.statusSummary = response.data.status_summary;
       
     });

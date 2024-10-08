@@ -75,6 +75,7 @@ export class AddInventory2Component implements OnInit{
         this.errorMessage=error.message;
        }          
     });
+    
     //to get PO list for PO Number LOV
     this.inventoryService.getOrderList().subscribe({
       next: (result: Order[]) => {

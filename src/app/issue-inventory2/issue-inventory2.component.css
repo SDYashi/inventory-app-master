@@ -5,3 +5,31 @@
  .disable{
   background-color: rgb(236, 240, 243);
 }
+
+
+/* Responsive adjustments */
+@media (max-width: 576px) {
+  .input-group {
+      flex-direction: column; /* Stack input and button on small screens */
+  }
+
+  .input-group-append {
+      width: 100%; /* Make button full-width */
+      margin-top: 10px; /* Add some space between input and button */
+  }
+}
+
+/* Additional styles for aesthetics */
+.input-group input {
+  border-radius: 5px; /* Slightly rounded corners */
+}
+
+.input-group-append .btn {
+  border-radius: 5px; /* Match the input's border radius */
+}
+
+/* Optional: Adjust button color for better visibility */
+.btn-primary {
+  background-color: #007bff; /* Primary color */
+  border: none; /* Remove border */
+}
