@@ -45,12 +45,12 @@
                 <td>{{ item.category }}</td>
                 <td>{{ item.make }}</td>
                 <td>{{ item.model }}</td>
-                <td>{{ item.serial_number }}</td>
+                <td><span (click)="openSerialNumberDetails(item)" style="cursor: pointer; color: blue;">{{ item.serial_number }}</span></td>
                 <td>{{ item.condition }}</td>
                 <td>{{ item.status }}</td>
                 <td>{{ item.receipt_date | date }}</td>
                 <td>{{ item.assignment?.assigned_type }}</td>
-                <td>{{ item.assignment?.assigned_to }}</td>
+                <td> <span (click)="openItemDetails(item)" style="cursor: pointer; color: blue;">{{ item.assignment?.assigned_to }}</span></td>
               </tr>
             </tbody>
           </table>
