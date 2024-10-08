@@ -41,15 +41,15 @@
   </div>
   <mat-divider></mat-divider>
   <!-- Assignment details if available -->
-  <ng-container *ngIf="data.assignment">
+  <div class="assignment-detail" *ngIf="data.assignment">
     <h3>Assignment Details</h3>
     <div class="detail-row">
-      <p><strong>Assigned Type:</strong> {{data.assignment.assigned_type}}</p>
-      <p><strong>Assigned To:</strong> {{data.assignment.assigned_to}}</p>
+      <p><strong>Assigned Type:</strong>{{data.assignment.assigned_type}}</p>
+      <p><strong>Assigned To:</strong>{{data.assignment.assigned_to}}</p>
     </div>
     <p><strong>Assigned Details:</strong> {{data.assignment.assigned_to_details}}</p>
     <p><strong>Assigned Date:</strong> {{data.assignment.assigned_date | date}}</p>
-  </ng-container>
+  </div>
 </div>
 
 <div mat-dialog-actions>

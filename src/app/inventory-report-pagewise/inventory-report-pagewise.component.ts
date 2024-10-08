@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
 import { InventoryService } from '../services/inventory.service';
 import * as XLSX from 'xlsx';
-import { Equipment } from '../data-type';
-
+import { Equipment, InventoryReport } from '../data-type';
+import { ItemDetailDialogComponent } from '../item-detail-dialog/item-detail-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
+import { SerialNumberDetailsComponent } from '../serial-number-details/serial-number-details.component';
 @Component({
   selector: 'app-inventory-report-pagewise',
   templateUrl: './inventory-report-pagewise.component.html',
@@ -17,7 +19,7 @@ export class InventoryReportPagewiseComponent {
   search: string = '';
   loading = true;
 
-  constructor(private inventoryService: InventoryService) {}
+  constructor(private inventoryService: InventoryService,private dialog: MatDialog) {}
 
   ngOnInit(): void {
     this.loadEquipment();
@@ -97,6 +99,26 @@ export class InventoryReportPagewiseComponent {
   
     // Export the Excel file
     XLSX.writeFile(workbook, 'Equipment_Data.xlsx');
+  }
+  openItemDetails(element: any): void {
+    if (element.assignment) {
+      this.dialog.open(ItemDetailDialogComponent, {
+        width: '400px',
+        data: {
+          assignment: element.assignment  // Pass the assignment details to the dialog
+        }
+      });
+    }
+  }
+  openSerialNumberDetails(equipment: Equipment): void {
+    const dialogRef = this.dialog.open(SerialNumberDetailsComponent, {
+      width: '500px',
+      data: equipment
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('Dialog was closed');
+    });
   }
   
 }
