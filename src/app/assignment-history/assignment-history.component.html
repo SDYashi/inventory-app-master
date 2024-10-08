@@ -1,22 +1,28 @@
-
-
-<div class="container mt-5">
-  <div class="row">
-    <div class="col-md-6 offset-md-3">
-      <form [formGroup]="searchForm" (ngSubmit)="getAssignmentHistory()">
-        <div class="input-group mb-3">
-          <input type="text" id="serialNumber" class="form-control custom-input-width " formControlName="serialNumber" placeholder="Enter Serial Number" required (keydown.enter)="getAssignmentHistory()" #barcodeInput >
-         <div class="input-group-append">
-            <button class="btn btn-primary" type="submit" [disabled]="searchForm.invalid">
-              <i class="fas fa-search"></i>  Search Inventory
-            </button>
+<div class="container-fluid mt-3">
+  <div class="card">
+      <div class="card-header header_title" style="background-color: rgb(1, 21, 41); color: whitesmoke;">
+          <h4 class="mb-0">Inventory Assignment History</h4>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-6 offset-md-3">
+            <form [formGroup]="searchForm" (ngSubmit)="getAssignmentHistory()">
+              <div class="input-group mb-3">
+                <input type="text" id="serialNumber" class="form-control custom-input-width " formControlName="serialNumber" placeholder="Enter Serial Number" required (keydown.enter)="getAssignmentHistory()" #barcodeInput >
+               <div class="input-group-append">
+                  <button class="btn btn-primary" type="submit" [disabled]="searchForm.invalid">
+                    <i class="fas fa-search"></i>  Search Inventory
+                  </button>
+                </div>
+              </div>
+            </form>
           </div>
         </div>
-      </form>
-    </div>
+      </div>
   </div>
 </div>
-<hr>
+<br>
+
 <div class="custom-table-responsive" *ngIf="assignment_historyflag">
     <table class="custom-table">
       <thead>

@@ -1,26 +1,31 @@
-
-<div class="container-fluid mt-5">
-  <div class="row">
-    <div class="col-10 offset-1 col-md-6 offset-md-3">
-      <form [formGroup]="searchForm" (ngSubmit)="searchInventory()">
-        <div class="input-group">
-          <input type="text" id="serialNumber" class="form-control" formControlName="serialNumber" placeholder="Enter Serial Number" required (keydown.enter)="searchInventory()" #barcodeInput>
-          <div class="input-group-append">
-            <button class="btn btn-primary" type="submit" [disabled]="searchForm.invalid">
-              <i class="fas fa-search"></i> Search Inventory
-            </button>
+<div class="container-fluid mt-3">
+  <div class="card">
+      <div class="card-header header_title" style="background-color: rgb(1, 21, 41); color: whitesmoke;">
+          <h4 class="mb-0">Issue Inventory</h4>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-6 offset-md-3">
+            <form [formGroup]="searchForm" (ngSubmit)="searchInventory()">
+              <div class="input-group mb-3">
+                <input type="text" id="serialNumber" class="form-control custom-input-width" formControlName="serialNumber" placeholder="Enter Serial Number" required (keydown.enter)="searchInventory()" #barcodeInput>
+                <div class="input-group-append">
+                  <button class="btn btn-primary" type="submit" [disabled]="searchForm.invalid">
+                    <i class="fas fa-search"></i>  Search Inventory
+                  </button>
+                </div>
+              </div>
+            </form>
           </div>
         </div>
-      </form>
-    </div>
+      </div>
   </div>
 </div>
-
-<hr>
+<br>
 <div class="container-fluid" *ngIf="issueFormStatus">
   <div class="card">
     <div class="card-header" style="background-color: rgb(1, 21, 41); color: whitesmoke;">
-      <h5 class="mb-0">Issue Inventory</h5>
+      <h4 class="mb-0">Issue Inventory Details</h4>
     </div>
             <div><p>{{errorMessage}}</p> </div>
           <!-- (ngSubmit)="onSubmit()" -->
@@ -152,9 +157,9 @@
         <div class="card-footer">           
           <div class="row">              
             <div class="col-12 justify-content-end"> 
-            <button *ngIf="!printReceipt" class="btn btn-primary" style="background-color: rgb(7, 14, 111); margin-right: 15px;" [disabled]="issueInventoryForm.invalid" (click)="onSubmit()">Issue Inventory</button>
-            <button *ngIf="printReceipt" class="btn btn-primary" (click)="onPrintReceipt()">Print Receipt</button> 
-            <button type="reset" class="btn btn-danger bg-lg" (click)="resetForm()">Reset</button>   
+            <button *ngIf="!printReceipt" class="btn btn-primary btn-lg" style="margin-right: 5px;" [disabled]="issueInventoryForm.invalid" (click)="onSubmit()">Issue Inventory</button>
+            <button *ngIf="printReceipt" class="btn btn-primary btn-lg" (click)="onPrintReceipt()">Print Receipt</button> 
+            <button type="reset" class="btn btn-danger btn-lg" (click)="resetForm()">Reset</button>   
             </div>
            </div>          
         </div>    
