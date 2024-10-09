@@ -102,6 +102,28 @@
                         </tr>
                 </table>
             </div>
+            <div class="card" style="background-color: #049cca;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Inentory Available Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of available_summary">
+                            <td>
+                                {{ item.category }} : {{ item.sub_category }}
+                                <ul>
+                                    <li *ngFor="let status of item.conditions">
+                                        {{ status.condition }} : {{ status.count }}
+                                    </li>
+                                </ul>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <br>
+            </div>
         </div>
         <hr>
         <div class="footer">

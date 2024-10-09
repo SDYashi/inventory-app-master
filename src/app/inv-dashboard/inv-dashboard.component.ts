@@ -12,6 +12,7 @@ export class InvDashboardComponent {
   totalEquipmentCount: number | null = null;
   categorySummary: any[] | null = null;
   statusSummary: any[] | null = null;
+  available_summary: any[] | null = null;
   conditionSummary: any[] | null = null;
   assignedCount: number | null = null;
   availableCount: number | null = null;
@@ -34,6 +35,8 @@ Object: any;
       this.categorySummary = response.data.category_summary;
     //  alert(this.categorySummary) 
       this.statusSummary = response.data.status_summary;
+      this.available_summary=response.data.available_summary;
+
       
     });
 

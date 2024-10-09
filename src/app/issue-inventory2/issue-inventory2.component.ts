@@ -12,19 +12,21 @@ import { HttpErrorResponse } from '@angular/common/http';
 })
 
 export class IssueInventory2Component implements OnInit {
-  issueFormStatus=false
+  issueFormStatus = false
   issueForm: boolean = false
   selectedFile: File | null = null;
   searchForm: FormGroup;
-  assignment_id!:number;
-  receiptType:string='issue';
-  assignmentCondition :string[]=[];
+  assignment_id!: number;
+  receiptType: string = 'issue';
+  assignmentCondition: string[] = [];
   issueInventoryForm!: FormGroup;
   errorMessage!: string;
-  assignedTypes = ['','Employee', 'Location', 'Other'];
-  itemCondition : string[]=[];
-  printReceipt:boolean=false
+  assignedTypes = ['', 'Employee', 'Location', 'Vendor'];
+  itemCondition: string[] = [];
+  printReceipt: boolean = false
   @ViewChild('barcodeInput') barcodeInput!: ElementRef;
+  response_msg: string = '';
+  isSuccess: boolean | undefined;
   constructor(
     private fb: FormBuilder,
     private inventoryService: InventoryService, private datePipe: DatePipe,
@@ -36,22 +38,22 @@ export class IssueInventory2Component implements OnInit {
       category_subCategory: [''],
       make_model: [''],
       id: [''],
-      order_id:[''],
+      order_id: [''],
       receipt_date: [''],
       warranty_expiration: [''],
-      condition:[''],
+      condition: [''],
       status: [''],
       serial_number: [''],
       notes: [''],
       assigned_type: ['', Validators.required],
       assignee_id: ['', Validators.required],
       assigned_date: ['', Validators.required],
-      assigned_to_details: ['',Validators.required],
+      assigned_to_details: ['', Validators.required],
       assigned_condition: ['', Validators.required],
       remark: [''],
-      issue_person_code:[''],
-      issue_person_name:[''] ,
-           
+      issue_person_code: [''],
+      issue_person_name: [''],
+
     });
   }
   ngAfterViewInit(): void {
@@ -59,19 +61,19 @@ export class IssueInventory2Component implements OnInit {
     this.barcodeInput.nativeElement.focus();
   }
 
-  getLov(){
+  getLov() {
     this.inventoryService.getItemConditionLov().subscribe({
       next: (result: any) => {
         if (result) {
-         this.itemCondition=result.condition_list;
-         console.warn("condition lov=",this.itemCondition);
+          this.itemCondition = result.condition_list;
+          console.warn("condition lov=", this.itemCondition);
         }
       },
       error: (error) => {
-        this.errorMessage=error.message;
-       }     
+        this.errorMessage = error.message;
+      }
     });
-   
+
   }
   onFileSelected(event: Event) {
     if (!event) {
@@ -102,8 +104,8 @@ export class IssueInventory2Component implements OnInit {
     const assignee_id = this.issueInventoryForm.get('assignee_id')?.value;
     const assigned_type = this.issueInventoryForm.get('assigned_type')?.value;
     if (assignee_id && assigned_type) {
-      this.issueInventoryForm.patchValue({assigned_to_details:''});
-        // Update other fields with employee/location details
+      this.issueInventoryForm.patchValue({ assigned_to_details: '' });
+      // Update other fields with employee/location details
       this.inventoryService.getAssigneeDetails(assigned_type, assignee_id).subscribe({
         next: (result: any) => {
           console.log('Assignee details:', result);
@@ -115,50 +117,65 @@ export class IssueInventory2Component implements OnInit {
             });
           } else if (result && result.location_name) {
             this.issueInventoryForm.patchValue({ assigned_to_details: result.location_name });
+          }else if (result && result.vendor_name) {
+            this.issueInventoryForm.patchValue({ assigned_to_details: result.vendor_name });
           }
+          // {"vendor_code": 1001, "vendor_name": "DATA CENTER"}
         },
         error: (error) => {
-          this.errorMessage=error.message;
-         }     
+          // this.errorMessage=error.message;
+
+          if (error.status == 404 ) {
+            // Client-side error
+
+            this.response_msg = ' Invalid Employee_No OR Loation_Code';
+
+
+          }
+          else {
+            this.response_msg = error.message;
+          }
+        }
       });
     }
   }
 
   searchInventory() {
     const serialNumber = this.searchForm.value.serialNumber;
-    if (serialNumber.trim()){
-    this.printReceipt=false
-    this.issueInventoryForm.reset();
-    this.inventoryService.getInventoryBySerialNumber(serialNumber).subscribe({
-      next: (result: any) => {
-        if (result) {
-          if(result[0].status==='ISSUED'){
-          alert("This item is already issued. you can not issue it.");
-          this.searchForm.reset();
-          return;
+    if (serialNumber.trim()) {
+      this.printReceipt = false
+      this.issueInventoryForm.reset();
+      this.inventoryService.getInventoryBySerialNumber(serialNumber).subscribe({
+        next: (result: any) => {
+          if (result) {
+            if (result[0].status === 'ISSUED') {
+              alert("This item is already issued. you can not issue it.");
+              this.searchForm.reset();
+              return;
+            }
+            this.issueFormStatus = true
+            this.issueInventoryForm.patchValue(result[0]);
+            this.issueInventoryForm.controls['warranty_expiration'].patchValue(this.datePipe.transform(result[0].warranty_expiration, 'dd-MM-yyyy'));
+            this.issueInventoryForm.controls['receipt_date'].patchValue(this.datePipe.transform(result[0].receipt_date, 'dd-MM-yyyy'));
+            this.issueInventoryForm.controls['category_subCategory'].patchValue(result[0].category + "  |  " + result[0].sub_category);
+            this.issueInventoryForm.controls['make_model'].patchValue(result[0].make + "  |  " + result[0].model);
+            this.issueInventoryForm.controls['assigned_condition'].patchValue(result[0].condition);
+            this.searchForm.reset();
+            this.errorMessage = '';
+          } else {
+            this.errorMessage = 'No inventory item found with this serial number.';
           }
-          this.issueFormStatus=true
-          this.issueInventoryForm.patchValue(result[0]);
-          this.issueInventoryForm.controls['warranty_expiration'].patchValue(this.datePipe.transform(result[0].warranty_expiration, 'dd-MM-yyyy'));
-          this.issueInventoryForm.controls['receipt_date'].patchValue(this.datePipe.transform(result[0].receipt_date, 'dd-MM-yyyy'));
-          this.issueInventoryForm.controls['category_subCategory'].patchValue(result[0].category+"  |  "+result[0].sub_category);
-          this.issueInventoryForm.controls['make_model'].patchValue(result[0].make+"  |  "+result[0].model);
-          this.searchForm.reset();
-          this.errorMessage = '';
-        } else {
-         this.errorMessage = 'No inventory item found with this serial number.';
+        },
+        error: (error) => {
+          alert(error.message);
         }
-      },
-      error: (error) => {
-        alert(error.message);
-       }     
       });
-    }else{
+    } else {
       this.errorMessage = 'Please enter a valid serial number.';
     }
- // Reset the form after searching and focus back on the input field
-  this.searchForm.reset();
-  this.barcodeInput.nativeElement.focus();
+    // Reset the form after searching and focus back on the input field
+    this.searchForm.reset();
+    this.barcodeInput.nativeElement.focus();
   }
 
   onSubmit() {
@@ -174,7 +191,7 @@ export class IssueInventory2Component implements OnInit {
       formData.append('equipment_id', this.issueInventoryForm.value.id);
       formData.append('issue_person_code', this.issueInventoryForm.value.issue_person_code);
       formData.append('issue_person_name', this.issueInventoryForm.value.issue_person_name);
-      
+
       // Safely transform the assigned_date, and handle null/undefined values
       const assignedDateValue = this.issueInventoryForm.value?.assigned_date;
       const formattedDate = assignedDateValue ? this.datePipe.transform(assignedDateValue, 'yyyy-MM-dd') : '';
@@ -189,58 +206,58 @@ export class IssueInventory2Component implements OnInit {
         next: (result: any) => {
           // console.log('Inventory items successfully submitted', result);
           if (result.status === 'success') {
-            this.assignment_id=result.assignment_id;
-            this.printReceipt=true;
+            this.assignment_id = result.assignment_id;
+            this.printReceipt = true;
             alert(result.message);
-            this.issueInventoryForm.reset(); 
+            this.issueInventoryForm.reset();
             this.barcodeInput.nativeElement.focus();
             // this.issueFormStatus=false;          
-            }
+          }
         },
         error: (error) => {
-          this.errorMessage=error.message;
+          this.errorMessage = error.message;
           alert(error.message);
-         }     
+        }
       });
     }
   }
-   onCancel(): void {
-   this.printReceipt=false;
-   this.issueInventoryForm.reset();    
-   }
+  onCancel(): void {
+    this.printReceipt = false;
+    this.issueInventoryForm.reset();
+  }
 
-   resetForm(): void {
-    this.printReceipt=false;
-   this.issueInventoryForm.reset(); 
+  resetForm(): void {
+    this.printReceipt = false;
+    this.issueInventoryForm.reset();
     this.searchForm.reset();
     this.barcodeInput.nativeElement.focus();
   }
 
-   onPrintReceipt(){
-    this.inventoryService.getReceiptTemplate(this.receiptType,this.assignment_id).subscribe({
+  onPrintReceipt() {
+    this.inventoryService.getReceiptTemplate(this.receiptType, this.assignment_id).subscribe({
       next: (htmlTemplate: string) => {
         if (htmlTemplate) {
           // Open a new window or tab
           const printWindow = window.open('', '_blank', 'width=800,height=600');
           if (printWindow) {
-          // Write the HTML template to the new window
-          printWindow.document.open();
-          printWindow.document.write(htmlTemplate);
-          printWindow.document.close();
-          // Focus and trigger the print
-          printWindow.focus();
-          printWindow.print();
-          this.barcodeInput.nativeElement.focus();
-        } 
-      }else {
+            // Write the HTML template to the new window
+            printWindow.document.open();
+            printWindow.document.write(htmlTemplate);
+            printWindow.document.close();
+            // Focus and trigger the print
+            printWindow.focus();
+            printWindow.print();
+            this.barcodeInput.nativeElement.focus();
+          }
+        } else {
           alert('Error: Could not retrieve receipt template.');
         }
       },
       error: (error) => {
-        this.errorMessage=error.message;
-      }     
+        this.errorMessage = error.message;
+      }
     });
-   }
+  }
 
 
 }

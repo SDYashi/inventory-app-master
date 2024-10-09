@@ -102,10 +102,12 @@
              <!--Assigned Condition -->
              <div class="col-md-4">
               <label for="item_condition" class="form-label blue-bold-label">Assigned Condition</label>
-              <select id="assigned_condition" class="form-select" formControlName="assigned_condition" required>
+              <input type="text" id="assigned_condition" class="form-control disable" formControlName="assigned_condition" readonly>
+
+              <!-- <select id="assigned_condition" class="form-select" formControlName="assigned_condition" required>
                 <option *ngFor="let condition of itemCondition" [value]="condition">{{ condition }}</option>
               </select>
-              <div class="invalid-feedback" *ngIf="issueInventoryForm.get('assigned_condition')?.hasError('required')">Condition is required</div>
+              <div class="invalid-feedback" *ngIf="issueInventoryForm.get('assigned_condition')?.hasError('required')">Condition is required</div> -->
             </div>
            
             <!--Assigned Type  -->
@@ -164,6 +166,9 @@
            </div>          
         </div>    
           </form>
+        </div>
+        <div *ngIf="response_msg" [ngClass]="{'alert-success': isSuccess, 'alert-error': !isSuccess}">
+          {{ response_msg }}
         </div>
       </div>
   

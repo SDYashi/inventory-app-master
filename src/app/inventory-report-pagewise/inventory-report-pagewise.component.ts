@@ -80,6 +80,7 @@ export class InventoryReportPagewiseComponent {
     const worksheetData = this.equipment.map((item, index) => ({
       'S.No': index + 1,
       'Category': item.category,
+      'SubCategory': item.sub_category,
       'Make': item.make,
       'Model': item.model,
       'Serial Number': item.serial_number,
@@ -87,7 +88,8 @@ export class InventoryReportPagewiseComponent {
       'Status': item.status,
       'Receipt Date': item.receipt_date ? new Date(item.receipt_date).toLocaleDateString() : '',
       'Assignment Type': item.assignment?.assigned_type || '',
-      'Assigned To': item.assignment?.assigned_to || ''
+      'Assigned To': item.assignment?.assigned_to || '',
+      'Assigned To Details': item.assignment?.assigned_to_details || ''
     }));
   
     // Create a worksheet

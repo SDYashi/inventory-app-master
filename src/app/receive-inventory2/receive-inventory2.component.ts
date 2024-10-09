@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { InventoryService } from '../services/inventory.service';
 import { DatePipe } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
+import QRCode from '@zxing/library/esm/core/qrcode/encoder/QRCode';
 
 @Component({
   selector: 'app-receive-inventory2',
@@ -227,6 +228,58 @@ export class ReceiveInventory2Component implements OnInit {
        }     
     });
   }
+
+  // onPrintReceipt() {
+  //   this.inventoryService.getReceiptTemplate('receive', this.assignment_id).subscribe({
+  //     next: (htmlTemplate: string) => {
+  //       if (htmlTemplate) {
+  //         const qrCode = this.generateQRCode(); 
+  //         htmlTemplate = this.addQRCodeToTemplate(htmlTemplate, qrCode); 
+  //         // Open a new window or tab
+  //         const printWindow = window.open('', '_blank', 'width=800,height=600');
+  //         if (printWindow) {
+  //           // Write the HTML template to the new window
+  //           printWindow.document.open();
+  //           printWindow.document.write(htmlTemplate);
+  //           printWindow.document.close();
+  //           // Focus and trigger the print
+  //           printWindow.focus();
+  //           printWindow.print();
+  //           this.barcodeInput.nativeElement.focus();
+  //         }
+  //       } else {
+  //         alert('Error: Could not retrieve receipt template.');
+  //       }
+  //     },
+  //     error: (error) => {
+  //       this.errorMessage = error.message;
+  //     }
+  //   });
+  // }
+  
+  // // New function to generate QR code
+  // generateQRCode(): string {
+  //   // Implement QR code generation logic here
+  //   // For example, using a library like qrcode.js
+  //   const qrCode = new QRCode("https://inventory.mpwin.co.in:4200/login", {
+  //     errorCorrectLevel: "H",
+  //     type: "image/jpeg",
+  //     renderer: {
+  //       width: 200,
+  //       height: 200,
+  //       quality: 0.8
+  //     }
+  //   });
+  //   return qrCode.toDataURL();
+  // }
+  
+  // // New function to add QR code to the template
+  // addQRCodeToTemplate(htmlTemplate: string, qrCode: string): string {
+  //   // Add the QR code to the template
+  //   // For example, adding it to the top-left corner of the receipt
+  //   const qrCodeHtml = `<img src="${qrCode}" alt="QR Code" style="width: 200px; height: 200px; margin: 10px;">`;
+  //   return `<div>${qrCodeHtml} ${htmlTemplate}</div>`;
+  // }
 
 
 }

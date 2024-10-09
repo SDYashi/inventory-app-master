@@ -20,6 +20,8 @@ import { PurchageOrderAddComponent } from './purchage-order-add/purchage-order-a
 import { PurchageOrderUpdateComponent } from './purchage-order-update/purchage-order-update.component';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { PurchaseOrderViewComponent } from './purchase-order-view/purchase-order-view.component';
+import { InvUserProfileComponent } from './inv-user-profile/inv-user-profile.component';
+import { InvPasswordChangeProfileComponent } from './inv-password-change-profile/inv-password-change-profile.component';
 
 const routes: Routes = [
   {
@@ -37,6 +39,8 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     children: [
       { path:'', redirectTo:'inventory-welcome',  pathMatch:'full' },
+      { path: 'inventory-user-profile', component:InvUserProfileComponent },
+      { path: 'inventory-user-changepassword', component:InvPasswordChangeProfileComponent },
       { path: 'inventory-welcome', component:WelcomeComponent },
       { path: 'category-add', component:CategoryAddComponent },
       { path: 'category-view', component:CategoryViewComponent },

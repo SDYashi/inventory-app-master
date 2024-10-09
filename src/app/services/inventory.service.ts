@@ -138,10 +138,7 @@ export class InventoryService {
 // Get receipt template
 getReceiptTemplate(receiptType: string, assignment_id: number): Observable<string> {
   const headers = this.getHeaders();
-  const url = receiptType === 'receive' 
-    ? `${this.baseUrl}/assignment/get_return_slip/${assignment_id}/` 
-    : `${this.baseUrl}/assignment/get_issue_slip/${assignment_id}/`;
-  
+  const url = receiptType==='receive'?`${this.baseUrl}/assignment/get_return_slip/${assignment_id}/`:`${this.baseUrl}/assignment/get_issue_slip/${assignment_id}/`;  
   return this.http.get(url, { headers, responseType: 'text' }).pipe(catchError(this.handleError));
 }
 
@@ -239,6 +236,19 @@ invDeviecs_ViewEquipmentList(pageNumber: number, pageSize: number,search:any):  
     invDeviecs_ViewPruchaseOrder():Observable<Order[]> {
       const headers = this.getHeaders();
       return this.http.get<Order[]>(`${this.baseUrl}/order/get_order_list/`, { headers }).pipe(catchError(this.handleError));
+    }
+    //to get the PO list for LOV 
+    invDeviecs_ViewUserProfile(user_name:any):Observable<any> {
+      const headers = this.getHeaders();
+      // alert(user_name);
+      return this.http.get<any>(`${this.baseUrl}/user/get_user/${user_name}/`, { headers }).pipe(catchError(this.handleError));
+    }
+    //to get the PO list for LOV 
+    invDeviecs_UpdatePasswordforUserProfile(user_name:any,password:any):Observable<any> {
+      const headers = this.getHeaders();
+      const payload = JSON.stringify(password);
+      //  alert(payload);
+      return this.http.put(`${this.baseUrl}/user/update_user/${user_name}/`, payload,{ headers }).pipe(catchError(this.handleError));
     }
 
 }
