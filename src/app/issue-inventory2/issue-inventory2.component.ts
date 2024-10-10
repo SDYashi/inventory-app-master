@@ -117,7 +117,7 @@ export class IssueInventory2Component implements OnInit {
             });
           } else if (result && result.location_name) {
             this.issueInventoryForm.patchValue({ assigned_to_details: result.location_name });
-          }else if (result && result.vendor_name) {
+          } else if (result && result.vendor_name) {
             this.issueInventoryForm.patchValue({ assigned_to_details: result.vendor_name });
           }
           // {"vendor_code": 1001, "vendor_name": "DATA CENTER"}
@@ -125,7 +125,7 @@ export class IssueInventory2Component implements OnInit {
         error: (error) => {
           // this.errorMessage=error.message;
 
-          if (error.status == 404 ) {
+          if (error.status == 404) {
             // Client-side error
 
             this.response_msg = ' Invalid Employee_No OR Loation_Code';
