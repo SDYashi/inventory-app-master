@@ -26,6 +26,7 @@ export class AddInventory2Component implements OnInit{
   orderList:Order[]=[];
   selectedOrderId:number | undefined;
   errorMessage:string='';
+  status: string ='AVAILABLE'
   constructor(private fb: FormBuilder,private datePipe: DatePipe, private http:HttpClient, private inventoryService:InventoryService) { }
 
   ngOnInit(): void {
@@ -40,7 +41,7 @@ export class AddInventory2Component implements OnInit{
       receiptDate: ['', Validators.required],
       warrantyEndDate: ['', Validators.required],
       item_condition: ['', Validators.required],
-      status: ['', Validators.required],
+      status: ['AVAILABLE'],
       serialNumbers: [''],
       notes: ['']
     });
@@ -59,22 +60,22 @@ export class AddInventory2Component implements OnInit{
        this.errorMessage=error.message;
       }     
     });
-    this.inventoryService.getStatusLov().subscribe({
-      next: (result: any) => {
-        if (result) {
-         this.statusLov=result.status_list;
-         console.warn("status lov=",this.statusLov);
-           // Set the first value of statusLov as the default value for 'status'
-           if (this.statusLov.length > 0) {
-            this.inventoryForm.patchValue({
-              status: this.statusLov[0]  // Set the first item as the default value
-            });
-          }
-        }
-      },error: (error) => {
-        this.errorMessage=error.message;
-       }          
-    });
+    // this.inventoryService.getStatusLov().subscribe({
+    //   next: (result: any) => {
+    //     if (result) {
+    //      this.statusLov=result.status_list;
+    //      console.warn("status lov=",this.statusLov);
+    //        // Set the first value of statusLov as the default value for 'status'
+    //        if (this.statusLov.length > 0) {
+    //         this.inventoryForm.patchValue({
+    //           status: this.statusLov[0]  // Set the first item as the default value
+    //         });
+    //       }
+    //     }
+    //   },error: (error) => {
+    //     this.errorMessage=error.message;
+    //    }          
+    // });
     
     //to get PO list for PO Number LOV
     this.inventoryService.getOrderList().subscribe({

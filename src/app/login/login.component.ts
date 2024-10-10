@@ -10,7 +10,8 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
-
+  response_msg:string='';
+isSuccess: any;
 
   constructor(private userService : UserService, private router :Router){
 
@@ -47,23 +48,28 @@ export class LoginComponent {
         console.error('Login failed due to error :', error);
         if (error.status === 400 || error.status === 401){
           // Handle invalid username or password
-          alert('Invalid username or password. Please try again.');
+          this.response_msg="Invalid username or password. Please try again."
+          // alert('Invalid username or password. Please try again.');
           }else if (error.status === 0) {
             // Network error
-            alert('Network/Server error : Please check your internet connection or Server availability');
+             this.response_msg="Network/Server error : Please check your internet connection or Server availability"
+            // alert('Network/Server error : Please check your internet connection or Server availability');
           }else if (error.status >= 400 && error.status < 500){
             // Client-side error
             if (error.error?.message) {
              alert(`Client error: ${error.error.message}`);
             } else {
-              alert('Bad request: Please check the input values.');
+                this.response_msg="Bad request: Please check the input values.'"
+              // alert('Bad request: Please check the input values.');
             }
           }else if (error.status >= 500){
             // Server-side error
-            alert( 'Server error: Something went wrong on the server. Please try again later.');
+               this.response_msg="Server error: Something went wrong on the server. Please try again later."
+            // alert('Server error: Something went wrong on the server. Please try again later.');
           }else{
             // Other unexpected errors
-            alert('An unexpected error occurred. Please try again.');
+             this.response_msg="An unexpected error occurred. Please try again."
+            // alert('An unexpected error occurred. Please try again.');
           }   
         }
       });

@@ -33,6 +33,8 @@ isSuccess: any;
             console.log(success);
             this.response_msg = success.message;
             this.isSuccess=true;
+            this.user.password='';
+            this.confirmPassword = '';
         },
         error: (error) => {
             console.error('Error:', error);

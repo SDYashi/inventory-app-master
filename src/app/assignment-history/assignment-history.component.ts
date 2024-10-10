@@ -43,7 +43,7 @@ export class AssignmentHistoryComponent implements OnInit {
           this.assignmentHistory = result;
           console.log('Inventory item fetched successfully:', result);
           this.isSuccess = true
-          this.errorMessage = "Inventory item fetched successfully"; // Clear any previous error
+          this.errorMessage = "Inventory item fetched successfully  "+ serialNumber; // Clear any previous error
           this.barcodeInput.nativeElement.focus();
         },
         error: (error) => {

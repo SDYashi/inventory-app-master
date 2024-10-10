@@ -6,11 +6,11 @@
       <div class="card-body">
         <div class="row">
           <div class="col-md-6 offset-md-3">
-            <form [formGroup]="searchForm" (ngSubmit)="getAssignmentHistory()">
+            <form [formGroup]="searchForm">
               <div class="input-group mb-3">
                 <input type="text" id="serialNumber" class="form-control custom-input-width " formControlName="serialNumber" placeholder="Enter Serial Number" required (keydown.enter)="getAssignmentHistory()" #barcodeInput >
                <div class="input-group-append">
-                  <button class="btn btn-primary" type="submit" [disabled]="searchForm.invalid">
+                  <button class="btn btn-primary" type="submit" [disabled]="searchForm.invalid" (click)="getAssignmentHistory()">
                     <i class="fas fa-search"></i>  Search Inventory
                   </button>
                 </div>

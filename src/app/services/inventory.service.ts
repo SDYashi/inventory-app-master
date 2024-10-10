@@ -250,5 +250,10 @@ invDeviecs_ViewEquipmentList(pageNumber: number, pageSize: number,search:any):  
       //  alert(payload);
       return this.http.put(`${this.baseUrl}/user/update_user/${user_name}/`, payload,{ headers }).pipe(catchError(this.handleError));
     }
+    //to get the PO list for LOV 
+    invDeviecs_SearchInventoryByEMP_LOC(assigned_type:string,assigned_to:string):Observable<any> {
+      const headers = this.getHeaders();  
+      return this.http.put(`${this.baseUrl}/assignment/get_assignment_history_by_assignee/?assigned_type=${assigned_type}&assigned_to=${assigned_to}`,{ headers }).pipe(catchError(this.handleError));
+    }
 
 }

@@ -48,6 +48,7 @@ import { WelcomeComponent } from './welcome/welcome.component';
 import { PurchaseOrderViewComponent } from './purchase-order-view/purchase-order-view.component';
 import { InvUserProfileComponent } from './inv-user-profile/inv-user-profile.component';
 import { InvPasswordChangeProfileComponent } from './inv-password-change-profile/inv-password-change-profile.component';
+import { InvInventorySearchComponent } from './inv-inventory-search/inv-inventory-search.component';
 
 
 @NgModule({
@@ -77,6 +78,7 @@ import { InvPasswordChangeProfileComponent } from './inv-password-change-profile
     PurchaseOrderViewComponent,
     InvUserProfileComponent,
     InvPasswordChangeProfileComponent,
+    InvInventorySearchComponent,
 
   ],
   

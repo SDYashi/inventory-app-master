@@ -80,9 +80,10 @@
             <!-- Status -->
             <div class="col-md-6">
               <label for="status" class="form-label">Status</label>
-              <select id="status" class="form-select" formControlName="status" required>
+              <input type="text" id="status" class="form-control disable" formControlName="status" readonly >
+              <!-- <select id="status" class="form-select" formControlName="status" required>
                 <option *ngFor="let status of statusLov" [value]="status">{{status}}</option>
-              </select>
+              </select> -->
               <div class="invalid-feedback" *ngIf="inventoryForm.get('status')?.hasError('required')">Status is required</div>
             </div>
   

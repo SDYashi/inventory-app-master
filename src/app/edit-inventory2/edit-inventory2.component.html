@@ -104,16 +104,17 @@
             <!-- Status -->
             <div class="col-md-6">
               <label for="status" class="form-label">Status</label>
-              <select id="status" class="form-select" formControlName="status" required>
+              <input id="status" class="form-control disable" formControlName="status" rows="3" required readonly>
+              <!-- <select id="status" class="form-select" formControlName="status" required readonly>
                 <option *ngFor="let status of statusLov" [value]="status">{{status}}</option>
-              </select>
+              </select> -->
               <div class="invalid-feedback" *ngIf="editInventoryForm.get('status')?.hasError('required')">Status is required</div>
             </div>
   
             <!-- Serial Numbers -->
             <div class="col-6">
               <label for="serialNumbers" class="form-label">Serial Numbers</label>
-              <input id="serial_number" class="form-control" formControlName="serial_number" rows="3"  >
+              <input id="serial_number" class="form-control disable" formControlName="serial_number" rows="3"  readonly>
             </div>
   
             <!-- Notes -->
