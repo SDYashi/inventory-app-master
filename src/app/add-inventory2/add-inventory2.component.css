@@ -10,13 +10,8 @@
   /* Make buttons full-width on small screens */
 @media (max-width: 480px) {
   .card-footer .btn {
-    width: 100%;
+    width: 40%;
     margin-bottom: 10px;
   }
 }
 
-/* Change button size */
-.btn-lg {
-  padding: 10px 20px;
-  font-size: 16px;
-}

@@ -1,7 +1,7 @@
 <div class="container-fluid mt-3">
     <div class="card">
       <div class="card-header header_title" style="background-color: rgb(1, 21, 41); color: whitesmoke;">
-        <h5 class="mb-0">Search Issued Inventory</h5>
+        <h4 class="mb-0">Search Issued Inventory</h4>
       </div>
       <div class="card-body">            
         <form #searchForm="ngForm" (ngSubmit)="postSearch()">
@@ -60,7 +60,7 @@
             <th>Received Date</th>
           </tr>
         </thead>
-        <tbody>
+        <!-- <tbody>
             <tr *ngFor="let item of data">
                 <td>{{ item.id }}</td>
                 <td>{{ item.equipment.category }} ({{ item.equipment.sub_category }})</td>
@@ -72,10 +72,24 @@
                 <td>{{ item.assigned_type }}</td>
                 <td>{{ item.assigned_date | date: 'yyyy-MM-dd' }}</td>
                 <td>{{ item.issue_person_name }}</td>
-                <td *ngIf="item.return_date" [ngClass]="{'alert-success': isSuccess, 'alert-error': !isSuccess}">{{ item.return_date }}</td>
+                <td>{{ item.return_date }}</td>
               </tr>
-        </tbody>
-      </table>
+        </tbody> -->
+        <tbody>
+            <tr *ngFor="let item of data" [class.table-light-gray]="item.return_date === null" [class.table-success]="item.return_date !== null">
+              <td>{{ item.id }}</td>
+              <td>{{ item.equipment.category }} ({{ item.equipment.sub_category }})</td>
+              <td>{{ item.equipment.make }} {{ item.equipment.model }}</td>
+              <td>{{ item.equipment.serial_number }}</td>
+              <td>{{ item.equipment.condition }}</td>
+              <td>{{ item.assigned_to_details }} ({{ item.assigned_to }})</td>
+              <td>{{ item.assigned_type }}</td>
+              <td>{{ item.assigned_date | date: 'yyyy-MM-dd' }}</td>
+              <td>{{ item.issue_person_name }}</td>
+              <td>{{ item.return_date }}</td>
+            </tr>
+          </tbody>
+    </table>
       </div>
     </div>   
     </div>   

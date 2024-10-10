@@ -28,7 +28,7 @@ export class InvInventorySearchComponent {
         this.response_msg = "Inventory Record Fetched Successfully....";
       },     
       error: (error) => {
-        this.response_msg = "Error While Fetching Records...."+error.message;
+        this.response_msg = error.message;
         this.isSuccess = false;   
         this.searchform_value=false;     
        }     

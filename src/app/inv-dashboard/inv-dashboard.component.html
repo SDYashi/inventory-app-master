@@ -8,7 +8,7 @@
             </span>
         </h1>
         <div class="cards">
-            <div class="card" style="background-color: #fdd835;">
+            <div class="card" style="background-color: #e4d9a9;">
                 <table>
                     <thead>
                         <tr>
@@ -31,7 +31,7 @@
                     </tbody>
                 </table>
             </div>
-            <div class="card" style="background-color: #e53935;">
+            <div class="card" style="background-color: #ebc2c1;">
                 <table>
                     <thead>
                         <tr>
@@ -50,7 +50,7 @@
                     </tbody>
                 </table>
             </div>
-            <div class="card" style="background-color: #1e88e5;">
+            <div class="card" style="background-color: #b4d0e9;">
                 <table>
                     <thead>
                         <tr>
@@ -73,7 +73,7 @@
 
                 </table>
             </div>
-            <div class="card" style="background-color: #43a047;">
+            <div class="card" style="background-color: #bfe9c1;">
                 <table>
                     <thead>
                         <tr>
@@ -102,7 +102,7 @@
                         </tr>
                 </table>
             </div>
-            <div class="card" style="background-color: #049cca;">
+            <div class="card" style="background-color: #b8e4f1;">
                 <table>
                     <thead>
                         <tr>
@@ -186,15 +186,15 @@
                         <thead>
                             <tr style="font-size: 15px;">
                                 <th>S.No</th>
-                                <th>PO No</th>
+                                <!-- <th>PO No</th> -->
                                 <th>Category</th>
                                 <th>Sub Category</th>
                                 <th>Serial No</th>
-                                <th>Make</th>
+                                <!-- <th>Make</th> -->
                                 <th>Model</th>
                                 <th>Receipt Date</th>
-                                <th>Assigned User/Location</th>
-                                <th>Assigned Type</th>
+                                <th>Issued User/Location</th>
+                                <th>Issued Type</th>
                                 <th>Condition</th>
                                 <th>Issued By</th>
                                 <th>Issued On</th>
@@ -203,18 +203,18 @@
                         <tbody>
                             <tr *ngFor="let item of recentAssignments ;let i = index">
                                 <td>{{ i+1 }}</td>
-                                <td>{{ item.equipment.order.po_number }}</td>
+                                <!-- <td>{{ item.equipment.order.po_number }}</td> -->
                                 <td>{{ item.equipment.category }}</td>
                                 <td>{{ item.equipment.sub_category }}</td>
                                 <td>{{ item.equipment.serial_number }}</td>
-                                <td>{{ item.equipment.make }}</td>
+                                <!-- <td>{{ item.equipment.make }}</td> -->
                                 <td>{{ item.equipment.model }}</td>
-                                <td>{{ item.equipment.receipt_date }}</td>
+                                <td>{{ item.equipment.receipt_date | date: 'dd-MM-yyyy' }}</td>
                                 <td>{{ item.assigned_to }}</td>
                                 <td>{{ item.assigned_type }}</td>
                                 <td>{{ item.assigned_condition }}</td>
                                 <td>{{ item.created_by }}</td>
-                                <td>{{ item.created_on }}</td>
+                                <td>{{ item.created_on | date: 'dd-MM-yyyy' }}</td>
                             </tr>
                         </tbody>
                     </table>
