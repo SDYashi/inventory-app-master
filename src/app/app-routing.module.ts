@@ -22,6 +22,7 @@ import { WelcomeComponent } from './welcome/welcome.component';
 import { PurchaseOrderViewComponent } from './purchase-order-view/purchase-order-view.component';
 import { InvUserProfileComponent } from './inv-user-profile/inv-user-profile.component';
 import { InvPasswordChangeProfileComponent } from './inv-password-change-profile/inv-password-change-profile.component';
+import { InvInventorySearchComponent } from './inv-inventory-search/inv-inventory-search.component';
 
 const routes: Routes = [
   {
@@ -39,6 +40,7 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     children: [
       { path:'', redirectTo:'inventory-welcome',  pathMatch:'full' },
+      { path: 'inventory-search', component:InvInventorySearchComponent },
       { path: 'inventory-user-profile', component:InvUserProfileComponent },
       { path: 'inventory-user-changepassword', component:InvPasswordChangeProfileComponent },
       { path: 'inventory-welcome', component:WelcomeComponent },
