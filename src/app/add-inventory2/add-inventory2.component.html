@@ -104,8 +104,10 @@
         <div class="card-footer">  
           <div class="row">                   
            <div class="col-6"> 
-            <button type="submit" class="btn btn-primary btn-lg" [disabled]="inventoryForm.invalid" > <i class="fas fa-search"> </i> Add Inventory</button>  
-            <button type="reset" class="btn btn-danger btn-lg" style="margin-left: 5px;">Reset</button> 
+            <!-- <button type="submit" class="btn btn-primary btn-lg" [disabled]="inventoryForm.invalid" > <i class="fas fa-search"> </i> Add Inventory</button>  
+            <button type="reset" class="btn btn-danger btn-lg" style="margin-left: 5px;">Reset</button>  -->
+            <button type="submit" class="btn btn-primary btn-lg btn-block" [disabled]="inventoryForm.invalid"> <i class="fas fa-search"> </i> Add Inventory</button>
+<button type="reset" class="btn btn-danger btn-lg btn-block" style="margin-left: 5px;">Reset</button>
            </div>
           </div>
     </div>
