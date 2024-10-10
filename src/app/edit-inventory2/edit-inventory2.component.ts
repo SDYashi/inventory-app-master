@@ -35,7 +35,7 @@ export class EditInventory2Component implements OnInit {
 
     this.editInventoryForm = this.fb.group({
       category: ['', Validators.required],
-      sub_category: ['', Validators.required],
+      sub_category: [''],
       make: ['', Validators.required],
       model: ['', Validators.required],
       order_id: ['', Validators.required],
@@ -43,7 +43,7 @@ export class EditInventory2Component implements OnInit {
       warranty_expiration: ['', Validators.required],
       status: ['', Validators.required],
       serial_number: ['', Validators.required],
-      condition: ['', Validators.required],
+      condition: [''],
       price: [''],
       notes: ['']
 
@@ -70,6 +70,7 @@ export class EditInventory2Component implements OnInit {
         this.errorMessage = error.message;
       }
     });
+    /*
     this.inventoryService.getStatusLov().subscribe({
       next: (result: any) => {
         if (result) {
@@ -81,6 +82,7 @@ export class EditInventory2Component implements OnInit {
         this.errorMessage = error.message;
       }
     });
+   
     this.inventoryService.getCategoryLov().subscribe({
       next: (result:any) => {
         this.categories=result.category_list;        
@@ -89,51 +91,10 @@ export class EditInventory2Component implements OnInit {
       error: (error) => {
         this.errorMessage=error.message;
        }     
-    }); 
+    }); */
 
   }
-  /*
-  searchInventory(): void {
-    this.inventoryService.getInventoryBySerialNumber(this.searchForm.value.serialNumber).subscribe({
-      next: (result: any) => {
-        if (result) {
-          //this.inventoryItem = result[0];
-          this.issueFormStatus=true;
-          this.editForm = true
-          console.warn("search result =", result);
-          this.inventoryId = result[0].id;
-          this.editInventoryForm.patchValue(result[0]);
-          // Patch category and trigger onCategoryChange
-          this.editInventoryForm.controls['category'].patchValue(result[0].category);
-          const simulatedEvent = { target: { value: result[0].category } } as unknown as Event;
-          this.onCategoryChange(simulatedEvent);
-          // Patch sub_category only after subcategories are updated
-          setTimeout(() => {
-            this.editInventoryForm.controls['sub_category'].patchValue(result[0].sub_category);
-          }, 50);
-
-
-          // Handle receipt_date and warranty_expiration patching (extract only the date)
-          const warranty_expiration = result[0].warranty_expiration.split('T')[0]; // Extract 'yyyy-MM-dd'
-          const receipt_date = this.datePipe.transform(result[0].receipt_date, 'yyyy-MM-dd')
-
-          // Patch the date values into the form controls
-          this.editInventoryForm.controls['receipt_date'].patchValue(receipt_date);
-          this.editInventoryForm.controls['warranty_expiration'].patchValue(warranty_expiration);
-          console.log("Subcategories loaded:", this.subcategories);
-          this.errorMessage = '';
-        } else {
-          this.errorMessage = 'No inventory item found with this serial number.';
-          this.editForm = false;
-          // this.inventoryItem = null;
-        }
-      },
-      error: (error) => {
-       // this.errorMessage = error.message;
-        alert(error.message);
-      }
-    });
-  }*/
+ 
     searchInventory(): void {
       const serialNumber = this.searchForm.value.serialNumber;
       if (serialNumber.trim()){
@@ -146,13 +107,14 @@ export class EditInventory2Component implements OnInit {
               this.inventoryId = result[0].id;
               this.editInventoryForm.patchValue(result[0]);
               // Patch category and trigger onCategoryChange
-              this.editInventoryForm.controls['category'].patchValue(result[0].category);
-              const simulatedEvent = { target: { value: result[0].category } } as unknown as Event;
+             // this.editInventoryForm.controls['category'].patchValue(result[0].category);
+             
+             /* const simulatedEvent = { target: { value: result[0].category } } as unknown as Event;
               this.onCategoryChange(simulatedEvent);
               // Patch sub_category only after subcategories are updated
               setTimeout(() => {
                 this.editInventoryForm.controls['sub_category'].patchValue(result[0].sub_category);
-              }, 50);
+              }, 50); */
     
     
               // Handle receipt_date and warranty_expiration patching (extract only the date)
@@ -179,6 +141,7 @@ export class EditInventory2Component implements OnInit {
    this.searchForm.reset();
    this.barcodeInput.nativeElement.focus();
     }
+    /*
   getSubcategoryLov(category:string){
     this.inventoryService.getSubCategoryLov(category).subscribe({
       next: (result: any) => {
@@ -189,7 +152,7 @@ export class EditInventory2Component implements OnInit {
         this.errorMessage=error.message;
        }     
     });
-  }
+  } 
   onCategoryChange(event: Event) {
     const selectedCategory = (event.target as HTMLSelectElement).value;
     if (selectedCategory) {
@@ -199,17 +162,17 @@ export class EditInventory2Component implements OnInit {
       this.subcategories = [];
     }
   }
-
-  
-      // this.inventoryService.getOrderList().subscribe({
-      //   next: (result: Order[]) => {
-      //    this.orderList = result; // Assign API response to the class property
-      //     this.poNumberList = this.orderList.map(order => order.po_number);
-      //   },
-      //   error: (error) => {
-      //     this.errorMessage=error.message;
-      //    }     
-      // }); 
+*/
+  /*
+      this.inventoryService.getOrderList().subscribe({
+        next: (result: Order[]) => {
+         this.orderList = result; // Assign API response to the class property
+          this.poNumberList = this.orderList.map(order => order.po_number);
+        },
+        error: (error) => {
+          this.errorMessage=error.message;
+         }     
+      }); */
 
   onSubmit(): void {
     if (this.editInventoryForm.valid) {
