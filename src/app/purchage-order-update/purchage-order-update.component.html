@@ -1,26 +1,36 @@
-<div class="container mt-5">
-    <div class="row">
-      <div class="col-md-6 offset-md-3">
+  <div class="container-fluid mt-3">
+    <div class="card">
+      <div class="card-header header_title" style="background-color: rgb(1, 21, 41); color: whitesmoke;">
+         <h4 class="mb-0">Edit Purchase Order</h4>
+      </div>
+      <div class="card-body">            
         <form #SearchFormpdatePO="ngForm">
-            <div class="input-group col-md-6 col-sm-12">
-            <input id="order_numbers" style="width: 50%;" name="order_numbers" [(ngModel)]="order_number_search.order_numbers" type="text"
-            class="form-control" required  #order_numbers="ngModel" />
-                <button class="btn btn-primary btn-block ml-3 p-2" type="submit" (click)="invDevices_SearchPurchase_TS()">
+          <div class="row">
+            <div class="col-md-4 offset-md-3">
+              <div class="form-group ">
+                <input id="order_numbers" name="order_numbers" [(ngModel)]="order_number_search.order_numbers" type="text"
+                       class="form-control" required  #order_numbers="ngModel" />        
+              </div>  
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <button class="btn btn-primary" type="submit" (click)="invDevices_SearchPurchase_TS()">
                     <i class="fas fa-search"> </i> Search Purchase Order
                 </button>
+              </div>
             </div>
-         
+          </div>          
         </form>
-      </div>
+      </div>    
     </div>
-  </div>
-  <hr>
+    </div>
+  <br>
 
 
 <div class="container-fluid mt-1">
     <div class="card">
         <div class="card-header" style="background-color: rgb(1, 21, 41); color: whitesmoke;">
-            <h4 class="mb-0">Update Purchase Order</h4>
+            <h4 class="mb-0">Update Purchase Order Details</h4>
         </div>
         <div class="card-body">
             <form #UpdatePurchaseOrderForm="ngForm">
