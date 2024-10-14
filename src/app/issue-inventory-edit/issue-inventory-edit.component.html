@@ -1,0 +1,146 @@
+<div class="container-fluid mt-3">
+    <div class="card">
+        <div class="card-header header_title" style="background-color: rgb(1, 21, 41); color: whitesmoke;">
+            <h4 class="mb-0">Issue Inventory Edit</h4>
+        </div>
+        <div class="card-body">
+            <form [formGroup]="searchForm" (ngSubmit)="searchInventory()">
+                <div class="row">
+                    <div class="col-md-4 offset-md-3">
+                        <div class="form-group mb-2">
+                            <input type="text" id="serialNumber" class="form-control custom-input-width"
+                                formControlName="serialNumber" placeholder="Enter Serial Number" required
+                                (keydown.enter)="searchInventory()" #barcodeInput>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <button class="btn btn-primary" type="submit" [disabled]="searchForm.invalid">
+                                <i class="fas fa-search"></i> Search Inventory
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<br>
+<div class="container-fluid" *ngIf="recieveFormStatus">
+    <div class="card">
+
+        <div class="card-header" style="background-color: rgb(1, 21, 41); color: whitesmoke;">
+            <h4 class="mb-0">Issue Inventory Edit</h4>
+        </div>
+        <!-- (ngSubmit)="onSubmit()" -->
+        <form [formGroup]="issueInventoryEditForm">
+            <div class="card-body">
+
+                <div class="row g-3">
+
+                    <!-- Serial Numbers -->
+                    <div class="col-md-4">
+                        <label for="serial_number" class="form-label">Serial Numbers</label>
+                        <input id="serial_number" class="form-control disable" formControlName="serial_number" rows="3" readonly>
+                    </div>
+
+                    <!-- Category and Sub-category-->
+                    <div class="col-md-4">
+                        <label for="category_subCategory" class="form-label">Category | Subcategory</label>
+                        <input type="text" id="category_subCategory" class="form-control disable"
+                            formControlName="category_subCategory" readonly>
+                    </div>
+                    <!-- Make and Model-->
+                    <div class="col-md-4">
+                        <label for="make_model" class="form-label">Make | Model</label>
+                        <input type="text" id="make_model" class="form-control disable" formControlName="make_model"
+                            readonly>
+                    </div>
+
+
+
+                    <!-- Warranty End Date -->
+                    <div class="col-md-4">
+                        <label for="warrantyEndDate" class="form-label">Warranty End Date</label>
+                        <input type="text" id="warranty_expiration" class="form-control disable"
+                            formControlName="warranty_expiration" readonly>
+                    </div>
+
+
+                    <!-- Status -->
+                    <div class="col-md-4">
+                        <label for="status" class="form-label">Item Status</label>
+                        <input type="text" id="status" class="form-control disable" formControlName="status" readonly>
+                    </div>
+
+                    <!-- Issue Date -->
+                    <div class="col-md-4">
+                        <label for="issueDate" class="form-label">Issued Date</label>
+                        <input type="text" id="assigned_date" class="form-control disable" formControlName="assigned_date" readonly>
+                    </div>
+
+
+                    <!--Assigned Condition -->
+                    <div class="col-md-4">
+                        <label for="item_condition" class="form-label">Issued Condition</label>
+                        <input type="text" id="assigned_condition" class="form-control disable" formControlName="assigned_condition" readonly>
+                    </div>
+
+                    <!--Assigned Type  -->
+                    <div class="col-md-4">
+                        <label for="assigned_type" class="form-label">Issued Type</label>
+                        <input type="text" id="assigned_type" class="form-control disable" formControlName="assigned_type" readonly>
+                    </div>
+                    <!-- code of assigned to  -->
+                    <div class="col-md-4">
+                        <label for="assigned_to" class="form-label">Issued Employee / Location Code</label>
+                        <input type="text" id="assigned_to" class="form-control disable" formControlName="assigned_to"readonly>
+                    </div>
+
+                    <!-- assigned person or location details -->
+                    <div class="col-md-4">
+                        <label for="assigned_to_details" class="form-label">Issued Employee / Location Detail</label>
+                        <input type="text" id="assigned_to_details" class="form-control disable" formControlName="assigned_to_details" readonly>
+                    </div>
+
+                    <!-- Authority Person Name -->
+                    <div class="col-md-4">
+                        <label for="issue_person_name" class="form-label blue-bold-label">Collected By</label>
+                        <input type="text" id="issue_person_name" class="form-control" formControlName="issue_person_name">
+                    </div>
+
+                    <!-- Authority Person Code -->
+                    <div class="col-md-4">
+                        <label for="issue_person_code" class="form-label blue-bold-label">Collector's Id / Mobile No.</label>
+                        <input type="text" id="issue_person_code" class="form-control" formControlName="issue_person_code">
+                    </div>
+
+                    <!-- issue remark -->
+                    <div class="col-md-4">
+                        <label for="issue_remark" class="form-label">Issued Remark</label>
+                        <input type="text" id="issue_remark" class="form-control" formControlName="issue_remark">
+                    </div>
+
+
+                    <div class="file-upload-section col-md-4">
+                        <label for="file_upload" class="form-label"> Upload File:(Image/PDF and Size<=1 MB)</label>
+                                <input type="file" (change)="onFileSelected($event)" accept=".pdf,.jpg,.jpeg,.png">
+                    </div>
+                </div>
+            </div>
+
+            <br>
+            <div class="card-footer">
+                <div class="row">
+                    <div class="col-6">
+                        <button *ngIf="printReceipt" class="btn btn-primary btn-lg" (click)="onPrintReceipt()">Print Receipt</button>
+                        <button *ngIf="!printReceipt" class="btn btn-primary btn-lg" style="margin-right:5px;"
+                            [disabled]="issueInventoryEditForm.invalid" (click)="onSubmit()">Edit Inventory</button>
+                        <button type="reset" class="btn btn-danger btn-lg" style=" margin-right: 15px; margin-left: 15PX;" (click)="resetForm()">Reset</button>
+                    </div>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>

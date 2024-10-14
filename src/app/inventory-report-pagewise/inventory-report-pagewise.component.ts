@@ -55,26 +55,6 @@ export class InventoryReportPagewiseComponent {
   }
 
 
-  // downloadExcel(): void {
-  //   const equipmentData = this.equipment;
-  //   const worksheet = XLSX.utils.json_to_sheet(equipmentData);
-  //   const workbook = XLSX.utils.book_new();
-  //   XLSX.utils.book_append_sheet(workbook, worksheet, 'Equipment');
-  
-  //   const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
-  //   this.saveAsExcelFile(excelBuffer, 'equipment');
-  // }
-  
-  // private saveAsExcelFile(buffer: any, fileName: string): void {
-  //   const data: Blob = new Blob([buffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8' });
-  //   const url = window.URL.createObjectURL(data);
-  //   const link = document.createElement('a');
-  //   link.href = url;
-  //   link.download = `${fileName}.xlsx`;
-  //   link.click();
-  //   window.URL.revokeObjectURL(url);
-  // }
-
   downloadExcel() {
     // Define the data structure
     const worksheetData = this.equipment.map((item, index) => ({
@@ -107,7 +87,7 @@ export class InventoryReportPagewiseComponent {
       this.dialog.open(ItemDetailDialogComponent, {
         width: '400px',
         data: {
-          assignment: element.assignment  // Pass the assignment details to the dialog
+          assignment: element.assignment  
         }
       });
     }

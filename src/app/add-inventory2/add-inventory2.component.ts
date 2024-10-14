@@ -17,10 +17,10 @@ import { InventoryService } from '../services/inventory.service';
 
 export class AddInventory2Component implements OnInit{
   inventoryForm!: FormGroup;
-  categories:string[]=[];
   itemCondition:string[]=[];
   assignedTypes = ['Employee', 'Department', 'Project', 'Other'];
   statusLov:string[]=[];
+  categories:string[]=[];
   subcategories: string[]=[];
   poNumberList :string[]=[];
   orderList:Order[]=[];

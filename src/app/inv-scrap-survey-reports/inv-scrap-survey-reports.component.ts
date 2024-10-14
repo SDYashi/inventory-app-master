@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { InventoryService } from '../services/inventory.service';
-import { AssetParticular } from '../data-type';
+import { AssetParticular, Equipment } from '../data-type';
 
 @Component({
   selector: 'app-inv-scrap-survey-reports',
@@ -9,9 +9,25 @@ import { AssetParticular } from '../data-type';
 })
 export class InvScrapSurveyReportsComponent implements OnInit {
   years: number[] = [];
+  status:string='AVAILABLE';
   list_of_make:String[]=['HP','Dell','Cisco'];
   list_of_product:String[]=['Computer','Laptops','Printers'];
   assetParticulars_response: AssetParticular[] = [];
+  equipment_scrap: Equipment[] = [];
+  totalCount: number = 0;
+  pageNumber: number = 1;
+  pageSize: number = 100;
+  totalPages: number = 0;
+  search: string = '';
+  response_msg: string = '';  
+  categories:string[]=[];
+  subcategories: string[]=[];
+  category: string='';
+  subcategory: string='';
+  searchInput: string='';
+  showScrapReportItemSerialNoList = true;
+  error_value_search=false;
+  error_value_search_validate=false;
   scrapSurveyForm = {
     selectedAssetParticulars: "IP Phone",
     no_of_quantity: "10",
@@ -61,83 +77,40 @@ export class InvScrapSurveyReportsComponent implements OnInit {
   constructor(private cd: ChangeDetectorRef,private InventoryService:InventoryService){}
 
   ngOnInit() {
-    this.years = this.generateLastYears();
-    this.get_itequipmenttype_TS();    
-  this.resetFormValues();  // Initialize form values to default
+    this.InventoryService.getCategoryLov().subscribe({
+      next: (result:any) => {
+        this.categories=result.category_list;        
+        console.warn("category lov: ",this.categories);      
+      },
+      error: (error) => {
+        this.response_msg=error.message;
+       }     
+    }); 
+     // this.years = this.generateLastYears();
+    this.get_itequipmenttype_TS();  
 
-  }  
-  onAssetParticularsChange() {
-    const selectedAssetParticular = this.assetParticulars_response.find(asset => asset.asset_particulars === this.scrapSurveyForm.selectedAssetParticulars);
-    if (selectedAssetParticular) {
-      this.scrapSurveyForm.depreciation_rate = selectedAssetParticular.depreciation_rate;
-      this.scrapSurveyForm.salvage_value = selectedAssetParticular.salvage_value;
-      this.scrapSurveyForm.useful_life = selectedAssetParticular.useful_life.toString();
-      this.scrapSurveyForm.no_of_quantity = '0';
-      this.scrapSurveyForm.estimate_cost_items = '0';
-      this.scrapSurveyForm.Total_estimate_cost_items = '0';
-      this.scrapSurveyForm.total_amount_sum = '0';
-      this.scrapSurveyForm.total_amount_sum1 = '0';
-      this.scrapSurveyForm.total_amount_sum2 = '0';
-      this.scrapSurveyForm.total_amount_sum3 = '0';
-      this.scrapSurveyForm.depreciation_rate1 = '0';
-      this.scrapSurveyForm.depreciation_rate2 = '0';
-      this.scrapSurveyForm.depreciation_rate3 = '0';
-      this.scrapSurveyForm.salvage_value1 = '0';
-      this.scrapSurveyForm.salvage_value2 = '0';
-      this.scrapSurveyForm.salvage_value3 = '0';
-      this.scrapSurveyForm.useful_life1 = '0';
-      this.scrapSurveyForm.useful_life2 = '0';
-      this.scrapSurveyForm.useful_life3 = '0';
-      this.scrapSurveyForm.total_depreciation = '0';
-      this.scrapSurveyForm.total_depreciation1 = '0';
-      this.scrapSurveyForm.total_depreciation2 = '0';
-      this.scrapSurveyForm.total_depreciation3 = '0';
-      this.scrapSurveyForm.add_10perc_depreciation_value = '0';
-      this.scrapSurveyForm.add_10perc_depreciation_value1 = '0';
-      this.scrapSurveyForm.add_10perc_depreciation_value2 = '0';
-      this.scrapSurveyForm.add_10perc_depreciation_value3 = '0';
-      this.scrapSurveyForm.current_value_after = '0';
-      this.scrapSurveyForm.current_value_after1 = '0';
-      this.scrapSurveyForm.current_value_after2 = '0';
-      this.scrapSurveyForm.current_value_after3 = '0';
-      this.scrapSurveyForm.total_cost_scap = '0';
-      this.scrapSurveyForm.final_sancation_amounts_scap = '0';
-      this.cd.detectChanges(); // Trigger change detection
+  } 
+  onCategoryChange(event: Event) {
+    const selectedCategory = (event.target as HTMLSelectElement).value;
+     if (selectedCategory) {
+      this.getSubcategoryLov(selectedCategory);
+      // this.inventoryForm.get('subcategory')?.reset();  // Reset the subcategory form control when category changes
+    } else {
+      this.subcategories = [];
     }
-  }
-  resetFormValues() {
-    this.scrapSurveyForm.no_of_quantity = '0';
-    this.scrapSurveyForm.estimate_cost_items = '0';
-    this.scrapSurveyForm.Total_estimate_cost_items = '0';
-    this.scrapSurveyForm.total_amount_sum = '0';
-    this.scrapSurveyForm.total_amount_sum1 = '0';
-    this.scrapSurveyForm.total_amount_sum2 = '0';
-    this.scrapSurveyForm.total_amount_sum3 = '0';
-    this.scrapSurveyForm.depreciation_rate1 = '0';
-    this.scrapSurveyForm.depreciation_rate2 = '0';
-    this.scrapSurveyForm.depreciation_rate3 = '0';
-    this.scrapSurveyForm.salvage_value1 = '0';
-    this.scrapSurveyForm.salvage_value2 = '0';
-    this.scrapSurveyForm.salvage_value3 = '0';
-    this.scrapSurveyForm.useful_life1 = '0';
-    this.scrapSurveyForm.useful_life2 = '0';
-    this.scrapSurveyForm.useful_life3 = '0';
-    this.scrapSurveyForm.total_depreciation = '0';
-    this.scrapSurveyForm.total_depreciation1 = '0';
-    this.scrapSurveyForm.total_depreciation2 = '0';
-    this.scrapSurveyForm.total_depreciation3 = '0';
-    this.scrapSurveyForm.add_10perc_depreciation_value = '0';
-   this.scrapSurveyForm.add_10perc_depreciation_value1 = '0';
-    this.scrapSurveyForm.add_10perc_depreciation_value2 = '0';
-    this.scrapSurveyForm.add_10perc_depreciation_value3 = '0';
-    this.scrapSurveyForm.current_value_after = '0';
-    this.scrapSurveyForm.current_value_after1 = '0';
-    this.scrapSurveyForm.current_value_after2 = '0';
-    this.scrapSurveyForm.current_value_after3 = '0';
-    this.scrapSurveyForm.total_cost_scap = '0';
-    this.scrapSurveyForm.final_sancation_amounts_scap = '0';
-    this.cd.detectChanges(); // Trigger change detection
-  }
+    
+  } 
+  getSubcategoryLov(category:string){
+    this.InventoryService.getSubCategoryLov(category).subscribe({
+      next: (result: any) => {
+        this.subcategories=result.subcategory_list
+        console.warn("subcategory lov: ",this.subcategories);
+      },
+      error: (error) => {
+        this.response_msg=error.message;
+       }     
+    });
+  } 
   generateLastYears(): number[] {
     const currentYear = new Date().getFullYear();
     const years: number[] = [];
@@ -149,13 +122,48 @@ export class InvScrapSurveyReportsComponent implements OnInit {
   get_itequipmenttype_TS(){
     this.InventoryService.invDeviecs_surveyreport_itequipmenttype().subscribe({
        next:succcess=>{
-        this.assetParticulars_response=succcess;
-      
+        this.assetParticulars_response=succcess;     
        },
        error:errors=>{
         alert(errors);
-
        }
     });
+  } 
+  onFilterChange() {
+    let searchInput = this.searchInput.trim();
+    let serialNumbers = searchInput.replace(/\s+/g, ',').split(',');
+    let equipmentArray: Equipment[] = [];
+    let allRecordsFound = true; 
+    
+    if (!this.category || !this.subcategory) {
+      alert('Please select a category and subcategory');
+      return;
+    }
+  
+    serialNumbers.forEach((serialNumber) => {
+      this.InventoryService.invDeviecs_ViewEquipmentList_ScrapReport(this.pageNumber, this.pageSize, serialNumber, this.category, this.subcategory,this.status)
+        .subscribe((response: { results: Equipment[]; total_count: number; page_number: number; page_size: number; total_pages: number; }) => {
+          if (response.results && response.results.length > 0) {
+            equipmentArray.push(...response.results);           
+          } else {
+            alert('No results found for serial number: ' + serialNumber);
+            allRecordsFound = false;
+          }
+        });
+    });  
+    this.equipment_scrap = equipmentArray;   
+    this.error_value_search = allRecordsFound; 
+    if(this.error_value_search){
+         this.error_value_search_validate=true;
+    } 
+    else{
+      this.error_value_search_validate=false;
+    }   
+  }  
+  onValidateClick() {
+    this.showScrapReportItemSerialNoList = false;
   }
+
+
+
 }

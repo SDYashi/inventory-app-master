@@ -187,12 +187,21 @@ getAssignmentHistory(serialNumber:string): Observable<any>{
         return this.http.get(`${this.baseUrl}/equipment/get_purchase_and_warranty_summary/`,{ headers});
 
       }
+      issueInventoryEdit(assigned_id: number, formData: FormData): Observable<any> {
+        const headers = this.getHeaders();
+        return this.http.put(`${this.baseUrl}/assignment/issue_equipment_edit/${assigned_id}/`, formData, { headers }).pipe(catchError(this.handleError));
+      }
 
       
 invDeviecs_ViewEquipmentList(pageNumber: number, pageSize: number,search:any):  Observable<any> {
     const headers = this.getHeaders();
     return this.http.get<any>(`${this.baseUrl}/equipment/get_equipment_list_with_pagination/?page_number=${pageNumber}&page_size=${pageSize}&search=${search}`,{headers});
-  }
+  }  
+
+  invDeviecs_ViewEquipmentList_ScrapReport(pageNumber: number, pageSize: number,search:any,category:String,subcategory:String,status:String):  Observable<any> {
+      const headers = this.getHeaders();
+      return this.http.get<any>(`${this.baseUrl}/equipment/get_equipment_list_with_pagination/?page_number=${pageNumber}&page_size=${pageSize}&search=${search}&category=${category}&subcategory=${subcategory}&status=${status}`,{headers});
+    }
 
 
 

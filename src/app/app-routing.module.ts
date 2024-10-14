@@ -25,6 +25,7 @@ import { InvPasswordChangeProfileComponent } from './inv-password-change-profile
 import { InvInventorySearchComponent } from './inv-inventory-search/inv-inventory-search.component';
 import { InvScrapReturnToStoreComponent } from './inv-scrap-return-to-store/inv-scrap-return-to-store.component';
 import { InvScrapSurveyReportsComponent } from './inv-scrap-survey-reports/inv-scrap-survey-reports.component';
+import { IssueInventoryEditComponent } from './issue-inventory-edit/issue-inventory-edit.component';
 
 const routes: Routes = [
   {
@@ -52,6 +53,7 @@ const routes: Routes = [
       { path: 'category-subcategory-view', component:CategorySubcategoryViewComponent },
       { path: 'inventory-add', component:AddInventory2Component },
       { path: 'inventory-edit', component:EditInventory2Component },
+      { path: 'inventory-edit-after-assigned', component:IssueInventoryEditComponent },
       {path:'inventory-issue', component:IssueInventory2Component},
       {path:'inventory-recieve', component:ReceiveInventory2Component},
       {path:'inventory-assignment-history',component:AssignmentHistoryComponent},

@@ -1,4 +1,4 @@
-<div class="container-fluid mt-4">     
+<div class="container-fluid mt-4" id="Scrap_Report_ItemSerialNoList" *ngIf="!showScrapReportItemSerialNoList">  
     <form #Scrap_surveyform="ngForm">
         <table class="table  table-bordered">
             <thead>
@@ -27,8 +27,7 @@
                 <tr>
                     <td>
                         <label for="asset_particulars"></label>
-                        <select [(ngModel)]="scrapSurveyForm.selectedAssetParticulars" id="selectedAssetParticulars"
-                            (ngModelChange)="onAssetParticularsChange()" class="form-control form-select">
+                        <select [(ngModel)]="scrapSurveyForm.selectedAssetParticulars" id="selectedAssetParticulars"class="form-control form-select">
                             <option value="" selected>Select Particulars</option>
                             <option *ngFor="let assetParticular of assetParticulars_response"
                                 [value]="assetParticular.asset_particulars">
@@ -222,6 +221,80 @@
             </tbody>
         </table>
     </form>
+</div> 
+<br>
+<div class="container-fluid mt-4" id="Scrap_Report_Form" *ngIf="showScrapReportItemSerialNoList">
+    <div class="card">
+        <div class="card-header" style="background-color: rgb(1, 21, 41); color: whitesmoke;">
+            <form #ScrapItem_Search="ngForm">
+                <div class="row">
+                  <div class="col-2">
+                    <select id="category" class="form-control form-select" [(ngModel)]="category" (change)="onCategoryChange($event)" name="category" required>
+                      <option value="" disabled selected>Select Category</option>
+                      <option *ngFor="let category of categories" [value]="category">{{ category }}</option>
+                    </select>
+                  </div>
+                  <div class="col-2">
+                    <select id="subcategory" class="form-control form-select" [(ngModel)]="subcategory" name="subcategory">
+                      <option value="" disabled selected>Select SubCategory</option>
+                      <option *ngFor="let subcategory of subcategories" [value]="subcategory">{{ subcategory }}</option>
+                    </select>
+                  </div>
+                  <div class="col-4">                              
+                    <input rows="20" type="text" placeholder="Search Serial no here..." [(ngModel)]="searchInput" class="form-control ml-3 p-2" name="searchInput">
+                  </div>
+                  <div class="col-4">
+                    <button class="btn btn-primary" type="button" (click)="onFilterChange()">
+                      <i class="fas fa-search"></i> Search & Validate
+                    </button>
+                  </div>
+                </div>
+              </form>
+        </div>
+    </div>
+  <br>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="scrap_table">
+                    <thead>
+                        <tr>
+                            <th>S.No</th>
+                            <th scope="col">Category</th>
+                            <th scope="col">SubCategory</th>
+                            <th scope="col">Make</th>
+                            <th scope="col">Model</th>
+                            <th scope="col">Serial Number</th>
+                            <th scope="col">Condition</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Assigned Date</th>
+                            <th scope="col">Assignment Type</th>
+                            <th scope="col">Assigned To</th>
+                            <th scope="col">Assigned To Details</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of equipment_scrap ;let i = index">
+                            <td>{{ i + 1 }}</td>
+                            <td>{{ item.category }}</td>
+                            <td>{{ item.sub_category }}</td>
+                            <td>{{ item.make }}</td>
+                            <td>{{ item.model }}</td>
+                            <td><span>{{ item.serial_number }}</span></td>
+                            <td>{{ item.condition }}</td>
+                            <td>{{ item.status }}</td>
+                            <td>{{ item.assignment?.assigned_date | date }}</td>
+                            <td>{{ item.assignment?.assigned_type }}</td>
+                            <td> <span>{{ item.assignment?.assigned_to }}</span></td>
+                            <td>{{ item.assignment?.assigned_to_details }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <button class="btn btn-primary" type="button" (click)="onValidateClick()" *ngIf="error_value_search"> <i class="fas fa-search"></i> Validate
+    </button>
 </div>
 
 
