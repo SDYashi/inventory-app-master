@@ -1,9 +1,10 @@
 
   
   <div class="container-fluid mt-5">
+    <button (click)="downloadTable()" class="btn btn-danger">Download report in Excel</button>
   <div class="card">
     <div class="card-header" style="background-color: rgb(1, 21, 41); color: whitesmoke;">
-      <h5 class="mb-0">Employee Retirement Report</h5>
+      <h4 class="mb-0">Employee Retirement Report</h4>
     </div>
     <div class="card-body">
       <div class="container-fluid">
@@ -11,21 +12,22 @@
           <div class="col-md-12">
             <div class="table-responsive">
             <table class="table table-bordered" id="myTable">
+             
               <thead>
                 <tr>
-                  <th>#</th>
+                  <th>S.No</th>
                   <th>Employee Code</th>
                   <th>Employee Name</th>
                   <th>Designation</th>
                   <th>Location</th>
                   <th>Date of Birth</th>
                   <th>Date of Retirement</th> 
-                  <th>Retire within Month</th>
+                  <th>Actual Date of Seperation</th>
                   <th>Issue Date</th>
                   <th>Serial Number</th>
                   <th>Category | Subcategory</th>
                   <th>Make | Model</th>
-                  <th>Assigned Condition</th>
+                  <th>Issued Condition</th>
                 </tr>
               </thead>
               <tbody>
@@ -34,10 +36,10 @@
                   <td>{{ employee.assigned_to}}</td>
                   <td>{{ employee.employee_name }}</td>
                   <td>{{ employee.designation }}</td>
-                  <td>{{ employee.work_location }}</td>          
+                  <td>{{ employee.office_name }}</td>          
                   <td>{{ employee.date_of_birth | date }}</td>
                   <td>{{ getRetirementDate(employee.date_of_birth) }}</td>    
-                  <td>{{employee.retire_in_month}}</td>       
+                  <td>{{employee.actual_sepration_date}}</td>       
                   <td>{{ employee.assigned_date | date }}</td>
                   <td>{{employee.serial_number}}</td>
                   <td>{{employee.category}} | {{employee.sub_category}}</td>

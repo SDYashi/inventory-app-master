@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { InventoryService } from '../services/inventory.service';
 
+import * as XLSX from 'xlsx';
+
 @Component({
   selector: 'app-inv-inventory-search',
   templateUrl: './inv-inventory-search.component.html',
@@ -25,7 +27,7 @@ export class InvInventorySearchComponent {
         this.data = result;    
         this.searchform_value=true;    
         this.isSuccess = true;      
-        this.response_msg = "Inventory Record Fetched Successfully....";
+        // this.response_msg = "Inventory Record Fetched Successfully....";
       },     
       error: (error) => {
         this.response_msg = error.message;
@@ -33,5 +35,43 @@ export class InvInventorySearchComponent {
         this.searchform_value=false;     
        }     
     });  
+  }
+
+  downloadTable() {
+    const table = document.getElementById('myTable');
+  
+    if (table instanceof HTMLTableElement) {
+      const data = this.getTableData(table);
+      const workbook = XLSX.utils.book_new();
+      const worksheet = XLSX.utils.json_to_sheet(data);
+      XLSX.utils.book_append_sheet(workbook, worksheet, 'Sheet1');
+      const blob = new Blob([XLSX.write(workbook, { bookType: 'xlsx', type: 'buffer' })], {
+        type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+      });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'table_data.xlsx';
+      a.click();
+      URL.revokeObjectURL(url); // Clean up the URL object
+    } else {
+      console.error('Table element not found or is not a table');
+    }
+  }
+  
+  getTableData(table: HTMLTableElement) {
+    const data = [];
+    const rows = table.rows;
+  
+    for (let i = 0; i < rows.length; i++) {
+      const row = rows[i];
+      const rowData = [];
+      for (let j = 0; j < row.cells.length; j++) {
+        rowData.push(row.cells[j].textContent);
+      }
+      data.push(rowData);
+    }
+    
+    return data;
   }
 }

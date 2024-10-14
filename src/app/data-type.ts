@@ -128,12 +128,12 @@ export interface EmployeeRetirement {
   oic_no: number;
   original_date_of_hire: string;
   phone_no: string;
-  retire_in_month: number;
+  actual_sepration_date: number;
   return_date: string | null;
   serial_number: string;
   sub_category: string;
   user_person_type: string;
-  work_location: string;
+  office_name: string;
 }
 export interface Equipment{
     id:number,
@@ -154,5 +154,13 @@ export interface Equipment{
     created_on: string,
     order?:Order|null,
 
+}
+
+export interface AssetParticular {
+  id: number;
+  asset_particulars: string;
+  depreciation_rate: string;
+  salvage_value: string;
+  useful_life: number;
 }
  

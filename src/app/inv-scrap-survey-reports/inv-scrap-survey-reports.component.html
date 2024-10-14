@@ -1,0 +1,228 @@
+<div class="container-fluid mt-4">     
+    <form #Scrap_surveyform="ngForm">
+        <table class="table  table-bordered">
+            <thead>
+                <tr class="text-center header_title">
+                    <th colspan="9">
+                        <h3>OFFICE OF SUPERINTENDING ENGINEER (IT), MPKVVCL INDORE</h3>
+                        <h4>SURVEY REPORT</h4>
+                    </th>
+                </tr>
+                <tr class="text-center">
+                    <th rowspan="2" class="disable">Description of Articles</th>
+                    <th rowspan="2" class="disable">No of Qty</th>
+                    <th colspan="2" class="disable">Value on the Book</th>
+                    <th rowspan="2" class="disable">Date/Year of Receipt</th>
+                    <th rowspan="2" class="disable">Condition of Article</th>
+                    <th rowspan="2" class="disable">Remarks by the Office in Charge</th>
+                    <th rowspan="2" class="disable">PO No. and Date</th>
+                    <th rowspan="2" class="disable">Remark</th>
+                </tr>
+                <tr class="text-center">
+                    <th class="disable">Procurement / Estimated Cost</th>
+                    <th class="disable">Amount</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <label for="asset_particulars"></label>
+                        <select [(ngModel)]="scrapSurveyForm.selectedAssetParticulars" id="selectedAssetParticulars"
+                            (ngModelChange)="onAssetParticularsChange()" class="form-control form-select">
+                            <option value="" selected>Select Particulars</option>
+                            <option *ngFor="let assetParticular of assetParticulars_response"
+                                [value]="assetParticular.asset_particulars">
+                                {{ assetParticular.asset_particulars }}
+                            </option>
+                        </select>
+                    </td>
+                    <td> <label for="asset_particulars"></label>
+                        <input type="number" class="form-control" id="no_of_quantity" name="no_of_quantity" [(ngModel)]="scrapSurveyForm.no_of_quantity">
+                    </td>
+                    <td> <label for="asset_particulars"></label>
+                        <input type="number" class="form-control" name="estimate_cost_items" id="estimate_cost_items" [(ngModel)]="scrapSurveyForm.estimate_cost_items">
+                    </td>
+                    <td> <label for="asset_particulars"></label>
+                        <input type="number" class="form-control" name="Total_estimate_cost_items" id="Total_estimate_cost_items"  [(ngModel)]="scrapSurveyForm.Total_estimate_cost_items">
+                    </td>
+                    <td>
+                        <label for="asset_particulars"></label>
+                        <select [(ngModel)]="scrapSurveyForm.selectedYear" class="form-control form-select">
+                            <option value="" disabled selected>Select Year</option>
+                            <option *ngFor="let year of years" [value]="year">{{ year }}</option>
+                        </select>
+                    </td>
+                    <td rowspan="8">
+                        <label for="asset_particulars"></label>
+                        <select [(ngModel)]="scrapSurveyForm.serviceStatus" class="form-control form-select">
+                            <option value="#" disabled selected>Select Status</option>
+                            <option value="Unserviceable">Un serviceable</option>
+                        </select>
+                    </td>
+                    <td rowspan="8">
+                        <label for="asset_particulars"></label>
+                        <textarea class="form-control" id="description" name="description" rows="20" [(ngModel)]="scrapSurveyForm.description"></textarea>
+                    </td>
+                    <td rowspan="8">
+                        <label for="asset_particulars"></label>
+                        <textarea class="form-control" rows="20" id="po_numbers_date" name="po_numbers_date" [(ngModel)]="scrapSurveyForm.po_numbers_date"></textarea>
+                    </td>
+                    <td rowspan="8">
+                        <label for="asset_particulars"></label>
+                        <textarea class="form-control" rows="20" id="survey_report_remark" name="survey_report_remark" [(ngModel)]="scrapSurveyForm.survey_report_remark"></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td><label>Less Irreduciable Value</label></td>
+                    <td> <input type="text" id="salvage_value" [(ngModel)]="scrapSurveyForm.salvage_value" id="salvage_value" name="salvage_value" class="form-control"> </td>
+                    <td> <input type="text" id="salvage_value1" [(ngModel)]="scrapSurveyForm.salvage_value1"name="salvage_value1" id="salvage_value1" class="form-control"> </td>
+                    <td> <input type="text" id="salvage_value2" [(ngModel)]="scrapSurveyForm.salvage_value2" name="salvage_value2" id="salvage_value2" class="form-control"> </td>
+                    <td> <input type="text" id="salvage_value3" [(ngModel)]="scrapSurveyForm.salvage_value3" name="salvage_value3" id="salvage_value3" class="form-control"> </td>
+                </tr>
+                <tr>
+                    <td><label>Total</label></td>
+                    <td> <input type="text" id="total_amount_sum" [(ngModel)]="scrapSurveyForm.total_amount_sum" id="total_amount_sum" name="total_amount_sum" class="form-control"></td>
+                    <td> <input type="text" id="total_amount_sum1" [(ngModel)]="scrapSurveyForm.total_amount_sum1" class="form-control"></td>
+                    <td> <input type="text" id="total_amount_sum2" [(ngModel)]="scrapSurveyForm.total_amount_sum2"  class="form-control"></td>
+                    <td> <input type="text" id="total_amount_sum3" [(ngModel)]="scrapSurveyForm.total_amount_sum3" class="form-control"></td>
+                </tr>
+                <tr>
+                    <td><label>Depreciation Rate % Per Year</label></td>
+                    <td> <input type="text" id="depreciation_rate" [(ngModel)]="scrapSurveyForm.depreciation_rate"
+                            class="form-control"></td>
+                    <td> <input type="text" id="depreciation_rate1" [(ngModel)]="scrapSurveyForm.depreciation_rate1"
+                            class="form-control"></td>
+                    <td><input type="text" id="depreciation_rate2" [(ngModel)]="scrapSurveyForm.depreciation_rate2"
+                            class="form-control"></td>
+                    <td> <input type="text" id="depreciation_rate3" [(ngModel)]="scrapSurveyForm.depreciation_rate3"
+                            class="form-control"></td>
+                </tr>
+                <tr>
+                    <td><label>Age of Article</label></td>
+                    <td><input type="number" id="useful_life" [(ngModel)]="scrapSurveyForm.useful_life"
+                            class="form-control"></td>
+                    <td><input type="number" id="useful_life1" [(ngModel)]="scrapSurveyForm.useful_life1"
+                            class="form-control"></td>
+                    <td><input type="number" id="useful_life2" [(ngModel)]="scrapSurveyForm.useful_life2"
+                            class="form-control"></td>
+                    <td><input type="number" id="useful_life3" [(ngModel)]="scrapSurveyForm.useful_life3"
+                            class="form-control"></td>
+                </tr>
+                <tr>
+                    <td><label>Total Depreciation</label></td>
+                    <td><input type="number" id="total_depreciation" [(ngModel)]="scrapSurveyForm.total_depreciation"
+                            class="form-control"></td>
+                    <td><input type="number" id="total_depreciation1" [(ngModel)]="scrapSurveyForm.total_depreciation1"
+                            class="form-control"></td>
+                    <td><input type="number" id="total_depreciation2" [(ngModel)]="scrapSurveyForm.total_depreciation2"
+                            class="form-control"></td>
+                    <td><input type="number" id="total_depreciation3" [(ngModel)]="scrapSurveyForm.total_depreciation3"
+                            class="form-control"></td>
+                </tr>
+                <tr>
+                    <td><label>Add 10% Irreduciable Value</label></td>
+                    <td><input type="number" id="add_10perc_depreciation_value"
+                            [(ngModel)]="scrapSurveyForm.add_10perc_depreciation_value" class="form-control"></td>
+                    <td><input type="number" id="add_10perc_depreciation_value1"
+                            [(ngModel)]="scrapSurveyForm.add_10perc_depreciation_value1" class="form-control"></td>
+                    <td><input type="number" id="add_10perc_depreciation_value2"
+                            [(ngModel)]="scrapSurveyForm.add_10perc_depreciation_value2" class="form-control"></td>
+                    <td><input type="number" id="add_10perc_depreciation_value3"
+                            [(ngModel)]="scrapSurveyForm.add_10perc_depreciation_value3" class="form-control"></td>
+                </tr>
+                <tr>
+                    <td><label>Current Value After</label></td>
+                    <td><input type="number" id="current_value_after" [(ngModel)]="scrapSurveyForm.current_value_after"
+                            class="form-control"></td>
+                    <td><input type="number" id="current_value_after1"
+                            [(ngModel)]="scrapSurveyForm.current_value_after1" class="form-control"></td>
+                    <td><input type="number" id="current_value_after2"
+                            [(ngModel)]="scrapSurveyForm.current_value_after2" class="form-control"></td>
+                    <td><input type="number" id="current_value_after3"
+                            [(ngModel)]="scrapSurveyForm.current_value_after3" class="form-control"></td>
+                </tr>
+                <tr>
+                    <td colspan="9">Total Cost :
+                        <b><input type="text" id="total_cost_scap" style="width: 200px;"
+                                [(ngModel)]="scrapSurveyForm.total_cost_scap"></b>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="9">
+                        Survey Report Sanctioned by :-
+                        <select [(ngModel)]="scrapSurveyForm.serviceStatus">
+                            <option value="" disabled selected>Select Status</option>
+                            <option value="Procurement Committee">Procurement Committee</option>
+                            <option value="Chief Engineer">Chief Engineer</option>
+                            <option value="Superintending Engineer">Superintending Engineer</option>
+                            <option value="Executive Engineer">Executive Engineer</option>
+                        </select>
+                        O/o MD WZ, Indore Vide Sanctioned Order No
+                        <b><input type="text" id="survey_report_sanctionorderno"
+                                [(ngModel)]="scrapSurveyForm.survey_report_sanctionorderno"></b>
+                        Dated <b><input type="date" id="survey_report_sanction_date"
+                                [(ngModel)]="scrapSurveyForm.survey_report_sanction_date" value="12-10-2024"></b>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="9">
+                        In view of the position explained & recommendations made by the committee, the survey report of
+                        <select [(ngModel)]="scrapSurveyForm.scrap_equipment_make">
+                            <option value="" disabled selected>Select Make </option>
+                            <option *ngFor="let make of list_of_make" [value]="make">{{ make }}</option>
+                        </select> O/o MD WZ, Indore Vide Sanctioned Order No
+                        <select [(ngModel)]="scrapSurveyForm.scrap_equipment_product">
+                            <option value="" disabled selected>Select Product</option>
+                            <option *ngFor="let products of list_of_product" [value]="products">{{ products }}</option>
+                        </select> is hereby
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="9">Sanctioned for the Rs.
+                        <b><input type="text" id="final_sancation_amounts_scap"
+                                [(ngModel)]="scrapSurveyForm.final_sancation_amounts_scap"></b>
+                        <b> / - Only</b>
+                    </td>
+                </tr>
+                <br>
+                <tr>
+                    <td colspan="3" style="padding-top: 60px; text-align: center;">
+                        <strong>AE O/o Superintending Engineer (IT)</strong><br>
+                        <strong>M.P.K.V.V.C.LTD. Indore</strong>
+                    </td>
+                    <td colspan="3" style="padding-top: 60px; text-align: center;">
+                        <strong>Superintending Engineer (IT)</strong><br>
+                        <strong>M.P.K.V.V.C.LTD. Indore</strong>
+                    </td>
+                    <td colspan="3" style="padding-top: 60px; text-align: center;">
+                        <strong>Director (Comm.)</strong><br>
+                        <strong>M.P.K.V.V.C.LTD. Indore</strong>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3" style="padding-top: 60px; text-align: center;">
+                        <strong>Chief Engineer (Purchase)</strong><br>
+                        <strong>M.P.K.V.V.C.LTD. Indore</strong>
+                    </td>
+                    <td colspan="3" style="padding-top: 60px; text-align: center;">
+                        <strong>Chief Engineer (IR)</strong><br>
+                        <strong>M.P.K.V.V.C.LTD. Indore</strong>
+                    </td>
+                    <td colspan="3" style="padding-top: 60px; text-align: center;">
+                        <strong>Director (Technical)</strong><br>
+                        <strong>M.P.K.V.V.C.LTD. Indore</strong>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="9" style="padding-top: 60px; text-align: center;">
+                        <strong>Chief Finance Officer</strong><br>
+                        <strong>M.P.K.V.V.C.LTD. Indore</strong>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </form>
+</div>
+
+
+

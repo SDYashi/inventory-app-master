@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { InventoryService } from '../services/inventory.service';
 import { EmployeeRetirement } from '../data-type';
+import * as XLSX from 'xlsx';
 
 @Component({
   selector: 'app-upcoming-retirements',
@@ -44,7 +45,7 @@ export class UpcomingRetirementsComponent implements OnInit{
     const filteredList = this.employeeList.filter(employee => 
       employee.employee_name.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
       employee.designation.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
-      employee.work_location.toLowerCase().includes(this.searchTerm.toLowerCase())
+      employee.office_name.toLowerCase().includes(this.searchTerm.toLowerCase())
     );
     this.totalPages = Math.ceil(filteredList.length / this.itemsPerPage);
     this.paginatedList = filteredList.slice(0, this.itemsPerPage);
@@ -69,7 +70,43 @@ export class UpcomingRetirementsComponent implements OnInit{
       this.paginateList();
     }
   }
-
-
+  downloadTable() {
+    const table = document.getElementById('myTable');
+  
+    if (table instanceof HTMLTableElement) {
+      const data = this.getTableData(table);
+      const workbook = XLSX.utils.book_new();
+      const worksheet = XLSX.utils.json_to_sheet(data);
+      XLSX.utils.book_append_sheet(workbook, worksheet, 'Sheet1');
+      const blob = new Blob([XLSX.write(workbook, { bookType: 'xlsx', type: 'buffer' })], {
+        type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+      });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'table_data.xlsx';
+      a.click();
+      URL.revokeObjectURL(url); // Clean up the URL object
+    } else {
+      console.error('Table element not found or is not a table');
+    }
+  }
+  
+  getTableData(table: HTMLTableElement) {
+    const data = [];
+    const rows = table.rows;
+  
+    for (let i = 0; i < rows.length; i++) {
+      const row = rows[i];
+      const rowData = [];
+      for (let j = 0; j < row.cells.length; j++) {
+        rowData.push(row.cells[j].textContent);
+      }
+      data.push(rowData);
+    }
+    
+    return data;
+  }
+  
 
 }

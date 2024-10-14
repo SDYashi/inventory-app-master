@@ -23,6 +23,8 @@ import { PurchaseOrderViewComponent } from './purchase-order-view/purchase-order
 import { InvUserProfileComponent } from './inv-user-profile/inv-user-profile.component';
 import { InvPasswordChangeProfileComponent } from './inv-password-change-profile/inv-password-change-profile.component';
 import { InvInventorySearchComponent } from './inv-inventory-search/inv-inventory-search.component';
+import { InvScrapReturnToStoreComponent } from './inv-scrap-return-to-store/inv-scrap-return-to-store.component';
+import { InvScrapSurveyReportsComponent } from './inv-scrap-survey-reports/inv-scrap-survey-reports.component';
 
 const routes: Routes = [
   {
@@ -61,6 +63,8 @@ const routes: Routes = [
       { path: 'purchase-order-add', component:PurchageOrderAddComponent },
       { path: 'purchase-order-view', component:PurchaseOrderViewComponent },
       { path: 'purchase-order-update', component:PurchageOrderUpdateComponent },
+      { path: 'scrap-survey-report', component:InvScrapSurveyReportsComponent },
+      { path: 'scrap-return-to-store', component:InvScrapReturnToStoreComponent },
       
     ]     
   },

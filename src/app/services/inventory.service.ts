@@ -1,6 +1,6 @@
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { EmployeeRetirement, Equipment, inventoryItem, InventoryReport, issueInventory, Order } from '../data-type';
+import { EmployeeRetirement, Equipment, inventoryItem, InventoryReport, issueInventory, Order ,AssetParticular} from '../data-type';
 import { catchError, Observable, throwError } from 'rxjs';
 import { AuthService } from './auth.service';
 import { API_BASE_URL } from '../constants';
@@ -254,6 +254,11 @@ invDeviecs_ViewEquipmentList(pageNumber: number, pageSize: number,search:any):  
     invDeviecs_SearchInventoryByEMP_LOC(assigned_type:string,assigned_to:string):Observable<any> {
       const headers = this.getHeaders();  
       return this.http.get(`${this.baseUrl}/assignment/get_assignment_history_by_assignee/?assigned_type=${assigned_type}&assigned_to=${assigned_to}`,{ headers }).pipe(catchError(this.handleError));
+    }
+    //to get the PO list for LOV 
+    invDeviecs_surveyreport_itequipmenttype():Observable<AssetParticular[]> {
+      const headers = this.getHeaders();  
+      return this.http.get<AssetParticular[]>(`${this.baseUrl}/misc/get_asset_particular/`,{ headers }).pipe(catchError(this.handleError));
     }
 
 }
