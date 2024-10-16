@@ -1,4 +1,84 @@
-<div class="container-fluid mt-4" id="Scrap_Report_ItemSerialNoList" *ngIf="!showScrapReportItemSerialNoList">  
+<div class="container-fluid mt-4" id="Scrap_Report_Form_SelectList" *ngIf="Scrap_Report_Form_SelectList">
+    <div class="card">
+        <div class="card-header" style="background-color: rgb(1, 21, 41); color: whitesmoke;">
+            <form #ScrapItem_Search="ngForm">
+                <div class="row">
+                    <div class="col-2">
+                        <select id="category" class="form-control form-select" [(ngModel)]="category"
+                            (change)="onCategoryChange($event)" name="category" required>
+                            <option value="" disabled selected>Select Category</option>
+                            <option *ngFor="let category of categories" [value]="category">{{ category }}</option>
+                        </select>
+                    </div>
+                    <div class="col-2">
+                        <select id="subcategory" class="form-control form-select" [(ngModel)]="subcategory"
+                            name="subcategory">
+                            <option value="" disabled selected>Select SubCategory</option>
+                            <option *ngFor="let subcategory of subcategories" [value]="subcategory">{{ subcategory }}
+                            </option>
+                        </select>
+                    </div>
+                    <div class="col-4">
+                        <input rows="20" type="text" placeholder="Search Serial no here..." [(ngModel)]="searchInput"
+                            class="form-control ml-3 p-2" name="searchInput">
+                    </div>
+                    <div class="col-4">
+                        <button class="btn btn-primary" type="button" (click)="onFilterChange()">
+                            <i class="fas fa-search"></i> Search & Validate
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="scrap_table">
+                    <thead>
+                        <tr>
+                            <th>S.No</th>
+                            <th scope="col">Category</th>
+                            <th scope="col">SubCategory</th>
+                            <th scope="col">Make</th>
+                            <th scope="col">Model</th>
+                            <th scope="col">Serial Number</th>
+                            <th scope="col">Condition</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">PO Number</th>
+                            <th scope="col">Project Name</th>
+                            <th scope="col">Purchase Date</th>
+                            <th scope="col">Item Price</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of equipment_scrap ;let i = index">
+                            <td>{{ i + 1 }}</td>
+                            <td>{{ item.category }}</td>
+                            <td>{{ item.sub_category }}</td>
+                            <td>{{ item.make }}</td>
+                            <td>{{ item.model }}</td>
+                            <td><span>{{ item.serial_number }}</span></td>
+                            <td>{{ item.condition }}</td>
+                            <td>{{ item.status }}</td>
+                            <td>{{ item.order?.po_number }}</td>
+                            <td>{{ item.order?.project_name }}</td>
+                            <td> <span>{{ item.receipt_date | date: 'yyyy-MM-dd' }}</span></td>
+                            <td>{{ item.price }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <button class="btn btn-primary" type="button" (click)="onValidateClick()" *ngIf="error_value_search"> Validate
+    </button>
+</div>
+
+<br>
+
+<div class="container-fluid mt-4" id="Scrap_Report_Form_Submit" *ngIf="Scrap_Report_Form_Submit">
     <form #Scrap_surveyform="ngForm">
         <table class="table  table-bordered">
             <thead>
@@ -26,276 +106,379 @@
             <tbody>
                 <tr>
                     <td>
+                        <b> <input type="text" class="form-control disable" readonly name="article_description" style="border: none;"
+                                [(ngModel)]="scrapSurveyForm.article_description"> </b>
                         <label for="asset_particulars"></label>
-                        <select [(ngModel)]="scrapSurveyForm.selectedAssetParticulars" id="selectedAssetParticulars"class="form-control form-select">
+                        <select [(ngModel)]="scrapSurveyForm.article_type"
+                            (ngModelChange)="onAssetParticularChange($event)" name="article_type"
+                            class="form-control form-select">
                             <option value="" selected>Select Particulars</option>
                             <option *ngFor="let assetParticular of assetParticulars_response"
-                                [value]="assetParticular.asset_particulars">
-                                {{ assetParticular.asset_particulars }}
+                                [value]="assetParticular.asset_particulars">{{ assetParticular.asset_particulars }}
                             </option>
                         </select>
                     </td>
                     <td> <label for="asset_particulars"></label>
-                        <input type="number" class="form-control" id="no_of_quantity" name="no_of_quantity" [(ngModel)]="scrapSurveyForm.no_of_quantity">
+                        <input type="text" class="form-control disable" name="quantity" readonly [(ngModel)]="scrapSurveyForm.quantity"> 
                     </td>
                     <td> <label for="asset_particulars"></label>
-                        <input type="number" class="form-control" name="estimate_cost_items" id="estimate_cost_items" [(ngModel)]="scrapSurveyForm.estimate_cost_items">
+                        <input type="text" class="form-control disable" name="item_unit_cost" readonly
+                            [(ngModel)]="scrapSurveyForm.item_unit_cost">
                     </td>
                     <td> <label for="asset_particulars"></label>
-                        <input type="number" class="form-control" name="Total_estimate_cost_items" id="Total_estimate_cost_items"  [(ngModel)]="scrapSurveyForm.Total_estimate_cost_items">
+                        <input type="text" class="form-control disable" name="item_total_cost" readonly
+                            [(ngModel)]="scrapSurveyForm.item_total_cost">
                     </td>
                     <td>
                         <label for="asset_particulars"></label>
-                        <select [(ngModel)]="scrapSurveyForm.selectedYear" class="form-control form-select">
-                            <option value="" disabled selected>Select Year</option>
-                            <option *ngFor="let year of years" [value]="year">{{ year }}</option>
-                        </select>
+                        <input type="text" class="form-control disable" name="receipt_date" readonly
+                            [(ngModel)]="scrapSurveyForm.receipt_date">
                     </td>
                     <td rowspan="8">
                         <label for="asset_particulars"></label>
-                        <select [(ngModel)]="scrapSurveyForm.serviceStatus" class="form-control form-select">
+                        <select [(ngModel)]="scrapSurveyForm.article_condition" name="article_condition"
+                            class="form-control form-select">
                             <option value="#" disabled selected>Select Status</option>
-                            <option value="Unserviceable">Un serviceable</option>
+                            <option value="UNSERVICEABLE">UNSERVICEABLE</option>
                         </select>
                     </td>
                     <td rowspan="8">
                         <label for="asset_particulars"></label>
-                        <textarea class="form-control" id="description" name="description" rows="20" [(ngModel)]="scrapSurveyForm.description"></textarea>
+                        <textarea type="text" class="form-control" name="cause_explanation_by_oic" rows="20"
+                            [(ngModel)]="scrapSurveyForm.cause_explanation_by_oic"></textarea>
                     </td>
                     <td rowspan="8">
                         <label for="asset_particulars"></label>
-                        <textarea class="form-control" rows="20" id="po_numbers_date" name="po_numbers_date" [(ngModel)]="scrapSurveyForm.po_numbers_date"></textarea>
+                        <textarea type="text" class="form-control" rows="20" name="order_number"
+                            [(ngModel)]="scrapSurveyForm.order_number"></textarea>
                     </td>
                     <td rowspan="8">
                         <label for="asset_particulars"></label>
-                        <textarea class="form-control" rows="20" id="survey_report_remark" name="survey_report_remark" [(ngModel)]="scrapSurveyForm.survey_report_remark"></textarea>
+                        <textarea type="text" class="form-control" rows="20" name="remark"
+                            [(ngModel)]="scrapSurveyForm.remark"></textarea>
                     </td>
                 </tr>
                 <tr>
-                    <td><label>Less Irreduciable Value</label></td>
-                    <td> <input type="text" id="salvage_value" [(ngModel)]="scrapSurveyForm.salvage_value" id="salvage_value" name="salvage_value" class="form-control"> </td>
-                    <td> <input type="text" id="salvage_value1" [(ngModel)]="scrapSurveyForm.salvage_value1"name="salvage_value1" id="salvage_value1" class="form-control"> </td>
-                    <td> <input type="text" id="salvage_value2" [(ngModel)]="scrapSurveyForm.salvage_value2" name="salvage_value2" id="salvage_value2" class="form-control"> </td>
-                    <td> <input type="text" id="salvage_value3" [(ngModel)]="scrapSurveyForm.salvage_value3" name="salvage_value3" id="salvage_value3" class="form-control"> </td>
+                    <td><label>Less Irreduciable Value(Salvage Value in % ) as Per Gazzette Notificatio dated
+                            03-12-2021</label></td>
+                    <td> <input type="text" [(ngModel)]="scrapSurveyForm.salvage_percent" name="salvage_percent" readonly
+                            class="form-control disable"> </td>
+                    <td></td>
+                    <td> <input type="text" [(ngModel)]="scrapSurveyForm.salvage_value" name="salvage_value" readonly
+                            class="form-control disable"> </td>
+                    <td> </td>
                 </tr>
                 <tr>
                     <td><label>Total</label></td>
-                    <td> <input type="text" id="total_amount_sum" [(ngModel)]="scrapSurveyForm.total_amount_sum" id="total_amount_sum" name="total_amount_sum" class="form-control"></td>
-                    <td> <input type="text" id="total_amount_sum1" [(ngModel)]="scrapSurveyForm.total_amount_sum1" class="form-control"></td>
-                    <td> <input type="text" id="total_amount_sum2" [(ngModel)]="scrapSurveyForm.total_amount_sum2"  class="form-control"></td>
-                    <td> <input type="text" id="total_amount_sum3" [(ngModel)]="scrapSurveyForm.total_amount_sum3" class="form-control"></td>
+                    <td> </td>
+                    <td> </td>
+                    <td> <input type="text" name="total_value" [(ngModel)]="scrapSurveyForm.total_value" readonly
+                            class="form-control disable"></td>
+                    <td> </td>
                 </tr>
                 <tr>
                     <td><label>Depreciation Rate % Per Year</label></td>
-                    <td> <input type="text" id="depreciation_rate" [(ngModel)]="scrapSurveyForm.depreciation_rate"
-                            class="form-control"></td>
-                    <td> <input type="text" id="depreciation_rate1" [(ngModel)]="scrapSurveyForm.depreciation_rate1"
-                            class="form-control"></td>
-                    <td><input type="text" id="depreciation_rate2" [(ngModel)]="scrapSurveyForm.depreciation_rate2"
-                            class="form-control"></td>
-                    <td> <input type="text" id="depreciation_rate3" [(ngModel)]="scrapSurveyForm.depreciation_rate3"
-                            class="form-control"></td>
+                    <td> <input type="text" name="depreciation_percent" readonly
+                            [(ngModel)]="scrapSurveyForm.depreciation_percent" class="form-control disable"></td>
+                    <td> </td>
+                    <td> </td>
+                    <td> </td>
                 </tr>
                 <tr>
                     <td><label>Age of Article</label></td>
-                    <td><input type="number" id="useful_life" [(ngModel)]="scrapSurveyForm.useful_life"
-                            class="form-control"></td>
-                    <td><input type="number" id="useful_life1" [(ngModel)]="scrapSurveyForm.useful_life1"
-                            class="form-control"></td>
-                    <td><input type="number" id="useful_life2" [(ngModel)]="scrapSurveyForm.useful_life2"
-                            class="form-control"></td>
-                    <td><input type="number" id="useful_life3" [(ngModel)]="scrapSurveyForm.useful_life3"
-                            class="form-control"></td>
+                    <td><input type="text" name="article_age" [(ngModel)]="scrapSurveyForm.article_age" readonly
+                            class="form-control disable"></td>
+                    <td> </td>
+                    <td> </td>
+                    <td> </td>
                 </tr>
                 <tr>
                     <td><label>Total Depreciation</label></td>
-                    <td><input type="number" id="total_depreciation" [(ngModel)]="scrapSurveyForm.total_depreciation"
-                            class="form-control"></td>
-                    <td><input type="number" id="total_depreciation1" [(ngModel)]="scrapSurveyForm.total_depreciation1"
-                            class="form-control"></td>
-                    <td><input type="number" id="total_depreciation2" [(ngModel)]="scrapSurveyForm.total_depreciation2"
-                            class="form-control"></td>
-                    <td><input type="number" id="total_depreciation3" [(ngModel)]="scrapSurveyForm.total_depreciation3"
-                            class="form-control"></td>
+                    <td> </td>
+                    <td> </td>
+                    <td><input type="text" name="depreciated_value" [(ngModel)]="scrapSurveyForm.depreciated_value" readonly
+                            class="form-control disable"></td>
+                    <td> </td>
                 </tr>
                 <tr>
                     <td><label>Add 10% Irreduciable Value</label></td>
-                    <td><input type="number" id="add_10perc_depreciation_value"
-                            [(ngModel)]="scrapSurveyForm.add_10perc_depreciation_value" class="form-control"></td>
-                    <td><input type="number" id="add_10perc_depreciation_value1"
-                            [(ngModel)]="scrapSurveyForm.add_10perc_depreciation_value1" class="form-control"></td>
-                    <td><input type="number" id="add_10perc_depreciation_value2"
-                            [(ngModel)]="scrapSurveyForm.add_10perc_depreciation_value2" class="form-control"></td>
-                    <td><input type="number" id="add_10perc_depreciation_value3"
-                            [(ngModel)]="scrapSurveyForm.add_10perc_depreciation_value3" class="form-control"></td>
+                    <td> </td>
+                    <td> </td>
+                    <td><input type="text" name="salvage_value" [(ngModel)]="scrapSurveyForm.salvage_value" readonly
+                            class="form-control disable"></td>
+                    <td> </td>
                 </tr>
                 <tr>
                     <td><label>Current Value After</label></td>
-                    <td><input type="number" id="current_value_after" [(ngModel)]="scrapSurveyForm.current_value_after"
-                            class="form-control"></td>
-                    <td><input type="number" id="current_value_after1"
-                            [(ngModel)]="scrapSurveyForm.current_value_after1" class="form-control"></td>
-                    <td><input type="number" id="current_value_after2"
-                            [(ngModel)]="scrapSurveyForm.current_value_after2" class="form-control"></td>
-                    <td><input type="number" id="current_value_after3"
-                            [(ngModel)]="scrapSurveyForm.current_value_after3" class="form-control"></td>
+                    <td> </td>
+                    <td> </td>
+                    <td><input type="text" name="current_value" [(ngModel)]="scrapSurveyForm.current_value" readonly
+                            class="form-control disable"></td>
+                    <td> </td>
                 </tr>
                 <tr>
                     <td colspan="9">Total Cost :
-                        <b><input type="text" id="total_cost_scap" style="width: 200px;"
-                                [(ngModel)]="scrapSurveyForm.total_cost_scap"></b>
+                        <b><input type="text" name="current_value" class="disable" style="border: none;" readonly
+                                [(ngModel)]="scrapSurveyForm.current_value"></b>
                     </td>
                 </tr>
                 <tr>
                     <td colspan="9">
                         Survey Report Sanctioned by :-
-                        <select [(ngModel)]="scrapSurveyForm.serviceStatus">
-                            <option value="" disabled selected>Select Status</option>
+                        <select [(ngModel)]="scrapSurveyForm.sanctioned_by" name="sanctioned_by">
+                            <option value="" disabled selected>Select Approving Authority</option>
                             <option value="Procurement Committee">Procurement Committee</option>
                             <option value="Chief Engineer">Chief Engineer</option>
                             <option value="Superintending Engineer">Superintending Engineer</option>
                             <option value="Executive Engineer">Executive Engineer</option>
                         </select>
                         O/o MD WZ, Indore Vide Sanctioned Order No
-                        <b><input type="text" id="survey_report_sanctionorderno"
-                                [(ngModel)]="scrapSurveyForm.survey_report_sanctionorderno"></b>
-                        Dated <b><input type="date" id="survey_report_sanction_date"
-                                [(ngModel)]="scrapSurveyForm.survey_report_sanction_date" value="12-10-2024"></b>
+                        <b><input type="text" name="sanctioned_order_no"
+                                [(ngModel)]="scrapSurveyForm.sanctioned_order_no"></b>
+                        Dated
+                        <b><input type="date" name="sanctioned_order_date"
+                                [(ngModel)]="scrapSurveyForm.sanctioned_order_date"></b>
                     </td>
                 </tr>
                 <tr>
                     <td colspan="9">
                         In view of the position explained & recommendations made by the committee, the survey report of
-                        <select [(ngModel)]="scrapSurveyForm.scrap_equipment_make">
-                            <option value="" disabled selected>Select Make </option>
-                            <option *ngFor="let make of list_of_make" [value]="make">{{ make }}</option>
-                        </select> O/o MD WZ, Indore Vide Sanctioned Order No
-                        <select [(ngModel)]="scrapSurveyForm.scrap_equipment_product">
-                            <option value="" disabled selected>Select Product</option>
-                            <option *ngFor="let products of list_of_product" [value]="products">{{ products }}</option>
-                        </select> is hereby
+                        <input type="text" name="article_description" class="disable" style="border: none; width:auto;" readonly
+                            [(ngModel)]="scrapSurveyForm.article_description">
+                        is hereby
                     </td>
                 </tr>
                 <tr>
                     <td colspan="9">Sanctioned for the Rs.
-                        <b><input type="text" id="final_sancation_amounts_scap"
-                                [(ngModel)]="scrapSurveyForm.final_sancation_amounts_scap"></b>
+                        <b><input type="text" name="current_value"  class="disable" style="border: none;" readonly
+                                [(ngModel)]="scrapSurveyForm.current_value"></b>
                         <b> / - Only</b>
                     </td>
                 </tr>
-                <br>
                 <tr>
-                    <td colspan="3" style="padding-top: 60px; text-align: center;">
-                        <strong>AE O/o Superintending Engineer (IT)</strong><br>
-                        <strong>M.P.K.V.V.C.LTD. Indore</strong>
-                    </td>
-                    <td colspan="3" style="padding-top: 60px; text-align: center;">
-                        <strong>Superintending Engineer (IT)</strong><br>
-                        <strong>M.P.K.V.V.C.LTD. Indore</strong>
-                    </td>
-                    <td colspan="3" style="padding-top: 60px; text-align: center;">
-                        <strong>Director (Comm.)</strong><br>
-                        <strong>M.P.K.V.V.C.LTD. Indore</strong>
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="3" style="padding-top: 60px; text-align: center;">
-                        <strong>Chief Engineer (Purchase)</strong><br>
-                        <strong>M.P.K.V.V.C.LTD. Indore</strong>
-                    </td>
-                    <td colspan="3" style="padding-top: 60px; text-align: center;">
-                        <strong>Chief Engineer (IR)</strong><br>
-                        <strong>M.P.K.V.V.C.LTD. Indore</strong>
-                    </td>
-                    <td colspan="3" style="padding-top: 60px; text-align: center;">
-                        <strong>Director (Technical)</strong><br>
-                        <strong>M.P.K.V.V.C.LTD. Indore</strong>
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="9" style="padding-top: 60px; text-align: center;">
-                        <strong>Chief Finance Officer</strong><br>
-                        <strong>M.P.K.V.V.C.LTD. Indore</strong>
+                    <td colspan="9">
+                        <br>
+                        <button class="btn btn-primary" id="AddScrapSurvey_Reports" name="AddScrapSurvey_Reports"
+                            (click)="AddScrapSurvey_Reports_TS()">Add Scrap Survey Reports</button>
+                        <button class="btn btn-danger" style="margin-left: 5px;" id="resetAll" type="reset">Reset
+                            ALL</button>
                     </td>
                 </tr>
             </tbody>
         </table>
+        <div *ngIf="response_msg" [ngClass]="{'alert-success': isSuccess, 'alert-error': !isSuccess}">
+            {{ response_msg }}
+        </div>
     </form>
-</div> 
-<br>
-<div class="container-fluid mt-4" id="Scrap_Report_Form" *ngIf="showScrapReportItemSerialNoList">
-    <div class="card">
-        <div class="card-header" style="background-color: rgb(1, 21, 41); color: whitesmoke;">
-            <form #ScrapItem_Search="ngForm">
-                <div class="row">
-                  <div class="col-2">
-                    <select id="category" class="form-control form-select" [(ngModel)]="category" (change)="onCategoryChange($event)" name="category" required>
-                      <option value="" disabled selected>Select Category</option>
-                      <option *ngFor="let category of categories" [value]="category">{{ category }}</option>
-                    </select>
-                  </div>
-                  <div class="col-2">
-                    <select id="subcategory" class="form-control form-select" [(ngModel)]="subcategory" name="subcategory">
-                      <option value="" disabled selected>Select SubCategory</option>
-                      <option *ngFor="let subcategory of subcategories" [value]="subcategory">{{ subcategory }}</option>
-                    </select>
-                  </div>
-                  <div class="col-4">                              
-                    <input rows="20" type="text" placeholder="Search Serial no here..." [(ngModel)]="searchInput" class="form-control ml-3 p-2" name="searchInput">
-                  </div>
-                  <div class="col-4">
-                    <button class="btn btn-primary" type="button" (click)="onFilterChange()">
-                      <i class="fas fa-search"></i> Search & Validate
-                    </button>
-                  </div>
-                </div>
-              </form>
-        </div>
-    </div>
-  <br>
-    <div class="row">
-        <div class="col-md-12">
-            <div class="table-responsive">
-                <table class="table table-bordered" id="scrap_table">
-                    <thead>
-                        <tr>
-                            <th>S.No</th>
-                            <th scope="col">Category</th>
-                            <th scope="col">SubCategory</th>
-                            <th scope="col">Make</th>
-                            <th scope="col">Model</th>
-                            <th scope="col">Serial Number</th>
-                            <th scope="col">Condition</th>
-                            <th scope="col">Status</th>
-                            <th scope="col">Assigned Date</th>
-                            <th scope="col">Assignment Type</th>
-                            <th scope="col">Assigned To</th>
-                            <th scope="col">Assigned To Details</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let item of equipment_scrap ;let i = index">
-                            <td>{{ i + 1 }}</td>
-                            <td>{{ item.category }}</td>
-                            <td>{{ item.sub_category }}</td>
-                            <td>{{ item.make }}</td>
-                            <td>{{ item.model }}</td>
-                            <td><span>{{ item.serial_number }}</span></td>
-                            <td>{{ item.condition }}</td>
-                            <td>{{ item.status }}</td>
-                            <td>{{ item.assignment?.assigned_date | date }}</td>
-                            <td>{{ item.assignment?.assigned_type }}</td>
-                            <td> <span>{{ item.assignment?.assigned_to }}</span></td>
-                            <td>{{ item.assignment?.assigned_to_details }}</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-    <button class="btn btn-primary" type="button" (click)="onValidateClick()" *ngIf="error_value_search"> <i class="fas fa-search"></i> Validate
-    </button>
 </div>
 
+<br>
 
 
+
+        <button (click)="generatePdf()" class="btn btn-primary" *ngIf="ScrapReport_Response_Flag_FormPDF">Print Report</button>
+         <div class="container-fluid mt-4" id="ScrapReport_Response_Flag_FormPDF" *ngIf="ScrapReport_Response_Flag_FormPDF">
+      
+            <div  id="scrap_table">  
+           <div class="row">
+               <div class="col-md-12">
+                   <div class="table-responsive">
+                       <table class="table  table-bordered">
+                           <thead>
+                               <tr class="text-center header_title">
+                                   <th colspan="9">
+                                       <h3>OFFICE OF SUPERINTENDING ENGINEER (IT), MPKVVCL INDORE</h3>
+                                       <h4>SURVEY REPORT</h4>
+                                   </th>
+                               </tr>
+                               <tr class="text-center">
+                                   <th rowspan="2" class="disable">Description of Articles</th>
+                                   <th rowspan="2" class="disable">No of Qty</th>
+                                   <th colspan="2" class="disable">Value on the Book</th>
+                                   <th rowspan="2" class="disable">Date/Year of Receipt</th>
+                                   <th rowspan="2" class="disable">Condition of Article</th>
+                                   <th rowspan="2" class="disable">Remarks by the Office in Charge</th>
+                                   <th rowspan="2" class="disable">PO No. and Date</th>
+                                   <th rowspan="2" class="disable">Remark</th>
+                               </tr>
+                               <tr class="text-center">
+                                   <th class="disable">Procurement / Estimated Cost</th>
+                                   <th class="disable">Amount</th>
+                               </tr>
+                           </thead>
+                           <tbody>
+                               <tr>
+                                   <td>
+                                       <b>Survey_No:  {{ survey_no }}</b><br>
+                                       <b>Article_Type:  {{ scrapSurveyForm.article_type }}</b> <br>
+                                       <b>{{ scrapSurveyForm.article_description }}</b>
+                                   </td>
+                                   <td>
+                                       {{ scrapSurveyForm.quantity }}
+                                   </td>
+                                   <td>
+                                       {{ scrapSurveyForm.item_unit_cost }}
+                                   </td>
+                                   <td>
+                                       {{ scrapSurveyForm.item_total_cost }}
+                                   </td>
+                                   <td>
+                                       {{ scrapSurveyForm.receipt_date }}
+                                   </td>
+                                   <td rowspan="8">
+                                       {{ scrapSurveyForm.article_condition }}
+                                   </td>
+                                   <td rowspan="8">
+                                       {{ scrapSurveyForm.cause_explanation_by_oic }}
+                                   </td>
+                                   <td rowspan="8">
+                                       {{ scrapSurveyForm.order_number }}
+                                   </td>
+                                   <td rowspan="8">
+                                       {{ scrapSurveyForm.remark }}
+                                   </td>
+                               </tr>
+                               <tr>
+                                   <td>Less Irreduciable Value(Salvage Value) as Per Gazzette Notificatio dated 03-12-2021</td>
+                                   <td>{{ scrapSurveyForm.salvage_percent }}</td>
+                                   <td></td>
+                                   <td>{{ scrapSurveyForm.salvage_value }}</td>
+                                   <td></td>
+                               </tr>
+                               <tr>
+                                   <td>Total</td>
+                                   <td></td>
+                                   <td></td>
+                                   <td>{{ scrapSurveyForm.total_value }}</td>
+                                   <td></td>
+                               </tr>
+                               <tr>
+                                   <td>Depreciation Rate % Per Year</td>
+                                   <td>{{ scrapSurveyForm.depreciation_percent }}</td>
+                                   <td></td>
+                                   <td></td>
+                                   <td></td>
+                               </tr>
+                               <tr>
+                                   <td>Age of Article</td>
+                                   <td>{{ scrapSurveyForm.article_age }}</td>
+                                   <td></td>
+                                   <td></td>
+                                   <td></td>
+                               </tr>
+                               <tr>
+                                   <td>Total Depreciation</td>
+                                   <td></td>
+                                   <td></td>
+                                   <td>{{ scrapSurveyForm.depreciated_value }}</td>
+                                   <td></td>
+                               </tr>
+                               <tr>
+                                   <td>Add 10% Irreduciable Value</td>
+                                   <td></td>
+                                   <td></td>
+                                   <td>{{ scrapSurveyForm.salvage_value }}</td>
+                                   <td></td>
+                               </tr>
+                               <tr>
+                                   <td>Current Value After</td>
+                                   <td></td>
+                                   <td></td>
+                                   <td><b>{{ scrapSurveyForm.current_value }}</b></td>
+                                   <td></td>
+                               </tr>
+                               <tr>
+                                   <td colspan="9">Total Cost : <b>{{ scrapSurveyForm.current_value }}</b> </td>
+                               </tr>
+                               <tr>
+                                   <td colspan="9">
+                                       Survey Report Sanctioned by :- <b>{{ scrapSurveyForm.sanctioned_by }} </b>
+                                       O/o MD WZ, Indore Vide Sanctioned Order No <b>{{ scrapSurveyForm.sanctioned_order_no }}</b>
+                                       Dated <b>{{ scrapSurveyForm.sanctioned_order_date }}</b>
+                                   </td>
+                               </tr>
+                               <tr>
+                                   <td colspan="9">
+                                       In view of the position explained & recommendations made by the committee, the survey report of
+                                      <b> {{ scrapSurveyForm.article_description }}</b>
+                                       is hereby
+                                   </td>
+                               </tr>
+                               <tr>
+                                   <td colspan="9">Sanctioned for the Rs. <b>{{ scrapSurveyForm.current_value }}</b>  / - Only</td>
+                               </tr>
+                               <tr class="text-center"  style="padding-top: 15px;" *ngIf="doplimit<=50000">
+                                       <td colspan="3" ><label for="seal" style="padding-top: 35px;">EE O/o S.E.(IT)</label></td> 
+                               </tr>
+                                   
+                               <tr class="text-center"  style="padding-top: 15px;" *ngIf="doplimit<=500000 && doplimit >50000">
+                                   <td colspan="3" ><label for="seal" style="padding-top: 35px;">EE O/o S.E.(IT)</label></td> 
+                                   <td colspan="3" ><label for="seal"  style="padding-top: 35px;"> S.E.(IT)</label></td>
+                                   </tr>
+                                   <tr class="text-center"  style="padding-top: 15px;" *ngIf="doplimit<=1000000 && doplimit >500000">
+                                       <td colspan="3" ><label for="seal" style="padding-top: 35px;">EE O/o S.E.(IT)</label></td> 
+                                       <td colspan="3" ><label for="seal"  style="padding-top: 35px;"> S.E.(IT)</label></td>
+                                       <td colspan="2"><label for="seal"  style="padding-top: 35px;">C.E.(IR/UR)</label></td>
+                                       </tr>
+                                       
+                               <tr class="text-center"  style="padding-top: 15px;" *ngIf="doplimit>1000000">
+                                   <td colspan="3" ><label for="seal" style="padding-top: 35px;">EE O/o S.E.(IT)</label></td> 
+                                   <td colspan="3" ><label for="seal"  style="padding-top: 35px;"> S.E.(IT)</label></td>
+                                   <td colspan="3"><label for="seal"  style="padding-top: 35px;">Director(Comm.)</label></td>
+                                   </tr>
+                                   <tr class="text-center"  style="padding-top: 15px;" *ngIf="doplimit>1000000">
+                                   <td colspan="2"><label for="seal"  style="padding-top: 35px;">C.E.(Purchase)</label></td>
+                                   <td colspan="2"><label for="seal"  style="padding-top: 35px;">C.E.(IR)</label></td>
+                                   <td colspan="3"><label for="seal"  style="padding-top: 35px;">Director(Tech.)</label></td>
+                                   <td colspan="2"><label for="seal"  style="padding-top: 35px;">C.F.O.</label></td>
+                               </tr>
+                           </tbody>
+                       </table>
+                   </div>
+               </div>
+           </div>
+           <hr>
+           <div class="row" >
+               <div class="col-md-12">
+                   <div class="table-responsive">
+                       <table class="table table-bordered">
+                           <thead>
+                               <tr>
+                                   <th>S.No</th>
+                                   <th scope="col">Category</th>
+                                   <th scope="col">SubCategory</th>
+                                   <th scope="col">Make</th>
+                                   <th scope="col">Model</th>
+                                   <th scope="col">Serial Number</th>
+                                   <th scope="col">Condition</th>
+                                   <th scope="col">Status</th>
+                                   <th scope="col">Po Number</th>
+                                   <th scope="col">Project Name</th>
+                                   <th scope="col">Purchase Date</th>
+                                   <th scope="col">Item Price</th>
+                               </tr>
+                           </thead>
+                           <tbody>
+                               <tr *ngFor="let item of ScrapReport_Response ;let i = index">
+                                   <td>{{ i + 1 }}</td>
+                                   <td>{{ item.category }}</td>
+                                   <td>{{ item.sub_category }}</td>
+                                   <td>{{ item.make }}</td>
+                                   <td>{{ item.model }}</td>
+                                   <td><span>{{ item.serial_number }}</span></td>
+                                   <td>{{ item.condition }}</td>
+                                   <td>{{ item.status }}</td>
+                                   <td>{{ item.order?.po_number }}</td>
+                                   <td>{{ item.order?.project_name }}</td>
+                                   <td> <span>{{ item.receipt_date | date: 'yyyy-MM-dd'}}</span></td>
+                                   <td>{{ item.price }}</td>
+                               </tr>
+                           </tbody>
+                       </table>
+                   </div>
+               </div>
+           </div>
+       </div>
+       </div>
+
+    

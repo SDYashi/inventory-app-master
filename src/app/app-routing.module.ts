@@ -26,6 +26,7 @@ import { InvInventorySearchComponent } from './inv-inventory-search/inv-inventor
 import { InvScrapReturnToStoreComponent } from './inv-scrap-return-to-store/inv-scrap-return-to-store.component';
 import { InvScrapSurveyReportsComponent } from './inv-scrap-survey-reports/inv-scrap-survey-reports.component';
 import { IssueInventoryEditComponent } from './issue-inventory-edit/issue-inventory-edit.component';
+import { InventoryReportScrapComponent } from './inventory-report-scrap/inventory-report-scrap.component';
 
 const routes: Routes = [
   {
@@ -60,6 +61,7 @@ const routes: Routes = [
       {path:'inventory-report',component:InventoryReportComponent},
       {path:'inventory-dashboard',component:InvDashboardComponent},
       {path:'inventory-report-all',component:InventoryReportComponent},
+      {path:'inventory-report-scrap-surveyoff-list',component:InventoryReportScrapComponent},
       {path:'inventory-report-page-wise',component:InventoryReportPagewiseComponent},
       {path:'employee-retirement-report',component:UpcomingRetirementsComponent},
       { path: 'purchase-order-add', component:PurchageOrderAddComponent },

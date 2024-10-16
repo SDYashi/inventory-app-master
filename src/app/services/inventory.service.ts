@@ -269,5 +269,24 @@ invDeviecs_ViewEquipmentList(pageNumber: number, pageSize: number,search:any):  
       const headers = this.getHeaders();  
       return this.http.get<AssetParticular[]>(`${this.baseUrl}/misc/get_asset_particular/`,{ headers }).pipe(catchError(this.handleError));
     }
+    
+    //to get the PO list for LOV 
+    AddScrapSurvey_Reports(scrapSurveyForm:any):Observable<any> {
+      const headers = this.getHeaders();     
+      return this.http.post(`${this.baseUrl}/scrap/create_scrap/`,scrapSurveyForm,{headers}).pipe(catchError(this.handleError));
+    }
+    //to get the PO list for LOV 
+    ViewScrapSurvey_ReportsList():Observable<any> {
+      const headers = this.getHeaders();  
+      return this.http.get<any>(`${this.baseUrl}/scrap/get_scrap_list/`,{ headers }).pipe(catchError(this.handleError));
+    }
+    
+
+  invDeviecs_Returntostore_scrapitem(scrapform: any): Observable<any> {
+    const headers = this.getHeaders();
+    const scrap_id = scrapform.id;
+    return this.http.put(`${this.baseUrl} /scrap/return_scrap/${scrap_id}/`, scrapform,{headers}).pipe(catchError(this.handleError));
+  
+  }
 
 }

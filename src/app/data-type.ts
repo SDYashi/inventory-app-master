@@ -163,4 +163,29 @@ export interface AssetParticular {
   salvage_value: string;
   useful_life: number;
 }
+
+export interface ScrapSurveyForm {
+  article_description: string;
+  article_type: string;
+  quantity: string;
+  item_unit_cost: string;
+  item_total_cost: string;
+  receipt_date: string;
+  article_condition: string;
+  cause_explanation_by_oic: string;
+  order_number: string;
+  remark: string;
+  total_value: string;
+  depreciation_percent: string;
+  salvage_percent: string;
+  salvage_value: string;
+  article_age: string;
+  depreciated_value: string;
+  current_value: string;
+  sanctioned_order_no: string;
+  sanctioned_order_date: string;
+  sanctioned_by: string;
+  equipment_ids?: number[]; // Add this line
+}
+
  

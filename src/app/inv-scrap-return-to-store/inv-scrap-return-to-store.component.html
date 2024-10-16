@@ -1,1 +1,122 @@
-<p>inv-scrap-return-to-store works!</p>
+
+
+   <div class="container-fluid mt-3">
+    <div class="card">
+        <div class="card-header" style="background-color: rgb(1, 21, 41); color: whitesmoke;">
+            <h4 class="mb-0">Return to Store Form Inventory Scrap</h4>
+        </div>
+        <div class="card-body"> 
+          <form #Scrap_surveyform="ngForm"> 
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="table-responsive">
+                        <table class="table table-striped table-bordered" id="myTable">
+                            <thead>
+                                <tr>  
+                                    <th>Select SurveyOff No</th>
+                                    <th>Sanctioned Order No</th>
+                                    <th>Sanctioned Order Date</th>
+                                    <th>Indent Number</th>
+                                    <th>Indent Date</th>
+                                    <th>Store Name</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <select id="category" class="form-control form-select" 
+                                                [(ngModel)]="ReturntoStorForm.category"
+                                                (change)="onAssetParticularChange($event)" 
+                                                name="category" required>
+                                            <option value="" disabled selected>Select Survey No</option>
+                                            <option *ngFor="let category of equipment" 
+                                                    [value]="category.survey_no">{{category.survey_no }}</option>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <input type="text" class="form-control" 
+                                               name="sanctioned_order_no" 
+                                               [(ngModel)]="ReturntoStorForm.sanctioned_order_no">
+                                    </td>
+                                    <td>
+                                        <input type="date" class="form-control" 
+                                               name="sanctioned_order_date" 
+                                               [(ngModel)]="ReturntoStorForm.sanctioned_order_date">
+                                    </td>
+                                    <td>
+                                        <input type="text" class="form-control" 
+                                               name="indent_number" 
+                                               [(ngModel)]="ReturntoStorForm.indent_number">
+                                    </td>
+                                    <td>
+                                        <input type="date" class="form-control" 
+                                               name="indent_date" 
+                                               [(ngModel)]="ReturntoStorForm.indent_date">
+                                    </td>
+                                    <td>
+                                             <select [(ngModel)]="ReturntoStorForm.store_name" class="form-control form-select"  name="store_name">
+                                                <option value="" disabled selected>Select Area  Store</option>
+                                                <option value="Procurement ">Indore</option>
+                                                <option value="Chief ">Ujjam</option>
+                                                <option value="Superintending ">Barwaha</option>
+                                                <option value="Executive ">Dhar</option>
+                                            </select>
+                                    </td>
+                                    <td>
+                                        <button class="btn btn-primary" type="button" 
+                                                (click)="onSubmitChangeData()">
+                                            <i class="fas fa-search"></i> Submit
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+          </form>
+    <br><br>
+            <div class="row" *ngIf="error_value_search_validate">            
+              <div class="col-md-12">
+                  <div class="table-responsive">
+                      <table class="table table-bordered">
+                          <thead>
+                              <tr>
+                                  <th>S.No</th>
+                                  <th scope="col">Category</th>
+                                  <th scope="col">SubCategory</th>
+                                  <th scope="col">Make</th>
+                                  <th scope="col">Model</th>
+                                  <th scope="col">Serial Number</th>
+                                  <th scope="col">Condition</th>
+                                  <th scope="col">Status</th>
+                                  <th scope="col">Po Number</th>
+                                  <th scope="col">Project Name</th>
+                                  <th scope="col">Purchase Date</th>
+                                  <th scope="col">Item Price</th>
+                              </tr>
+                          </thead>
+                          <tbody>
+                            <tr *ngFor="let item of filteredEquipment; let i = index">
+                              <td>{{ i + 1 }}</td>
+                              <td>{{ item.category }}</td>
+                              <td>{{ item.sub_category }}</td>
+                              <td>{{ item.make }}</td>
+                              <td>{{ item.model }}</td>
+                              <td><span>{{ item.serial_number }}</span></td>
+                              <td>{{ item.condition }}</td>
+                              <td>{{ item.status }}</td>
+                              <td>{{ item.order?.po_number }}</td>
+                              <td>{{ item.order?.project_name }}</td>
+                              <td><span>{{ item.receipt_date | date: 'yyyy-MM-dd' }}</span></td>
+                              <td>{{ item.price }}</td>
+                            </tr>
+                          </tbody>
+                      </table>
+                  </div>
+              </div>
+          </div>
+        </div>
+    </div>
+</div>

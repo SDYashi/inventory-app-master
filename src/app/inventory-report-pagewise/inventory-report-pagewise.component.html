@@ -1,4 +1,5 @@
 <div class="container-fluid mt-4">
+  <button class="btn btn-danger" style="margin-left: 5px;" (click)="downloadExcel()">Download report in Excel</button>
   <div class="card">
     <div class="card-header" style="background-color: rgb(1, 21, 41); color: whitesmoke;">
       <div class="row">
@@ -9,7 +10,7 @@
           <button class="btn btn-primary"  type="button" (click)="onFilterChange(search_input.value)">
             <i class="fas fa-search"></i> Search Inventory
           </button>
-          <button class="btn btn-danger" style="margin-left: 5px;" (click)="downloadExcel()">Excel</button>
+          <!-- <button class="btn btn-danger" style="margin-left: 5px;" (click)="downloadExcel()">Excel</button> -->
         </div>          
       </div> 
     </div>
