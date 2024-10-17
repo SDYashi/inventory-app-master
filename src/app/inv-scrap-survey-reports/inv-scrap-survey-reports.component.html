@@ -84,7 +84,7 @@
             <thead>
                 <tr class="text-center header_title">
                     <th colspan="9">
-                        <h3>OFFICE OF SUPERINTENDING ENGINEER (IT), MPKVVCL INDORE</h3>
+                        <h3>OFFICE OF SUPERINTENDING ENGINEER (IT), MPPKVVCL INDORE</h3>
                         <h4>SURVEY REPORT</h4>
                     </th>
                 </tr>
@@ -271,15 +271,16 @@
         </div>
     </form>
 </div>
-
 <br>
 
 
+<!-- <div class="container-fluid mt-4" name="ScrapReport_Response_Flag_FormPDF_Table" id="ScrapReport_Response_Flag_FormPDF_Table">
+    <button (click)="printDiv()" class="btn btn-primary">Print Report</button> -->
+        <button (click)="printDiv()" class="btn btn-primary" *ngIf="ScrapReport_Response_Flag_FormPDF">Print Report</button>
+     <div class="container-fluid mt-4" name="ScrapReport_Response_Flag_FormPDF_Table" id="ScrapReport_Response_Flag_FormPDF_Table"  *ngIf="ScrapReport_Response_Flag_FormPDF">
 
-        <button (click)="generatePdf()" class="btn btn-primary" *ngIf="ScrapReport_Response_Flag_FormPDF">Print Report</button>
-         <div class="container-fluid mt-4" name="ScrapReport_Response_Flag_FormPDF_Table" id="ScrapReport_Response_Flag_FormPDF_Table"  *ngIf="ScrapReport_Response_Flag_FormPDF">
-      
-            <div  id="scrap_table">  
+                <div class="container-fluid printable-section" id="printableDiv">
+          
            <div class="row">
                <div class="col-md-12">
                    <div class="table-responsive">
@@ -287,7 +288,7 @@
                            <thead>
                                <tr class="text-center header_title">
                                    <th colspan="9">
-                                       <h3>OFFICE OF SUPERINTENDING ENGINEER (IT), MPKVVCL INDORE</h3>
+                                       <h3>OFFICE OF SUPERINTENDING ENGINEER (IT), MPPKVVCL INDORE</h3>
                                        <h4>SURVEY REPORT</h4>
                                    </th>
                                </tr>
@@ -407,6 +408,9 @@
                                <tr>
                                    <td colspan="9">Sanctioned for the Rs. <b>{{ scrapSurveyForm.current_value }}</b>  / - Only</td>
                                </tr>
+                               <tr>
+                                <td colspan="9" style="height: 100px;"></td>
+                               </tr>
                                <tr class="text-center"  style="padding-top: 15px;" *ngIf="doplimit<=50000">
                                        <td colspan="3" ><label for="seal" style="padding-top: 35px;">EE O/o S.E.(IT)</label></td> 
                                </tr>
@@ -414,7 +418,7 @@
                                <tr class="text-center"  style="padding-top: 15px;" *ngIf="doplimit<=500000 && doplimit >50000">
                                    <td colspan="3" ><label for="seal" style="padding-top: 35px;">EE O/o S.E.(IT)</label></td> 
                                    <td colspan="3" ><label for="seal"  style="padding-top: 35px;"> S.E.(IT)</label></td>
-                                   </tr>
+                               </tr>
                                    <tr class="text-center"  style="padding-top: 15px;" *ngIf="doplimit<=1000000 && doplimit >500000">
                                        <td colspan="3" ><label for="seal" style="padding-top: 35px;">EE O/o S.E.(IT)</label></td> 
                                        <td colspan="3" ><label for="seal"  style="padding-top: 35px;"> S.E.(IT)</label></td>
@@ -425,6 +429,9 @@
                                    <td colspan="3" ><label for="seal" style="padding-top: 35px;">EE O/o S.E.(IT)</label></td> 
                                    <td colspan="3" ><label for="seal"  style="padding-top: 35px;"> S.E.(IT)</label></td>
                                    <td colspan="3"><label for="seal"  style="padding-top: 35px;">Director(Comm.)</label></td>
+                                   </tr>
+                                   <tr>
+                                    <td colspan="9"style="padding-top: 15px;" *ngIf="doplimit>1000000"></td>
                                    </tr>
                                    <tr class="text-center"  style="padding-top: 15px;" *ngIf="doplimit>1000000">
                                    <td colspan="2"><label for="seal"  style="padding-top: 35px;">C.E.(Purchase)</label></td>
@@ -438,11 +445,15 @@
                </div>
            </div>
            <hr>
-           <div class="row" >
+           <br>
+           <div class="row" style="margin-top: 60px;">
                <div class="col-md-12">
                    <div class="table-responsive">
                        <table class="table table-bordered">
                            <thead>
+                            <tr>
+                                <th colspan="12">list of Surveyoff Report Equipment Reports</th>
+                            </tr>
                                <tr>
                                    <th>S.No</th>
                                    <th scope="col">Category</th>

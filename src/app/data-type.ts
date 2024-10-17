@@ -1,3 +1,5 @@
+import Integer from "@zxing/library/esm/core/util/Integer"
+
 export interface signUp{
     id:string
     role:string,
@@ -186,6 +188,40 @@ export interface ScrapSurveyForm {
   sanctioned_order_date: string;
   sanctioned_by: string;
   equipment_ids?: number[]; // Add this line
+}
+
+
+export interface EquipmentResponse {
+  status: string;
+  message: string;
+  data: ArticleData;
+}
+
+export interface ArticleData {
+  id: number;
+  article_description: string;
+  article_type: string;
+  quantity: number;
+  item_unit_cost: string;
+  item_total_cost: string;
+  receipt_date: string;
+  article_condition: string;
+  current_value: string;
+  created_by: string;
+  created_on: string;
+  equipment: Equipment[];
+}
+
+export interface Equipment {
+  id: number;
+  model: string;
+  category: string;
+  price: number;
+  serial_number: string;
+  receipt_date: string;
+  warranty_expiration: string;
+  status: string;
+  condition: string;
 }
 
  

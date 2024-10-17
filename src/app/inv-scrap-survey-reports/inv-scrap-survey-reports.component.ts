@@ -4,6 +4,7 @@ import { AssetParticular, Equipment, ScrapSurveyForm } from '../data-type';
 import * as XLSX from 'xlsx';
 import { jsPDF } from 'jspdf';
 
+
 @Component({
   selector: 'app-inv-scrap-survey-reports',
   templateUrl: './inv-scrap-survey-reports.component.html',
@@ -13,12 +14,12 @@ export class InvScrapSurveyReportsComponent implements OnInit {
 
   constructor(private cd: ChangeDetectorRef, private InventoryService: InventoryService) { }
   response_msg: string = '';
-  doplimit:number=0;
+  doplimit: number = 0;
   isSuccess: boolean | undefined;
   status: string = 'AVAILABLE';
   assetParticulars_response: AssetParticular[] = [];
   ScrapReport_Response: any[] = [];
-  ScrapReport_Response_Flag= false;
+  ScrapReport_Response_Flag = false;
   equipment_scrap: Equipment[] = [];
   equipment_scrap_listids: any[] = [];
   totalCount: number = 0;
@@ -31,13 +32,13 @@ export class InvScrapSurveyReportsComponent implements OnInit {
   category: string = '';
   subcategory: string = '';
   searchInput: string = '';
-  Scrap_Report_Form_SelectList=true;
-  Scrap_Report_Form_Submit=false;
-  ScrapReport_Response_Flag_FormPDF=false;
+  Scrap_Report_Form_SelectList = true;
+  Scrap_Report_Form_Submit = false;
+  ScrapReport_Response_Flag_FormPDF = false;
   error_value_search = false;
   error_value_search_validate = false;
-  survey_no="";
-  scrapSurveyForm: ScrapSurveyForm = {  
+  survey_no = "";
+  scrapSurveyForm: ScrapSurveyForm = {
     article_description: "",
     article_type: "",
     quantity: "",
@@ -58,7 +59,7 @@ export class InvScrapSurveyReportsComponent implements OnInit {
     sanctioned_order_no: "",
     sanctioned_order_date: "",
     sanctioned_by: "",
-    equipment_ids: [], 
+    equipment_ids: [],
   };
 
   ngOnInit() {
@@ -89,9 +90,9 @@ export class InvScrapSurveyReportsComponent implements OnInit {
       else {
         this.scrapSurveyForm.depreciated_value = String((parseInt(this.scrapSurveyForm.total_value)));
       }
-    //  this.scrapSurveyForm.salvage_percent = String((((this.equipment_scrap[0].price) * (this.equipment_scrap.length))) / 10);
+      //  this.scrapSurveyForm.salvage_percent = String((((this.equipment_scrap[0].price) * (this.equipment_scrap.length))) / 10);
       this.scrapSurveyForm.current_value = String((parseInt(this.scrapSurveyForm.total_value)) - (parseInt(this.scrapSurveyForm.depreciated_value)) + parseInt(this.scrapSurveyForm.salvage_value))
-   
+
     }
   }
   onCategoryChange(event: Event) {
@@ -162,8 +163,8 @@ export class InvScrapSurveyReportsComponent implements OnInit {
   }
   onValidateClick() {
     const currentDate = new Date();
-    this.Scrap_Report_Form_Submit=true;
-    this.Scrap_Report_Form_SelectList=false;
+    this.Scrap_Report_Form_Submit = true;
+    this.Scrap_Report_Form_SelectList = false;
     if (Array.isArray(this.equipment_scrap)) {
       if (this.equipment_scrap && this.equipment_scrap.length > 0 && this.equipment_scrap[0].order) {
         this.scrapSurveyForm.article_description = String((this.equipment_scrap[0].make) + " / " + (this.equipment_scrap[0].sub_category) + " / " + (this.equipment_scrap[0].model));
@@ -179,7 +180,7 @@ export class InvScrapSurveyReportsComponent implements OnInit {
         this.scrapSurveyForm.order_number = String((this.equipment_scrap[0].order.order_number));
         this.scrapSurveyForm.salvage_value = String((((this.equipment_scrap[0].price) * (this.equipment_scrap.length))) / 10)
         this.scrapSurveyForm.total_value = String(((this.equipment_scrap[0].price) * (this.equipment_scrap.length)) - ((((this.equipment_scrap[0].price) * (this.equipment_scrap.length))) / 10))
-        this.doplimit=parseInt(this.scrapSurveyForm.total_value);
+        this.doplimit = parseInt(this.scrapSurveyForm.total_value);
         const receiptDate1 = new Date(this.equipment_scrap[0].receipt_date);
         const usefulLifeInYears = currentDate.getFullYear() - receiptDate1.getFullYear();
         this.scrapSurveyForm.article_age = String(usefulLifeInYears);
@@ -188,7 +189,7 @@ export class InvScrapSurveyReportsComponent implements OnInit {
         console.error('Equipment data is undefined or empty');
       }
     }
-   
+
     const ids = this.equipment_scrap.map(equipment => equipment.id);
     this.scrapSurveyForm.equipment_ids = ids;
 
@@ -196,16 +197,17 @@ export class InvScrapSurveyReportsComponent implements OnInit {
   AddScrapSurvey_Reports_TS() {
     this.InventoryService.AddScrapSurvey_Reports(this.scrapSurveyForm).subscribe({
       next: response => {
-        this.Scrap_Report_Form_Submit=false;
-        this.Scrap_Report_Form_SelectList=false;
-        this.ScrapReport_Response_Flag_FormPDF=true;
+        this.Scrap_Report_Form_Submit = false;
+        this.Scrap_Report_Form_SelectList = false;
+        this.ScrapReport_Response_Flag_FormPDF = true;
         this.isSuccess = true;
-        this.response_msg = response.message+":-"+response.survey_no;
-        this.survey_no=response.survey_no;
+        this.response_msg = response.message + ":-" + response.survey_no;
+        this.survey_no = response.survey_no;
         this.ScrapReport_Response = response.data.equipment;
-        alert( this.ScrapReport_Response);
-        this.ScrapReport_Response_Flag=true;
+        this.ScrapReport_Response_Flag = true;
         this.error_value_search_validate = false;
+
+        alert("Survey Report Validated Successfully...");
 
       },
       error: error => {
@@ -218,11 +220,11 @@ export class InvScrapSurveyReportsComponent implements OnInit {
   generatePdf() {
     const doc = new jsPDF();
     const divToPrint = document.getElementById('ScrapReport_Response_Flag_FormPDF_Table');
-  
+
     if (divToPrint) {
       const html = divToPrint.outerHTML;
       const options = { pagesplit: true };
-  
+
       doc.html(html, {
         callback: (doc) => {
           const pdf = doc.output('blob');
@@ -240,7 +242,111 @@ export class InvScrapSurveyReportsComponent implements OnInit {
       console.error('Failed to find element with id "ScrapReport_Response_Flag_FormPDF"');
     }
   }
- 
+  // printDiv() {
+  //   window.print();
+  // }
+
+  printDiv() {
+    const divToPrint = document.getElementById('printableDiv');
+    if (divToPrint) {
+      // Create a new window
+      const printWindow = window.open('', '', 'width=800,height=600');
+      if (printWindow) {
+        // Add styles to the new window (optional)
+        printWindow.document.write(`
+          <html>
+            <head>
+              <title>Print Survey Report</title>
+              <style>
+                body {
+                  font-family: Arial, sans-serif;
+                  margin: 0;
+                  padding: 20px;
+                }
+                .container-fluid {
+                  padding: 20px;
+                  border: 1px solid #000;
+                  background-color: #f9f9f9;
+                } 
+                  /* General Table Styling */
+                  table {
+                      width: 100%;
+                      border-collapse: collapse;
+                      font-family: Arial, sans-serif;
+                      margin-top: 20px;
+                  }
+
+                  /* Header Styling */
+                  th {
+                      background-color: #f2f2f2;
+                      text-align: center;
+                      padding: 12px;
+                      border: 1px solid #ddd;
+                      font-weight: bold;
+                  }
+
+                  /* Table Body Styling */
+                  td {
+                      padding: 12px;
+                      text-align: left;
+                      border: 1px solid #ddd;
+                      vertical-align: top;
+                  }
+
+                  /* For Specific Cell Styling */
+                  td[colspan] {
+                      text-align: left;
+                  }
+
+                  /* Responsive Font Sizes */
+                  @media screen and (max-width: 768px) {
+                      table, th, td {
+                          font-size: 12px;
+                      }
+                  }
+
+                  /* Specific Row Highlighting */
+                  tr:nth-child(even) {
+                      background-color: #f9f9f9;
+                  }
+
+                  tr:nth-child(odd) {
+                      background-color: #fff;
+                  }
+
+                  /* Bold the Total Row */
+                  td.total {
+                      font-weight: bold;
+                       text-align: left;
+                  }
+
+                  /* Signature Section Styling */
+                  .signature-section {
+                      margin-top: 40px;
+                      text-align: left;
+                      font-weight: bold;
+                      font-size: 1rem;
+                  }
+
+                  .signature-section p {
+                      margin: 10px 0;
+                  }
+
+              </style>
+            </head>
+            <body>
+              ${divToPrint.innerHTML}
+            </body>
+          </html>
+        `);
+        printWindow.document.close(); // Close the document to apply styles
+        printWindow.focus(); // Focus on the new window
+        printWindow.print(); // Trigger the print
+        printWindow.close(); // Close the window after printing
+      }
+    }
+  }
+
 }
 
 
