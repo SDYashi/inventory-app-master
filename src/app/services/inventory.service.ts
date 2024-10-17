@@ -284,8 +284,8 @@ invDeviecs_ViewEquipmentList(pageNumber: number, pageSize: number,search:any):  
 
   invDeviecs_Returntostore_scrapitem(scrapform: any): Observable<any> {
     const headers = this.getHeaders();
-    const scrap_id = scrapform.id;
-    return this.http.put(`${this.baseUrl} /scrap/return_scrap/${scrap_id}/`, scrapform,{headers}).pipe(catchError(this.handleError));
+    const survey_no = scrapform.survey_no;
+    return this.http.put(`${this.baseUrl}/scrap/return_scrap/${survey_no}/`, scrapform,{headers}).pipe(catchError(this.handleError));
   
   }
 

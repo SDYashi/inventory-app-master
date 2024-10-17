@@ -2,7 +2,7 @@ import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { InventoryService } from '../services/inventory.service';
 import { AssetParticular, Equipment, ScrapSurveyForm } from '../data-type';
 import * as XLSX from 'xlsx';
-import * as jsPDF from 'jspdf';
+import { jsPDF } from 'jspdf';
 
 @Component({
   selector: 'app-inv-scrap-survey-reports',
@@ -216,20 +216,29 @@ export class InvScrapSurveyReportsComponent implements OnInit {
   }
 
   generatePdf() {
-    // const doc = new jsPDF();
-    // const divToPrint = document.getElementById('ScrapReport_Response_Flag_FormPDF');
-    // const html = divToPrint.outerHTML;
-    // const options = {
-    //   pagesplit: true
-    // };
-    // doc.fromHTML(html, 15, 15, options);
-    // const pdf = doc.output('blob');
-    // const url = window.URL.createObjectURL(pdf);
-    // const a = document.createElement('a');
-    // a.href = url;
-    // a.download = 'example.pdf';
-    // a.click();
-    // window.URL.revokeObjectURL(url);
+    const doc = new jsPDF();
+    const divToPrint = document.getElementById('ScrapReport_Response_Flag_FormPDF_Table');
+  
+    if (divToPrint) {
+      const html = divToPrint.outerHTML;
+      const options = { pagesplit: true };
+  
+      doc.html(html, {
+        callback: (doc) => {
+          const pdf = doc.output('blob');
+          const url = window.URL.createObjectURL(pdf);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = `SurveyReport${this.survey_no}.pdf`;
+          a.click();
+          window.URL.revokeObjectURL(url);
+        },
+        x: 15,
+        y: 15,
+      });
+    } else {
+      console.error('Failed to find element with id "ScrapReport_Response_Flag_FormPDF"');
+    }
   }
  
 }

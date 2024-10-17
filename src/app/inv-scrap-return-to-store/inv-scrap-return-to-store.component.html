@@ -26,7 +26,7 @@
                                 <tr>
                                     <td>
                                         <select id="category" class="form-control form-select" 
-                                                [(ngModel)]="ReturntoStorForm.category"
+                                                [(ngModel)]="ReturntoStorForm.survey_no"
                                                 (change)="onAssetParticularChange($event)" 
                                                 name="category" required>
                                             <option value="" disabled selected>Select Survey No</option>
@@ -57,10 +57,10 @@
                                     <td>
                                              <select [(ngModel)]="ReturntoStorForm.store_name" class="form-control form-select"  name="store_name">
                                                 <option value="" disabled selected>Select Area  Store</option>
-                                                <option value="Procurement ">Indore</option>
-                                                <option value="Chief ">Ujjam</option>
-                                                <option value="Superintending ">Barwaha</option>
-                                                <option value="Executive ">Dhar</option>
+                                                <option value="AreaStore Indore">AreaStore Indore</option>
+                                                <option value="AreaStore Ujjam">AreaStore Ujjam</option>
+                                                <option value="AreaStore Barwaha">AreaStore Barwaha</option>
+                                                <option value="AreaStore Dhar">AreaStore Dhar</option>
                                             </select>
                                     </td>
                                     <td>
@@ -76,47 +76,10 @@
                 </div>
             </div>
           </form>
-    <br><br>
-            <div class="row" *ngIf="error_value_search_validate">            
-              <div class="col-md-12">
-                  <div class="table-responsive">
-                      <table class="table table-bordered">
-                          <thead>
-                              <tr>
-                                  <th>S.No</th>
-                                  <th scope="col">Category</th>
-                                  <th scope="col">SubCategory</th>
-                                  <th scope="col">Make</th>
-                                  <th scope="col">Model</th>
-                                  <th scope="col">Serial Number</th>
-                                  <th scope="col">Condition</th>
-                                  <th scope="col">Status</th>
-                                  <th scope="col">Po Number</th>
-                                  <th scope="col">Project Name</th>
-                                  <th scope="col">Purchase Date</th>
-                                  <th scope="col">Item Price</th>
-                              </tr>
-                          </thead>
-                          <tbody>
-                            <tr *ngFor="let item of filteredEquipment; let i = index">
-                              <td>{{ i + 1 }}</td>
-                              <td>{{ item.category }}</td>
-                              <td>{{ item.sub_category }}</td>
-                              <td>{{ item.make }}</td>
-                              <td>{{ item.model }}</td>
-                              <td><span>{{ item.serial_number }}</span></td>
-                              <td>{{ item.condition }}</td>
-                              <td>{{ item.status }}</td>
-                              <td>{{ item.order?.po_number }}</td>
-                              <td>{{ item.order?.project_name }}</td>
-                              <td><span>{{ item.receipt_date | date: 'yyyy-MM-dd' }}</span></td>
-                              <td>{{ item.price }}</td>
-                            </tr>
-                          </tbody>
-                      </table>
-                  </div>
-              </div>
-          </div>
+     <hr>
+    <div *ngIf="response_msg" [ngClass]="{'alert-success': isSuccess, 'alert-error': !isSuccess}">
+        {{ response_msg }}
+      </div>
         </div>
     </div>
 </div>

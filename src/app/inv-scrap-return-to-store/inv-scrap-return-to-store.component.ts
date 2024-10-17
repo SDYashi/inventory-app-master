@@ -8,11 +8,18 @@ import { InventoryService } from '../services/inventory.service';
 })
 export class InvScrapReturnToStoreComponent {
   equipment: any;
+  equipment_response: any;
+  response_msg: string = '';
+  isSuccess: boolean | undefined;
   error_value_search_validate = false;
   filteredEquipment: any[] = [];
   ReturntoStorForm:any={
-    quantity:"",
-    category:"",
+    survey_no:"",
+    sanctioned_order_no:"",
+    sanctioned_order_date:"",
+    indent_number:"",
+    indent_date:"",
+    store_name:"",
   }
   constructor(private inventoryService: InventoryService) {}
 
@@ -21,21 +28,33 @@ export class InvScrapReturnToStoreComponent {
       .subscribe({
         next:response=>{
           this.equipment = response;
-        
+          this.isSuccess=true;
+          this.response_msg=response.message; 
         },
         error:errors=>{
-        alert(errors);
+          this.isSuccess=false;
+          this.response_msg=errors.message;
+
         }
       });
   }
   onAssetParticularChange(event: any) {
     const selectedSurveyNo = event.target.value;
-    const filteredEquipment = this.equipment.filter((item: { survey_no: any; }) => item.survey_no === selectedSurveyNo);
+    this.filteredEquipment = this.equipment.filter((item: { survey_no: any; }) => item.survey_no === selectedSurveyNo);
     this.error_value_search_validate = true;
-    this.filteredEquipment = filteredEquipment;
   }
   onSubmitChangeData(){
-
+   this.inventoryService.invDeviecs_Returntostore_scrapitem(this.ReturntoStorForm).subscribe({
+    next:success=>{   
+      this.isSuccess=true;
+      this.response_msg=success.message; 
+      this.equipment_response = success.data;
+    },
+    error:error=>{
+      this.isSuccess=false;
+      this.response_msg=error.message;
+    }
+   });
 
   }
 }
