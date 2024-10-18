@@ -70,7 +70,7 @@
           left: 0;
           height: calc(100vh - 56px);
           /* Full height minus navbar height */
-          width: 265px;
+          /* width: 265px; */
           /* background-color: #343a40; */
           background-color: rgb(17, 37, 57);
           color: #fff;
@@ -79,6 +79,7 @@
           transition: all 0.3s ease;
           z-index: 999;
           /* Ensure sidebar is below navbar */
+          width: 0px;
       }
 
       .nav-second-level {
@@ -90,7 +91,7 @@
       }
 
       .sidebar.collapsed {
-          width: 0px;
+           width: 265px;
       }
 
       .sidebar .nav-link {
@@ -122,7 +123,8 @@
       }
 
       .content {
-          margin-left: 265px;
+          margin-left: 0px;
+          /* margin-left: 265px; */
           padding: 20px;
           transition: all 0.3s ease;
       }
@@ -139,8 +141,8 @@
           /* Optional: Remove the default border */
       }
       .dropdown-menu-left:hover {
-color: whitesmoke;
-background-color: black;
+            color: whitesmoke;
+            background-color: black;
         /* Optional: Remove the default border */
     }
       

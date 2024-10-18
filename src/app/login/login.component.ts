@@ -19,6 +19,7 @@ isSuccess: any;
  
 
   onLogin(data: login) {
+    this.response_msg='';
     this.userService.userLogin(data).subscribe({
       next: (result: any) => {
         if (result && result.access) {
@@ -44,7 +45,7 @@ isSuccess: any;
           alert('Unexpected login response format');
         }
       },
-      error: (error) => {
+      error: (error) => {        
         console.error('Login failed due to error :', error);
         if (error.status === 400 || error.status === 401){
           // Handle invalid username or password

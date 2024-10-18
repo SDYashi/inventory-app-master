@@ -140,7 +140,6 @@ export class InvScrapSurveyReportsComponent implements OnInit {
       alert('Please Enter Equipment Serial Numbers here');
       return;
     }
-
     serialNumbers.forEach((serialNumber) => {
       this.InventoryService.invDeviecs_ViewEquipmentList_ScrapReport(this.pageNumber, this.pageSize, serialNumber, this.category, this.subcategory, this.status)
         .subscribe((response: { results: Equipment[]; total_count: number; page_number: number; page_size: number; total_pages: number; }) => {
@@ -206,7 +205,6 @@ export class InvScrapSurveyReportsComponent implements OnInit {
         this.ScrapReport_Response = response.data.equipment;
         this.ScrapReport_Response_Flag = true;
         this.error_value_search_validate = false;
-
         alert("Survey Report Validated Successfully...");
 
       },
@@ -216,35 +214,6 @@ export class InvScrapSurveyReportsComponent implements OnInit {
       }
     });
   }
-
-  generatePdf() {
-    const doc = new jsPDF();
-    const divToPrint = document.getElementById('ScrapReport_Response_Flag_FormPDF_Table');
-
-    if (divToPrint) {
-      const html = divToPrint.outerHTML;
-      const options = { pagesplit: true };
-
-      doc.html(html, {
-        callback: (doc) => {
-          const pdf = doc.output('blob');
-          const url = window.URL.createObjectURL(pdf);
-          const a = document.createElement('a');
-          a.href = url;
-          a.download = `SurveyReport${this.survey_no}.pdf`;
-          a.click();
-          window.URL.revokeObjectURL(url);
-        },
-        x: 15,
-        y: 15,
-      });
-    } else {
-      console.error('Failed to find element with id "ScrapReport_Response_Flag_FormPDF"');
-    }
-  }
-  // printDiv() {
-  //   window.print();
-  // }
 
   printDiv() {
     const divToPrint = document.getElementById('printableDiv');
@@ -261,19 +230,20 @@ export class InvScrapSurveyReportsComponent implements OnInit {
                 body {
                   font-family: Arial, sans-serif;
                   margin: 0;
-                  padding: 20px;
+                  padding:10px;
                 }
                 .container-fluid {
-                  padding: 20px;
-                  border: 1px solid #000;
+                  padding: 10px;
+                  border: 2px solid black;
                   background-color: #f9f9f9;
                 } 
                   /* General Table Styling */
                   table {
                       width: 100%;
-                      border-collapse: collapse;
+                      border: 2px solid black;
                       font-family: Arial, sans-serif;
                       margin-top: 20px;
+                       border: 1px solid black;
                   }
 
                   /* Header Styling */
@@ -281,7 +251,7 @@ export class InvScrapSurveyReportsComponent implements OnInit {
                       background-color: #f2f2f2;
                       text-align: center;
                       padding: 12px;
-                      border: 1px solid #ddd;
+                       border: 1px solid black;
                       font-weight: bold;
                   }
 
@@ -289,35 +259,40 @@ export class InvScrapSurveyReportsComponent implements OnInit {
                   td {
                       padding: 12px;
                       text-align: left;
-                      border: 1px solid #ddd;
+                     border: 1px solid black;
                       vertical-align: top;
                   }
 
                   /* For Specific Cell Styling */
                   td[colspan] {
                       text-align: left;
+                      
                   }
 
                   /* Responsive Font Sizes */
                   @media screen and (max-width: 768px) {
                       table, th, td {
                           font-size: 12px;
+                        
                       }
                   }
 
                   /* Specific Row Highlighting */
                   tr:nth-child(even) {
                       background-color: #f9f9f9;
+                  
                   }
 
                   tr:nth-child(odd) {
                       background-color: #fff;
+                     
                   }
 
                   /* Bold the Total Row */
                   td.total {
                       font-weight: bold;
                        text-align: left;
+                       
                   }
 
                   /* Signature Section Styling */

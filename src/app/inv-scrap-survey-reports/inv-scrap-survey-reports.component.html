@@ -3,29 +3,37 @@
         <div class="card-header" style="background-color: rgb(1, 21, 41); color: whitesmoke;">
             <form #ScrapItem_Search="ngForm">
                 <div class="row">
-                    <div class="col-2">
+                    <div class="col-md-2 col-lg-3 mb-3">
+                        <div class="form-group">
                         <select id="category" class="form-control form-select" [(ngModel)]="category"
                             (change)="onCategoryChange($event)" name="category" required>
                             <option value="" disabled selected>Select Category</option>
                             <option *ngFor="let category of categories" [value]="category">{{ category }}</option>
                         </select>
+                        </div>
                     </div>
-                    <div class="col-2">
+                    <div class="col-md-2 col-lg-3 mb-3">
+                        <div class="form-group">
                         <select id="subcategory" class="form-control form-select" [(ngModel)]="subcategory"
                             name="subcategory">
                             <option value="" disabled selected>Select SubCategory</option>
                             <option *ngFor="let subcategory of subcategories" [value]="subcategory">{{ subcategory }}
                             </option>
                         </select>
+                        </div>
                     </div>
-                    <div class="col-4">
-                        <input rows="20" type="text" placeholder="Search Serial no here..." [(ngModel)]="searchInput"
+                    <div class="col-md-4 col-lg-3 mb-3">
+                        <div class="form-group">
+                        <input rows="20" type="text"  placeholder="Search Serial no here..." [(ngModel)]="searchInput"
                             class="form-control ml-3 p-2" name="searchInput">
+                            </div>                            
                     </div>
-                    <div class="col-4">
-                        <button class="btn btn-primary" type="button" (click)="onFilterChange()">
+                    <div class="col-md-4 col-lg-3 mb-3">
+                        <div class="form-group">
+                        <button class="btn btn-primary"  type="button" (click)="onFilterChange()">
                             <i class="fas fa-search"></i> Search & Validate
                         </button>
+                        </div>
                     </div>
                 </div>
             </form>

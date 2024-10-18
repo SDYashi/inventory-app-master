@@ -8,13 +8,13 @@
           <div class="row">
             <div class="col-md-4 offset-md-3">
               <div class="form-group ">
-                <input id="order_numbers" name="order_numbers" [(ngModel)]="order_number_search.order_numbers" type="text"
+                <input id="order_numbers" placeholder="Enter Purchase Order here" name="order_numbers" [(ngModel)]="order_number_search.order_numbers" type="text"
                        class="form-control" required  #order_numbers="ngModel" />        
               </div>  
             </div>
             <div class="col-md-4">
               <div class="form-group">
-                <button class="btn btn-primary" type="submit" (click)="invDevices_SearchPurchase_TS()">
+                <button class="btn btn-primary" style="margin-top: 10%;" type="submit" (click)="invDevices_SearchPurchase_TS()">
                     <i class="fas fa-search"> </i> Search Purchase Order
                 </button>
               </div>
