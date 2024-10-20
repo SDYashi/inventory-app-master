@@ -1,171 +1,61 @@
 <div class="main-content container-fluid mt-4">
     <div class="content">
-        <h1 style="font-size: 32px; color: #0d011d; border-bottom: #023304 solid 2px; padding: 5px;">
+        <h2 style="color: #0d011d; border-bottom: #023304 solid 2px; padding: 5px;">
             Welcome {{sessionuser}}
             <br>
             <span>
                 Analytics Inventory Management Dashboard.
             </span>
-        </h1>
+        </h2>
         <div class="cards">
-            <div class="card" style="background-color: #e4d9a9;">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Inventory Details</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Total inventory: <h5 class="alert-dange">{{totalEquipmentCount}}</h5>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>No of inventory Assigned:<h5 class="alert-dange">{{assignedCount}}</h5>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>No of inventory Available:<h5 class="alert-dange">{{availableCount}}</h5>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div class="card" style="background-color: #ebc2c1;">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Inventory Stock Status</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let item of statusSummary">
-                            <td>
-                                {{ item.condition }} <br>
-                                <ul>
-                                    <li> {{ item.status }} : {{ item.count }}</li>
-                                </ul>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div class="card" style="background-color: #b4d0e9;">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Category Wise Inventory</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let item of categorySummary;">
-                            <td>
-                                {{ item.category }} : {{ item.sub_category }}
-                                <ul>
-                                    <li *ngFor="let status of item.statuses">
-                                        {{ status.status }} : {{ status.count }}
-                                    </li>
-                                </ul>
-                            </td>
-                        </tr>
-
-                    </tbody>
-
-                </table>
-            </div>
-            <div class="card" style="background-color: #bfe9c1;">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Condition Status</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let item of conditionSummary">
-                            <td>{{ item.condition }} : {{ item.count }}
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-                <br>
-                <table>
-                    <thead>
-                        <tr>
-                            <th> Warranty Status</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td> InWarranty : {{ warrantyStatusSummary.in_warranty }} <br>
-                                Expired : {{ warrantyStatusSummary.expired_warranty }} <br>
-                                No Warranty : {{ warrantyStatusSummary.no_warranty }}</td>
-                        </tr>
-                </table>
+            <div class="card" style="background-color: #67d4f5;">
+                <!-- <div class="icon"><i class="fas fa-shield-alt"></i></div> -->
+                <div class="title">Total <br> Inventory</div>
+                <div class="price">
+                    <h5 class="alert-dange">{{totalEquipmentCount}}</h5>
+                </div>
             </div>
             <div class="card" style="background-color: #b8e4f1;">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Inventory Available Status</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let item of available_summary">
-                            <td>
-                                {{ item.category }} : {{ item.sub_category }}
-                                <ul>
-                                    <li *ngFor="let status of item.conditions">
-                                        {{ status.condition }} : {{ status.count }}
-                                    </li>
-                                </ul>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-                <br>
+                <!-- <div class="icon"><i class="fas fa-archive"></i></div> -->
+                <div class="title"> Inventory <br> Issued</div>
+                <div class="price">
+                    <h5 class="alert-dange">{{assignedCount}}</h5>
+                </div>
+            </div>
+            <div class="card" style="background-color: #bfe9c1;">
+                <!-- <div class="icon"><i class="fas fa-server"></i></div> -->
+                <div class="title">Inventory <br> Available</div>
+                <div class="price">
+                    <h5 class="alert-dange">{{availableCount}}</h5>
+                </div>
+            </div>
+            <div class="card" style="background-color: #b4d0e9;">
+                <!-- <div class="icon"><i class="fas fa-users"></i></div> -->
+                <div class="title">Inventory <br> In Warranty</div>
+                <div class="price">
+                    <h5 class="alert-dange">{{ warrantyStatusSummary.in_warranty }} </h5></div>
+            </div>
+            <div class="card" style="background-color: #ebc2c1;">
+                <!-- <div class="icon"><i class="fas fa-server"></i></div> -->
+                <div class="title">Inventory <br> Warranty Expired</div>
+                <div class="price">
+                    <h5 class="alert-dange">{{ warrantyStatusSummary.expired_warranty }}</h5>
+                </div>
+            </div>
+            <div class="card" style="background-color: #e4d9a9;">
+                <!-- <div class="icon"><i class="fas fa-users"></i></div> -->
+                <div class="title">Inventory <br>No Warranty</div>
+                <div class="price">  <h5 class="alert-dange">{{ warrantyStatusSummary.no_warranty }}</h5></div>
             </div>
         </div>
-      <br>
+        <br>
         <div class="container-fluid">
             <div class="row">
-                <!-- <div class="col-md-4 col-lg-4 mb-3">
-                    <div class="form-group">
-
-                        <div class="top assignemnt-history">
-                            <div class="card-header"
-                                style="background-color: rgb(1, 21, 41); color: whitesmoke;padding: 10px;">
-                                <h5 class="mb-0">upcoming warranty expiration</h5>
-                            </div>
-                            <div class="table-responsive">
-                                <table class="table  table-bordered table-hover">
-                                    <thead>
-                                        <tr style="background-color: #141514;">
-                                            <th>Equipment's Id</th>
-                                            <th>category</th>
-                                            <th>model</th>
-                                            <th>serial_number</th>
-                                            <th>warranty_expiration</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr *ngFor="let item of upcomingWarrantyExpirations">
-                                            <td>{{ item.id }}</td>
-                                            <td>{{item.category}}</td>
-                                            <td>{{ item.model }}</td>
-                                            <td>{{ item.serial_number }}</td>
-                                            <td>{{ item.warranty_expiration }}</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div> -->
-                <div class="col-md-4 col-lg-4 mb-3">
+                <div class="col-md-6 col-lg-6 mb-3">
                     <div class="form-group">
                         <div class="top assignemnt-history">
                             <div class="card-header"
-                                style="background-color: rgb(1, 21, 41); color: whitesmoke;padding: 10px;">
+                                style="background-color: rgb(79, 165, 250); color: whitesmoke;padding: 10px;">
                                 <h5 class="mb-0">Top Assigned Inventory</h5>
                             </div>
                             <div class="table-responsive">
@@ -189,11 +79,36 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-8 col-lg-8 mb-3">
+
+                <div class="col-md-6 col-lg-6 mb-3">
+                    <div class="card-header"   style="background-color: rgb(79, 165, 250); color: whitesmoke;padding: 10px;">
+                        <h5 class="mb-0">Inventory Stock Status</h5>
+                    </div>
+                    <div class="table-responsive">
+
+                        <table class="table table-bordered">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th>Condition</th>
+                                    <th>Status</th>
+                                    <th>Count</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let item of statusSummary">
+                                    <td>{{ item.condition }}</td>
+                                    <td>{{ item.status }}</td>
+                                    <td>{{ item.count }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="col-md-12 col-lg-12 mb-3">
                     <div class="form-group">
                         <div class="recent assignment-history">
                             <div class="card-header"
-                                style="background-color: rgb(1, 21, 41); color: whitesmoke;padding: 10px;">
+                            style="background-color: rgb(79, 165, 250); color: whitesmoke;padding: 10px;">
                                 <h5 class="mb-0">Recent Assigned Inventory</h5>
                             </div>
                             <div class="table-responsive">
@@ -206,7 +121,7 @@
                                             <!-- <th>Sub Category</th> -->
                                             <th>Serial No</th>
                                             <!-- <th>Make</th> -->
-                                            <!-- <th>Model</th> -->
+                                            <th>Model</th>
                                             <!-- <th>Receipt Date</th> -->
                                             <th>Issued User/Location</th>
                                             <!-- <th>Issued Type</th> -->
@@ -223,7 +138,7 @@
                                             <!-- <td>{{ item.equipment.sub_category }}</td> -->
                                             <td>{{ item.equipment.serial_number }}</td>
                                             <!-- <td>{{ item.equipment.make }}</td> -->
-                                            <!-- <td>{{ item.equipment.model }}</td> -->
+                                            <td>{{ item.equipment.model }}</td>
                                             <!-- <td>{{ item.equipment.receipt_date | date: 'dd-MM-yyyy' }}</td> -->
                                             <td>{{ item.assigned_to }}</td>
                                             <!-- <td>{{ item.assigned_type }}</td> -->
@@ -238,6 +153,83 @@
                     </div>
                 </div>
             </div>
+
         </div>
+        <br>
+        <div class="container-fluid">
+            <!-- Category Wise Inventory -->
+            <div class="row">
+                <div class="col-md-6 col-lg-6 mb-3">
+                    <div class="card-header"   style="background-color: rgb(79, 165, 250); color: whitesmoke;padding: 10px;">
+                        <h5 class="mb-0">Category Wise Inventory</h5>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th>Category</th>
+                                    <th>Sub Category</th>
+                                    <th>Status</th>
+                                    <th>Count</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let item of categorySummary;">
+                                    <td>{{ item.category }}</td>
+                                    <td>{{ item.sub_category }}</td>
+                                    <td colspan="2">
+                                        <table class="table mb-0">
+                                            <tbody>
+                                                <tr *ngFor="let status of item.statuses">
+                                                    <td>{{ status.status }}</td>
+                                                    <td>{{ status.count }}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <!-- Inventory Available Status -->
+                <div class="col-md-6 col-lg-6 mb-3">
+                    <div class="card-header"  style="background-color: rgb(79, 165, 250); color: whitesmoke;padding: 10px;">
+                        <h5 class="mb-0">Inventory Available Status</h5>
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th>Category</th>
+                                    <th>Sub Category</th>
+                                    <th>Condition</th>
+                                    <th>Count</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let item of available_summary">
+                                    <td>{{ item.category }}</td>
+                                    <td>{{ item.sub_category }}</td>
+                                    <td colspan="2">
+                                        <table class="table mb-0">
+                                            <tbody>
+                                                <tr *ngFor="let condition of item.conditions">
+                                                    <td>{{ condition.condition }}</td>
+                                                    <td>{{ condition.count }}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
     </div>
 </div>

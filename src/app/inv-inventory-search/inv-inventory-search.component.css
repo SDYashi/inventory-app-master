@@ -5,3 +5,43 @@
   .table-success-red {
     background-color: #ee6871; 
   }
+
+      /* Media Queries for Mobile Responsiveness */
+@media (max-width: 768px) {
+  .content {
+      margin-left: 0px;
+      padding: 20px;
+      transition: all 0.3s ease;
+  }
+  .content.collapsed {
+      margin-left: 265px;
+  }
+  .sidebar.collapsed {
+      
+  width: 265px;
+
+ }
+ .sidebar {
+  width: 0px;
+}
+
+}
+
+@media (max-width: 480px) {
+  .content {
+      margin-left: 0px;
+      padding: 20px;
+      transition: all 0.3s ease;
+  }
+  .content.collapsed {
+      margin-left: 265px;
+  }
+  .sidebar.collapsed {
+      
+  width: 265px;
+
+ }
+ .sidebar {
+  width: 0px;
+}
+}

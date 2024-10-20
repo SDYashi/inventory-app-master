@@ -1,8 +1,39 @@
-
-/* .item-detail {
-  padding: 20px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  margin: 20px;
-  background-color: #f9f9f9;
-} */
+    /* Media Queries for Mobile Responsiveness */
+    @media (max-width: 768px) {
+      .content {
+          margin-left: 0px;
+          padding: 20px;
+          transition: all 0.3s ease;
+      }
+      .content.collapsed {
+          margin-left: 265px;
+      }
+      .sidebar.collapsed {
+          
+      width: 265px;
+  
+     }
+     .sidebar {
+      width: 0px;
+  }
+  
+    }
+    
+    @media (max-width: 480px) {
+      .content {
+          margin-left: 0px;
+          padding: 20px;
+          transition: all 0.3s ease;
+      }
+      .content.collapsed {
+          margin-left: 265px;
+      }
+      .sidebar.collapsed {
+          
+      width: 265px;
+  
+     }
+     .sidebar {
+      width: 0px;
+  }
+    }
