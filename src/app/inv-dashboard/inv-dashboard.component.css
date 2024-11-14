@@ -20,7 +20,8 @@ body {
   display: flex;
   flex-wrap: wrap; 
   justify-content: space-between;
-  margin: 10px;
+  margin: 15px;
+ 
 }
 
 .card {
@@ -30,6 +31,7 @@ body {
   padding: 10px;
   width: 180px;
   text-align: center;
+  margin: 5px;
 }
 .card .icon {
   font-size: 24px;
@@ -76,7 +78,7 @@ h2 {
 @media (max-width: 768px) {
   .card {
     width: 100%; /* Adjust width for smaller screens */
-    margin-bottom: 20px; /* Add some space between cards */
+    margin: 20px; /* Add some space between cards */
   }
   h2 {
     font-size: 20px;
@@ -89,11 +91,15 @@ h2 {
 }
   .card {
     width: 100%; /* Full width for mobile screens */
+    margin: 20px; /* Add some space between cards */
   }
+  
   
   .content h1 {
     font-size: 20px; /* Adjust heading size */
+  
   }
+  
   
   .cards {
     flex-direction: column; /* Stack cards vertically */

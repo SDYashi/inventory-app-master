@@ -227,85 +227,85 @@ export class InvScrapSurveyReportsComponent implements OnInit {
             <head>
               <title>Print Survey Report</title>
               <style>
-                body {
-                  font-family: Arial, sans-serif;
-                  margin: 0;
-                  padding:10px;
+               body {
+                    font-family: Arial, sans-serif;
+                    margin: 0;
+                    padding: 10px;
                 }
+
                 .container-fluid {
-                  padding: 10px;
-                  border: 2px solid black;
-                  background-color: #f9f9f9;
-                } 
-                  /* General Table Styling */
-                  table {
-                      width: 100%;
-                      border: 2px solid black;
-                      font-family: Arial, sans-serif;
-                      margin-top: 20px;
-                       border: 1px solid black;
-                  }
+                    padding: 10px;
+                    background-color: #f9f9f9;
+                }
 
-                  /* Header Styling */
-                  th {
-                      background-color: #f2f2f2;
-                      text-align: center;
-                      padding: 12px;
-                       border: 1px solid black;
-                      font-weight: bold;
-                  }
+                /* General Table Styling */
+                table {
+                    width: 100%;                  
+                    font-family: Arial, sans-serif;
+                    margin-top: 20px;
+                     border: 1.1px solid black;
+                }
 
-                  /* Table Body Styling */
-                  td {
-                      padding: 12px;
-                      text-align: left;
-                     border: 1px solid black;
-                      vertical-align: top;
-                  }
+                /* Header Styling */
+                th {
+                    background-color: #f2f2f2;
+                    text-align: center;
+                    padding: 12px;                  
+                    font-weight: bold;
+                   border-left: 1.5px solid black;
+                  border-bottom:  1.5px solid black;
+                }
 
-                  /* For Specific Cell Styling */
-                  td[colspan] {
-                      text-align: left;
-                      
-                  }
+                /* Table Body Styling */
+                td {
+                    padding: 12px;
+                    text-align: left;
+                    vertical-align: top;
+                  border-left: 1.5px solid black;
+                  border-bottom:  1.5px solid black;
+                }
 
-                  /* Responsive Font Sizes */
-                  @media screen and (max-width: 768px) {
-                      table, th, td {
-                          font-size: 12px;
-                        
-                      }
-                  }
+                /* For Specific Cell Styling */
+                td[colspan] {
+                    text-align: left;                     
+                }
 
-                  /* Specific Row Highlighting */
-                  tr:nth-child(even) {
-                      background-color: #f9f9f9;
-                  
-                  }
+                /* Responsive Font Sizes */
+                @media screen and (max-width: 768px) {
+                    table {
+                        border: 1.5px solid black; /* Single border for smaller screens */
+                    }
+                    th, td {
+                        font-size: 12px;
+                    }
+                }
 
-                  tr:nth-child(odd) {
-                      background-color: #fff;
-                     
-                  }
+                /* Specific Row Highlighting */
+                tr:nth-child(even) {
+                    background-color: #f9f9f9;
+                }
 
-                  /* Bold the Total Row */
-                  td.total {
-                      font-weight: bold;
-                       text-align: left;
-                       
-                  }
+                tr:nth-child(odd) {
+                    background-color: #fff;
+                }
 
-                  /* Signature Section Styling */
-                  .signature-section {
-                      margin-top: 40px;
-                      text-align: left;
-                      font-weight: bold;
-                      font-size: 1rem;
-                  }
+                /* Bold the Total Row */
+                td.total {
+                    font-weight: bold;
+                    text-align: left;
+                }
 
-                  .signature-section p {
-                      margin: 10px 0;
-                  }
+                /* Signature Section Styling */
+                .signature-section {
+                    margin-top: 40px;
+                    text-align: left;
+                    font-weight: bold;
+                    font-size: 1rem;
+                }
+
+                .signature-section p {
+                    margin: 10px 0;
+                }
 
               </style>
             </head>

@@ -33,6 +33,7 @@ Object: any;
     this.inventoryservice.getequipmentoverview_dashboard().subscribe((response: any) => {
       this.totalEquipmentCount = response.data.total_equipment_count;
       this.categorySummary = response.data.category_summary;
+
     //  alert(this.categorySummary) 
       this.statusSummary = response.data.status_summary;
       this.available_summary=response.data.available_summary;
@@ -40,15 +41,7 @@ Object: any;
       
     });
 
-    // this.categoryCount = this.categorySummary?.reduce((acc, current) => {
-    //   if (acc[current.category]) {
-    //     acc[current.category] += current.count;
-    //   } else {
-    //     acc[current.category] = current.count;
-    //   }
-    //   return acc;
-    // }, {});
-
+  
     this.inventoryservice.getcondition_summary_dashboard().subscribe((response: any) => {
       this.conditionSummary = response.data.condition_summary;
     });

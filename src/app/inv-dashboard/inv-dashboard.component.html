@@ -169,20 +169,27 @@
                                 <tr>
                                     <th>Category</th>
                                     <th>Sub Category</th>
-                                    <th>Status</th>
-                                    <th>Count</th>
+                                    <th>Model</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr *ngFor="let item of categorySummary;">
                                     <td>{{ item.category }}</td>
                                     <td>{{ item.sub_category }}</td>
-                                    <td colspan="2">
-                                        <table class="table mb-0">
+                                    <td>
+                                        <table class="table table-bordered">
                                             <tbody>
-                                                <tr *ngFor="let status of item.statuses">
-                                                    <td>{{ status.status }}</td>
-                                                    <td>{{ status.count }}</td>
+                                                <tr *ngFor="let model of item.models">
+                                                    <td  style="text-align: center; justify-content: center;">{{ model.model }} <br>
+                                                        <table class="table table-bordered">
+                                                            <tbody>
+                                                                <tr *ngFor="let status1 of model.statuses">
+                                                                    <td >{{ status1.status }}</td>
+                                                                    <td style="text-align: center;">{{ status1.count }}</td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </td>
                                                 </tr>
                                             </tbody>
                                         </table>

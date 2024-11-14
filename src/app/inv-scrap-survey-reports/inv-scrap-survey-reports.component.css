@@ -11,9 +11,10 @@
 /* Styles for screen */
 .container {
   padding: 20px;
-  border: 1px solid #000;
+  border: 1.5px solid black; 
   margin: 20px;
   background-color: #f9f9f9;
+ 
 }
 
 .print-button {
